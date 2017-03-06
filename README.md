@@ -6,7 +6,7 @@ Launch docket stack:
 `docker-compose up
 
 Navigate to:
-`http://stubb.local:8001
+`http://localhost:8001/
 
 You should see an info screen
 
