@@ -12,15 +12,18 @@ class CardController extends Controller {
     }
 
     public function getAll() {
-        return "list";
+        return Card::all();
     }
     
     public function get(Card $card) {
-        return "get";
+        return $card;
     }
     
     public function save(Card $card = null) {
-        return "save";
+        return "saved";
     }
 
+    public function delete($id) {
+        return "deleted";
+    }
 }

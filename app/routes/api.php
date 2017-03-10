@@ -23,4 +23,4 @@ Route::get('card/{card}', "CardController@get");
 
 Route::post('card/{card?}', "CardController@save");
 
-Route::delete('card', "CardController@delete");
+Route::delete('card/{card}', "CardController@delete");
