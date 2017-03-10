@@ -3,17 +3,31 @@ version: '2'
 services:
     web:
         image: nginx:latest
+        container_name: nginx-stubb
         ports:
             - "8001:80"
         volumes:
             - ./app:/src
             - ./env-config/site.conf:/etc/nginx/conf.d/default.conf
-    php:
-        image: php:7-fpm
+    php:      
+        build: ./env-config/php/         
+        container_name: php-stubb           
         volumes:
             - ./app:/src
-            - ./env-config/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+            - ./env-config/php/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf          
+            - ./env-config/php/php.ini:/usr/local/etc/php/php.ini 
     postgresql:
         image: postgres
+        container_name: postgres-stubb
         ports:
-        - 5432:5432
+            - "5432:5432"       
+        environment:         
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=d4REn0LdCH4B
+        volumes:
+            - ./env-config/postgres.conf:/etc/postgresql.conf
+            - /srv/docker/postgresql:/var/lib/postgresql    
+        command: postgres -c config_file=/etc/postgresql.conf
+        restart: always
+        
