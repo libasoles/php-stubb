@@ -1,12 +1,12 @@
 <?php
-
 namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class CardTest extends TestCase {
+class CardTest extends TestCase
+{
 
     use DatabaseTransactions;
 
@@ -15,19 +15,20 @@ class CardTest extends TestCase {
      *
      * @return void
      */
-    public function testCardsList() {
-        
-        $this->json('/cards')
-                ->seeJson([
-                    'success' => true
-        ]);
-        
-        // Response OK
-        $this->assertResponseOk();
-        
-        // Data is not empty
-        $data = $this->getResponse()->getContent();
-        $this->assertNotEmpty($data['data']);
+    public function testCardsList()
+    {
+
+        $response = $this->json('GET', '/cards');
+
+        // is not an empty result
+        $this->assertNotEmpty($this->getResult());
+
+        // is a valid Json
+        $this->assertJson($response);
+
+        // response success is true
+        $data = $response->decodeResponseJson();
+        $this->assertEquals('success', $data['status']);
     }
 
     /**
@@ -35,11 +36,19 @@ class CardTest extends TestCase {
      *
      * @return void
      */
-    public function testCreateCard() {
-        $this->post('/card', ['name' => 'My testing Card', 'content' => 'Lorem Ipsum Content'])
-                ->seeJsonEquals([
-                    'success' => true
-        ]);
+    public function testCreateCard()
+    {
+        $response = $this->post('/card', ['name' => 'My testing Card', 'content' => 'Lorem Ipsum Test Content']);
+
+        // is not an empty result
+        $this->assertNotEmpty($this->getResult());
+
+        // is a valid Json
+        $this->assertJson($response);
+
+        // response success is true
+        $data = $response->decodeResponseJson();
+        $this->assertEquals('success', $data['status']);
     }
 
     /**
@@ -47,11 +56,19 @@ class CardTest extends TestCase {
      *
      * @return void
      */
-    public function testSaveCard() {
-        $this->post('/card/1', ['name' => 'My testing Card', 'content' => 'updated' + date("Y-m-d H:i:s")])
-                ->seeJsonEquals([
-                    'success' => true
-        ]);
+    public function testSaveCard()
+    {
+        $response = $this->post('/card/1', ['name' => 'My testing Card', 'content' => 'updated' + date("Y-m-d H:i:s")]);
+
+        // is not an empty result
+        $this->assertNotEmpty($this->getResult());
+
+        // is a valid Json
+        $this->assertJson($response);
+
+        // response success is true
+        $data = $response->decodeResponseJson();
+        $this->assertEquals('success', $data['status']);
     }
 
     /**
@@ -59,18 +76,19 @@ class CardTest extends TestCase {
      *
      * @return void
      */
-    public function testGetCard() {
-        $this->json('/card/1')
-                ->seeJson([
-                    'success' => true
-        ]);
-        
-        // Response OK
-        $this->assertResponseOk();
-        
-        // Data is not empty
-        $data = $this->getResponse()->getContent();
-        $this->assertNotEmpty($data['data']);
+    public function testGetCard()
+    {
+        $response = $this->json('GET', '/card/1');
+
+        // is not an empty result
+        $this->assertNotEmpty($this->getResult());
+
+        // is a valid Json
+        $this->assertJson($response);
+
+        // response success is true
+        $data = $response->decodeResponseJson();
+        $this->assertEquals('success', $data['status']);
     }
 
     /**
@@ -78,11 +96,18 @@ class CardTest extends TestCase {
      *
      * @return void
      */
-    public function testDeleteCard() {
-        $this->delete('/card/1')
-                ->seeJson([
-                    'success' => true
-        ]);
-    }
+    public function testDeleteCard()
+    {
+        $response = $this->delete('/card/1');
 
+        // is not an empty result
+        $this->assertNotEmpty($this->getResult());
+
+        // is a valid Json
+        $this->assertJson($response);
+
+        // response success is true
+        $data = $response->decodeResponseJson();
+        $this->assertEquals('success', $data['status']);
+    }
 }
