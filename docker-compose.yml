@@ -30,4 +30,11 @@ services:
             - /srv/docker/postgresql:/var/lib/postgresql    
         command: postgres -c config_file=/etc/postgresql.conf
         restart: always
+    pgadmin: 
+        image: fenglc/pgadmin4
+        container_name: pgadmin-stubb
+        links:
+            - "postgresql:postgres"
+        ports:
+            - "5050:5050"
         
