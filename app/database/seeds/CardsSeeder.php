@@ -4,23 +4,24 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Faker\Factory as Faker;
 
-class CardsSeeder extends Seeder {
+class CardsSeeder extends Seeder
+{
 
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
 
         $faker = Faker::create();
         foreach (range(1, 10) as $index) {
             DB::table('cards')->insert([
                 'name' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                'content' => $faker->text($maxNbChars = 200) ,
+                'content' => $faker->text($maxNbChars = 200),
                 'enabled' => 1,
             ]);
         }
     }
-
 }

@@ -5,12 +5,14 @@
  *
  * @see http://robo.li/
  */
-class RoboFile extends \Robo\Tasks {
+class RoboFile extends \Robo\Tasks
+{
 
     /**
      * Install app
      */
-    public function install() {
+    public function install()
+    {
 
         $this->taskExec('docker exec -it php-stubb php /src/artisan migrate')->run();
 
@@ -24,15 +26,17 @@ class RoboFile extends \Robo\Tasks {
     /**
      * Launch unit testing
      */
-    public function test() {
-        $this->taskPHPUnit()->run();
+    public function test()
+    {
+        //$this->taskPHPUnit()->run();
+        $this->taskExec('docker exec -ti php-stubb bash -c "cd /src && vendor/bin/phpunit"')->run();
     }
-    
+
     /**
      * Run app
      */
-    public function run() {
+    public function run()
+    {
         $this->taskExec('docker-compose up -f ../docker-compose.yml')->run();
     }
-
 }
