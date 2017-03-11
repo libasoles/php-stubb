@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use Faker\Factory as Faker;
 
 class CardsSeeder extends Seeder {
 
@@ -10,18 +12,15 @@ class CardsSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        Project::create([
-            'id' => 1,
-            'name' => 'Card 1',
-            'content' => 'Lorem Ipsum',
-            'enabled' => 1
-        ]);
-        Project::create([
-            'id' => 2,
-            'name' => 'Card 2',
-            'content' => 'Lorem Ipsum',
-            'enabled' => 1
-        ]);
+
+        $faker = Faker::create();
+        foreach (range(1, 10) as $index) {
+            DB::table('cards')->insert([
+                'name' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                'content' => $faker->text($maxNbChars = 200) ,
+                'enabled' => 1,
+            ]);
+        }
     }
 
 }
