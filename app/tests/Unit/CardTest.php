@@ -18,10 +18,10 @@ class CardTest extends TestCase
         $response = $this->json('GET', '/api/cards')->decodeResponseJson();
 
         // is not an empty result
-        $this->assertNotEmpty($response);
+        $this->assertNotEmpty($response['data'], 'Data list must not be empty');
 
         // response success is true
-        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
     }
 
     /**
@@ -37,10 +37,10 @@ class CardTest extends TestCase
             ])->decodeResponseJson();
 
         // is not an empty result
-        $this->assertNotEmpty($response);
+        $this->assertNotEmpty($response['id'], 'Response must have an id');
 
         // response success is true
-        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
 
         return $response['id'];
     }
@@ -60,10 +60,10 @@ class CardTest extends TestCase
             ])->decodeResponseJson();
 
         // is not an empty result
-        $this->assertNotEmpty($response);
+        $this->assertNotEmpty($response['id'], 'Response must have an id');
 
         // response success is true
-        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
     }
 
     /**
@@ -78,10 +78,10 @@ class CardTest extends TestCase
             ->decodeResponseJson();
 
         // is not an empty result
-        $this->assertNotEmpty($response);
+        $this->assertNotEmpty($response['data'], 'Item data must not be empty');
 
         // response success is true
-        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
     }
 
     /**
@@ -94,10 +94,7 @@ class CardTest extends TestCase
     {
         $response = $this->delete('/api/card/' . $id)->decodeResponseJson();
 
-        // is not an empty result
-        $this->assertNotEmpty($response);
-
         // response success is true
-        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
     }
 }
