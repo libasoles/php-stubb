@@ -19,8 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('cards', 'CardController@getAll');
 
-Route::get('card/{card}', "CardController@get");
+Route::get('card/{id}', "CardController@get");
 
-Route::post('card/{card?}', "CardController@save");
+Route::post('card/{id?}', "CardController@save");
 
-Route::delete('card/{card}', "CardController@delete");
+Route::delete('card/{id}', "CardController@delete");
