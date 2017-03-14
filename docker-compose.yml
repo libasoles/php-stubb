@@ -10,12 +10,18 @@ services:
             - ./app:/src
             - ./env-config/site.conf:/etc/nginx/conf.d/default.conf
     php:      
-        build: ./env-config/php/         
+        build: ./env-config/php/    
         container_name: php-stubb           
         volumes:
             - ./app:/src
             - ./env-config/php/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf          
-            - ./env-config/php/php.ini:/usr/local/etc/php/php.ini 
+            - ./env-config/php/php.ini:/usr/local/etc/php/php.ini        
+    composer:
+        container_name: composer-stubb
+        image: composer/composer
+        volumes_from: 
+            - php
+        working_dir: /src
     postgresql:
         image: postgres
         container_name: postgres-stubb
@@ -39,6 +45,7 @@ services:
             - "5050:5050"
     elasticsearch:
         image: elasticsearch
+        container_name: elastic-stubb
         ports:
         - 9201:9200
         - 9301:9300
@@ -46,6 +53,7 @@ services:
         - ./esdata/:/usr/share/elasticsearch/data/
     kibana:
         image: kibana
+        container_name: kibana-stubb
         ports:
         - 5602:5601
         environment:
