@@ -2,11 +2,18 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Faker\Factory as Faker;
 
 class CardTest extends TestCase
 {
-    
+    protected $faker;
+
+    protected function setUp(): void
+    {
+        $this->faker = Faker::create();
+        parent::setUp();
+    }
+
     /**
      * List cards
      *
@@ -33,7 +40,7 @@ class CardTest extends TestCase
     {
         $response = $this->post('/api/card', [
                 'name' => 'My testing Card',
-                'content' => 'Lorem Ipsum Test Content'
+                'content' => $this->faker->text($maxNbChars = 200)
             ])->decodeResponseJson();
 
         // is not an empty result
