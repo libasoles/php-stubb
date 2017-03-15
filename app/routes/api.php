@@ -17,10 +17,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('cards', 'CardController@getAll');
+Route::group([
+    'namespace' => 'Api'
+    ], function () {
 
-Route::get('card/{id}', "CardController@get");
+    Route::get('cards', 'CardController@getAll');
 
-Route::post('card/{id?}', "CardController@save");
+    Route::get('card/{id}', "CardController@get");
 
-Route::delete('card/{id}', "CardController@delete");
+    Route::post('card/{id?}', "CardController@save");
+
+    Route::delete('card/{id}', "CardController@delete");
+});
+
+

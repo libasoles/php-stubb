@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CardTest extends TestCase
 {
-
+    
     /**
      * List cards
      *
@@ -29,7 +29,7 @@ class CardTest extends TestCase
      *
      * @return int card id
      */
-    public function testCreateCard()
+    public function testCreateCard(): int
     {
         $response = $this->post('/api/card', [
                 'name' => 'My testing Card',
@@ -90,7 +90,7 @@ class CardTest extends TestCase
      * @depends testCreateCard
      * @return void
      */
-    public function testDeleteCard($id)
+    public function testDeleteCard(int $id)
     {
         $response = $this->delete('/api/card/' . $id)->decodeResponseJson();
 

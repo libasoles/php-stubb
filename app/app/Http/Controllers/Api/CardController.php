@@ -1,19 +1,15 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Card;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-use App\Card;
 
 class CardController extends Controller
 {
     use ValidatesRequests;
-
-    function __construct()
-    {
-        
-    }
 
     public function getAll()
     {
