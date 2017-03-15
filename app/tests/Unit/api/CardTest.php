@@ -6,12 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CardTest extends TestCase
 {
-
-    protected function tearDown(): void
-    {
-        
-        return parent::tearDown();
-    }
     
     /**
      * List cards

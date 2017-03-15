@@ -27,9 +27,8 @@ class RoboFile extends \Robo\Tasks
      * Launch unit testing
      */
     public function test()
-    {
-        //$this->taskPHPUnit()->run();
-        $this->taskExec('docker exec -ti php-stubb bash -c "cd /src && vendor/bin/phpunit"')->run();
+    {   
+        $this->taskExec('docker-compose exec -T php bash -c "cd /src && vendor/bin/phpunit"')->run();
     }
 
     /**
