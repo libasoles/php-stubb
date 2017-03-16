@@ -1,8 +1,9 @@
 <?php
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use Faker\Factory as Faker;
+use Illuminate\Validation\ValidationException;
+use Tests\TestCase;
 
 class CardTest extends TestCase
 {
@@ -72,6 +73,23 @@ class CardTest extends TestCase
         // response success is true
         $this->assertEquals('success', $response['status'], 'The response status should be "success"');
     }
+    
+    /**
+     * Update card with null values
+     *
+     * @depends testCreateCard
+     * @return void
+     */
+    public function testSaveCardNullValues(int $id)
+    {
+        $this->expectException(ValidationException::class);
+        
+        $response = $this->post('/api/card/' . $id, [
+                'name' => null,
+                'content' => null,
+                'enabled' => false
+            ])->decodeResponseJson();
+    }
 
     /**
      * Retrieve card
@@ -92,7 +110,7 @@ class CardTest extends TestCase
     }
 
     /**
-     * Retrieve card
+     * Delete card
      *
      * @depends testCreateCard
      * @return void
