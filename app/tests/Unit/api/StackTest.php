@@ -2,9 +2,10 @@
 namespace Tests\Unit;
 
 use Faker\Factory as Faker;
+use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class SetTest extends TestCase
+class StackTest extends TestCase
 {
 
     protected function setUp(): void
@@ -14,13 +15,13 @@ class SetTest extends TestCase
     }
 
     /**
-     * Test set list
+     * Test stack list
      *
      * @return void
      */
-    public function testSetList()
+    public function testStackList()
     {
-        $response = $this->json('GET', '/api/sets')->decodeResponseJson();
+        $response = $this->json('GET', '/api/stacks')->decodeResponseJson();
 
         // is not an empty result
         $this->assertNotEmpty($response['data'], 'Data list must not be empty');
@@ -30,15 +31,15 @@ class SetTest extends TestCase
     }
 
     /**
-     * Create Set
+     * Create Stack
      *
-     * @return int set id
+     * @return int stack id
      */
-    public function testCreateSet(): int
+    public function testCreateStack(): int
     {
 
-        $response = $this->post('/api/set', [
-                'name' => 'My testing Set',
+        $response = $this->post('/api/stack', [
+                'name' => 'My testing Stack',
                 'description' => $this->faker->text($maxNbChars = 200)
             ])->decodeResponseJson();
 
@@ -52,16 +53,16 @@ class SetTest extends TestCase
     }
 
     /**
-     * Update set
+     * Update stack
      *
-     * @depends testCreateSet
+     * @depends testCreateStack
      * @return void
      */
-    public function testSaveSet(int $id)
+    public function testSaveStack(int $id)
     {
-        $response = $this->post('/api/set/' . $id, [
-                'name' => 'My testing Set',
-                'content' => 'updated ' . date("Y-m-d H:i:s"),
+        $response = $this->post('/api/stack/' . $id, [
+                'name' => 'My testing Stack',
+                'description' => 'updated ' . date("Y-m-d H:i:s"),
                 'enabled' => false
             ])->decodeResponseJson();
 
@@ -73,14 +74,31 @@ class SetTest extends TestCase
     }
 
     /**
-     * Retrieve set
+     * Update stack with null value
      *
-     * @depends testCreateSet
+     * @depends testCreateStack
      * @return void
      */
-    public function testGetSet(int $id)
+    public function testSaveStackNullValues(int $id)
     {
-        $response = $this->json('GET', '/api/set/' . $id)
+        $this->expectException(ValidationException::class);
+        
+        $response = $this->post('/api/stack/' . $id, [
+                'name' => null,
+                'description' => null,
+                'enabled' => false
+            ])->decodeResponseJson();
+    }
+
+    /**
+     * Retrieve stack
+     *
+     * @depends testCreateStack
+     * @return void
+     */
+    public function testGetStack(int $id)
+    {
+        $response = $this->json('GET', '/api/stack/' . $id)
             ->decodeResponseJson();
 
         // is not an empty result
@@ -91,14 +109,14 @@ class SetTest extends TestCase
     }
 
     /**
-     * Retrieve set
+     * Delete stack
      *
-     * @depends testCreateSet
+     * @depends testCreateStack
      * @return void
      */
-    public function testDeleteSet(int $id)
+    public function testDeleteStack(int $id)
     {
-        $response = $this->delete('/api/set/' . $id)->decodeResponseJson();
+        $response = $this->delete('/api/stack/' . $id)->decodeResponseJson();
 
         // response success is true
         $this->assertEquals('success', $response['status'], 'The response status should be "success"');
