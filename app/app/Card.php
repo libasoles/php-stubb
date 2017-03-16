@@ -8,4 +8,8 @@ class Card extends Model
 
     protected $fillable = ['name', 'content', 'enabled'];
 
+    public function stack()
+    {
+        return $this->belongsToMany('App\Stack');
+    }
 }
