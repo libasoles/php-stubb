@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CardsSeeder extends Seeder
 {
@@ -21,6 +22,8 @@ class CardsSeeder extends Seeder
                 'name' => $faker->sentence($nbWords = 6, $variableNbWords = true),
                 'content' => $faker->text($maxNbChars = 200),
                 'enabled' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         }
     }
