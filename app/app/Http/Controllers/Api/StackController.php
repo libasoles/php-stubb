@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 class StackController extends Controller
 {
 
+    /**
+     * List stacks
+     * 
+     * @return json
+     */
     public function getAll()
     {
 
@@ -27,29 +32,34 @@ class StackController extends Controller
         return compact('status', 'msg', 'data');
     }
 
+    /**
+     * Get a single Stack
+     * 
+     * Lightweight version will not return cards info apart from the id
+     * 
+     * @param Request $request
+     * @param int $id
+     * @return json
+     */
     public function get(Request $request, int $id)
     {
         try {
 
             $lightweight = filter_input(INPUT_GET, 'lightweight', FILTER_VALIDATE_BOOLEAN);
 
-            if (!$lightweight) {
+            if ($lightweight) {
 
-                $data = Stack::with('cards')->findOrFail($id);
-            } else {
-                // retrieving light weight data from DB
-                $data = Stack::with(['cards' => function($query) {
-                            $query->select('id');
-                        }])->findOrFail($id);
+                // retrieving lightweight data from DB
+                $data = Stack::lightweight()->findOrFail($id);
 
-                // grouping ids in a single array
-                $cards = array_map(function(\App\Card $card) {
-                    return $card->id;
-                }, $data->cards->all());
-
-                // replacing object data with mapped data
+                $cards = $data->cards->pluck('id')->all();
+           
+                // replacing object data with grouped lightweight data
                 $data = $data->toArray();
                 $data['cards'] = $cards;
+            } else {
+
+                $data = Stack::with('cards')->findOrFail($id);
             }
 
             $status = 'success';
