@@ -22,12 +22,14 @@ Route::group([
     ], function () {
 
     Route::get('cards', 'CardController@getAll');
-
     Route::get('card/{id}', "CardController@get");
-
     Route::post('card/{id?}', "CardController@save");
-
     Route::delete('card/{id}', "CardController@delete");
+    
+    Route::get('stacks', 'StackController@getAll');
+    Route::get('stack/{id}', "StackController@get");
+    Route::post('stack/{id?}', "StackController@save");
+    Route::delete('stack/{id}', "StackController@delete");
 });
 
 
