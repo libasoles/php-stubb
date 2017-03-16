@@ -5,9 +5,8 @@ use Faker\Factory as Faker;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class CardTest extends TestCase
+class StackTest extends TestCase
 {
-    protected $faker;
 
     protected function setUp(): void
     {
@@ -16,14 +15,13 @@ class CardTest extends TestCase
     }
 
     /**
-     * List cards
+     * Test stack list
      *
      * @return void
      */
-    public function testCardsList()
+    public function testStackList()
     {
-
-        $response = $this->json('GET', '/api/cards')->decodeResponseJson();
+        $response = $this->json('GET', '/api/stacks')->decodeResponseJson();
 
         // is not an empty result
         $this->assertNotEmpty($response['data'], 'Data list must not be empty');
@@ -33,15 +31,16 @@ class CardTest extends TestCase
     }
 
     /**
-     * Create Card
+     * Create Stack
      *
-     * @return int card id
+     * @return int stack id
      */
-    public function testCreateCard(): int
+    public function testCreateStack(): int
     {
-        $response = $this->post('/api/card', [
-                'name' => 'My testing Card',
-                'content' => $this->faker->text($maxNbChars = 200)
+
+        $response = $this->post('/api/stack', [
+                'name' => 'My testing Stack',
+                'description' => $this->faker->text($maxNbChars = 200)
             ])->decodeResponseJson();
 
         // is not an empty result
@@ -54,16 +53,16 @@ class CardTest extends TestCase
     }
 
     /**
-     * Update card
+     * Update stack
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testSaveCard(int $id)
+    public function testSaveStack(int $id)
     {
-        $response = $this->post('/api/card/' . $id, [
-                'name' => 'My testing Card',
-                'content' => 'updated ' . date("Y-m-d H:i:s"),
+        $response = $this->post('/api/stack/' . $id, [
+                'name' => 'My testing Stack',
+                'description' => 'updated ' . date("Y-m-d H:i:s"),
                 'enabled' => false
             ])->decodeResponseJson();
 
@@ -73,33 +72,33 @@ class CardTest extends TestCase
         // response success is true
         $this->assertEquals('success', $response['status'], 'The response status should be "success"');
     }
-    
+
     /**
-     * Update card with null values
+     * Update stack with null value
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testSaveCardNullValues(int $id)
+    public function testSaveStackNullValues(int $id)
     {
         $this->expectException(ValidationException::class);
         
-        $response = $this->post('/api/card/' . $id, [
+        $response = $this->post('/api/stack/' . $id, [
                 'name' => null,
-                'content' => null,
+                'description' => null,
                 'enabled' => false
             ])->decodeResponseJson();
     }
 
     /**
-     * Retrieve card
+     * Retrieve stack
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testGetCard(int $id)
+    public function testGetStack(int $id)
     {
-        $response = $this->json('GET', '/api/card/' . $id)
+        $response = $this->json('GET', '/api/stack/' . $id)
             ->decodeResponseJson();
 
         // is not an empty result
@@ -110,14 +109,14 @@ class CardTest extends TestCase
     }
 
     /**
-     * Delete card
+     * Delete stack
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testDeleteCard(int $id)
+    public function testDeleteStack(int $id)
     {
-        $response = $this->delete('/api/card/' . $id)->decodeResponseJson();
+        $response = $this->delete('/api/stack/' . $id)->decodeResponseJson();
 
         // response success is true
         $this->assertEquals('success', $response['status'], 'The response status should be "success"');
