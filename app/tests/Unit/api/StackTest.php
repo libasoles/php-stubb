@@ -8,6 +8,8 @@ use Tests\TestCase;
 class StackTest extends TestCase
 {
 
+    protected $faker;
+
     protected function setUp(): void
     {
         $this->faker = Faker::create();
@@ -82,7 +84,7 @@ class StackTest extends TestCase
     public function testSaveStackNullValues(int $id)
     {
         $this->expectException(ValidationException::class);
-        
+
         $response = $this->post('/api/stack/' . $id, [
                 'name' => null,
                 'description' => null,
@@ -121,4 +123,5 @@ class StackTest extends TestCase
         // response success is true
         $this->assertEquals('success', $response['status'], 'The response status should be "success"');
     }
+    
 }

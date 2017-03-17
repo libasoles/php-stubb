@@ -59,11 +59,11 @@ class StackController extends Controller
                 $data['cards'] = $cards;
             } else {
 
-                $data = Stack::with('cards')->findOrFail($id);
+                $data = Stack::with('cards')->findOrFail($id)->toArray();
             }
 
             $status = 'success';
-            $msg = $lightweight ? 'with all cards info' : 'lightweight';
+            $msg = count($data['cards']) . ' cards';
         } catch (ModelNotFoundException $e) {
 
             $status = 'error';

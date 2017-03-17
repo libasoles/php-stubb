@@ -17,8 +17,8 @@ services:
             - ./env-config/php/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf          
             - ./env-config/php/php.ini:/usr/local/etc/php/php.ini        
     composer:
-        container_name: composer-stubb
         image: composer/composer
+        container_name: composer-stubb        
         volumes_from: 
             - php
         working_dir: /src

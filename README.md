@@ -54,3 +54,8 @@ You should see a login screen.
 
 Hint: configure a different port if neccesary and rerun docker.
 
+## Api convention
+All responses have metadata in the first level, and a "data" field with the response you are really expecting. It's made this way just to give flexibility to future features. 
+
+
+

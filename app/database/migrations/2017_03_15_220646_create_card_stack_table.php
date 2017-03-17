@@ -23,8 +23,6 @@ class CreateCardStackTable extends Migration
             $table->integer('stack_id')->unsigned()->nullable();
             $table->foreign('stack_id')->references('id')
                 ->on('stacks')->onDelete('cascade');
-
-            $table->timestamps();
         });
     }
 
