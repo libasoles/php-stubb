@@ -8,9 +8,8 @@ class Card extends Model
 {
 
     protected $fillable = ['name', 'content', 'enabled'];
-
     protected $hidden = ['pivot'];
-    
+
     /**
      * The "booting" method of the model.
      *
@@ -22,9 +21,14 @@ class Card extends Model
 
         static::addGlobalScope(new EnabledScope);
     }
-    
+
     public function stack()
     {
         return $this->belongsToMany('App\Stack');
+    }
+
+    public function tag()
+    {
+        return $this->belongsToMany('App\Card');
     }
 }
