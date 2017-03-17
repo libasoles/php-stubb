@@ -45,7 +45,7 @@ class RoboFile extends \Robo\Tasks
      *   
      * @param string $commands
      */
-    public function composer($commands)
+    public function composer(string $commands)
     {
 
         $this->taskExec('docker run --rm -v $(pwd):/app composer/composer ' . $commands)->run();
@@ -74,10 +74,38 @@ class RoboFile extends \Robo\Tasks
      * @param string $commands Command within quotes
      * @param string $args Parameters after --
      */
-    public function artisan($commands, $args = '')
+    public function artisan(string $commands, string $args = '')
     {
         // run docker as non-root user
         $this->taskExec('docker-compose exec --user 1000 -T php bash -c "cd /src && php artisan ' . $commands . '"')->args($args)->run();
+    }
+
+    /**
+     * All in one artisan maker: test, model, migration, seeder and controller.
+     * 
+     * @param string $entity
+     * @param string $plural
+     */
+    public function createEntity(string $entity, string $plural = null)
+    {
+        $lowerEntity = strtolower($entity);
+        $lowerPlural = $plural ? strtolower($plural) : $lowerEntity . 's';
+
+        $this->artisan("make:test {$entity}Test --unit");
+
+        $this->artisan("make:model {$entity}");
+
+        $this->artisan("make:migration create_{$lowerPlural}_table --create '{$lowerPlural}'");
+
+        $this->artisan("make:seeder {$entity}Seeder");
+
+        $this->artisan("make:controller {$entity}Controller");
+
+        $this->say("Paste this in your routes file:");
+        $this->say("Route::get('{$lowerPlural}', '{$entity}Controller@getAll');");
+        $this->say("Route::get('{$lowerEntity}/{id}', '{$entity}Controller@get');");
+        $this->say("Route::post('{$lowerEntity}/{id?}', '{$entity}Controller@save');");
+        $this->say("Route::delete('{$lowerEntity}/{id}', '{$entity}Controller@delete');");
     }
 
     /**
