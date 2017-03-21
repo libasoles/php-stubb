@@ -82,13 +82,15 @@ class CardTest extends TestCase
      */
     public function testSaveCardNullValues(int $id)
     {
-        $this->expectException(ValidationException::class);
-        
+       
         $response = $this->post('/api/card/' . $id, [
                 'name' => null,
                 'content' => null,
                 'enabled' => false
             ])->decodeResponseJson();
+                
+        // response success is true
+        $this->assertEquals('error', $response['status'], 'The response status should be "error"');
     }
 
     /**

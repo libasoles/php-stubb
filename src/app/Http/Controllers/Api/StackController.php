@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-use App\Stack;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Stack;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class StackController extends Controller
 {
@@ -22,11 +24,11 @@ class StackController extends Controller
             $status = 'success';
 
             $msg = 'Ok';
-            ;
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error retrieving records';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'data');
@@ -68,10 +70,11 @@ class StackController extends Controller
 
             $status = 'error';
             $msg = 'Not found';
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error retrieving the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'data');
@@ -83,7 +86,7 @@ class StackController extends Controller
 
             // validation
             $this->validate($request, [
-                'name' => 'required|max:255'
+                'name' => 'bail|required|max:255'
             ]);
 
             // get new or existing record                
@@ -104,9 +107,10 @@ class StackController extends Controller
             $msg = 'Saved';
 
             $id = $stack->id;
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $status = 'error';
             $msg = 'There was an error saving the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'id');
@@ -119,10 +123,11 @@ class StackController extends Controller
             Stack::destroy($id);
             $status = 'success';
             $msg = 'Deleted';
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error deleting the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg');

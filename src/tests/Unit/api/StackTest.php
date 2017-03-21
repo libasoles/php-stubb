@@ -83,13 +83,16 @@ class StackTest extends TestCase
      */
     public function testSaveStackNullValues(int $id)
     {
-        $this->expectException(ValidationException::class);
-
+       
         $response = $this->post('/api/stack/' . $id, [
                 'name' => null,
                 'description' => null,
                 'enabled' => false
             ])->decodeResponseJson();
+        
+        
+        // response success is true
+        $this->assertEquals('error', $response['status'], 'The response status should be "error"');
     }
 
     /**

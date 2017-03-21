@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class CardController extends Controller
 {
@@ -20,10 +22,11 @@ class CardController extends Controller
             $status = 'success';
 
             $msg = count($data) . ' results';
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error retrieving records';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'data');
@@ -41,10 +44,11 @@ class CardController extends Controller
 
             $status = 'error';
             $msg = 'Not found';
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error retrieving the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'data');
@@ -78,9 +82,10 @@ class CardController extends Controller
             $msg = 'Saved';
 
             $id = $card->id;
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $status = 'error';
             $msg = 'There was an error saving the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'id');
@@ -94,10 +99,11 @@ class CardController extends Controller
             $status = 'success';
             $msg = 'Deleted';
      
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error deleting the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg');

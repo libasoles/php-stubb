@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class TagController extends Controller
 {
@@ -17,10 +18,11 @@ class TagController extends Controller
             $status = 'success';
 
             $msg = count($data) . ' results';
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error retrieving records';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'data');
@@ -62,10 +64,11 @@ class TagController extends Controller
 
             $status = 'error';
             $msg = 'Not found';
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error retrieving the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg', 'data');
@@ -78,10 +81,11 @@ class TagController extends Controller
             Tag::destroy($id);
             $status = 'success';
             $msg = 'Deleted';
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
 
             $status = 'error';
             $msg = 'There was an error deleting the record';
+            Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
         return compact('status', 'msg');
