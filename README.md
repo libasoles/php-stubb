@@ -20,6 +20,10 @@ Search is powered by Elasticsearch.
   - *PostgreSQL* as database
   - *Elasticsearch* you know, for search
 
+## Screenshot
+
+![screenshot](./screenshot.jpg)
+
 ## How to run
 Init docker containers
 
