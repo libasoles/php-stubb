@@ -10,6 +10,7 @@ Search is powered by Elasticsearch.
 
 ## Involved technologies
   - *Docker* for virtualization
+  - *AngularJs* as frontend technology 
   - *Nginx* as server
   - *PHP-fpm* as server process manager
   - *PHP 7* as language
