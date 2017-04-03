@@ -53,3 +53,23 @@ em, .hash {
 form .input-group {
     margin-bottom: 8px;
 }
+
+.card {
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.card.ng-enter.ng-enter-active,
+.card.ng-leave {
+    opacity: 1;   
+    height: 100px;
+}
+
+.card.ng-leave.ng-leave-active,
+.card.ng-enter {
+    opacity: 0;
+    height: 0;
+}
+
