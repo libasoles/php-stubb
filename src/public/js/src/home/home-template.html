@@ -1,15 +1,11 @@
-@extends('app')
-
-@section('content')
-
 <div class="main-column col-md-8" ng-controller="HomeController">
 
     <div class="new-copy clearfix">
-        <form ng-submit="createShard()">
+        <form ng-submit="createCard()">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <textarea class="form-control margin-bottom-md" name="copy" 
-                        placeholder="Write something and hash it..." ng-model="copy"></textarea>
+                              placeholder="Write something and hash it..." ng-model="copy"></textarea>
                 </div>
             </div> 
 
@@ -20,16 +16,16 @@
     <div class="list">
         <div class="text-left">
 
-            <div ng-if="shards">
-                <div ng-repeat="shard in shards">    
+            <div ng-if="cards">
+                <div ng-repeat="card in cards">    
                     <div class="panel panel-default">
-                        <div class="panel-body">{{ shard.text}}</div>
+                        <div class="panel-body">{{ card.content}}</div>
                     </div>
                 </div>
             </div>
 
-            <div ng-if="!shards.length">
-                <div>{{ translations.no_results }}</div>
+            <div ng-if="!cards.length">
+                <div>{{ translations.no_results}}</div>
             </div>
         </div>
         <ul class="pagination pull-right">
@@ -67,5 +63,3 @@
     </div>
 
 </div>
-
-@stop
