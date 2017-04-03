@@ -28,18 +28,28 @@ textarea {
 .margin-bottom-md {margin-bottom: 15px;}
 .margin-bottom-lg {margin-bottom: 20px;}
 
-.new-copy{
+.new-card {
     padding-bottom: 10px;
 }
-.panel, button, textarea {
-    webkit-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s;
-    transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s;
+.panel, button, textarea, .drops-shadow {
+    -webkit-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
+    -moz-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
+    -o-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
+    transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
 }
 
-.panel:hover, button.drops-shadow:hover, .pagination:hover {
+.panel:hover, button.drops-shadow:hover, .pagination:hover, .drops-shadow:hover{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -webkit-transform: scale(1.01);
+    -o-transform: scale(1.01);
 }
 
-em, .hash{
+em, .hash {
     color: orange;
+}
+
+form .input-group {
+    margin-bottom: 8px;
 }
