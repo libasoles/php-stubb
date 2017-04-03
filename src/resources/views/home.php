@@ -29,8 +29,8 @@
         <div class="container">
 
             <header class="text-left margin-bottom-lg clearfix">
-                <h1>CueCards</h1>
-                <div class="col-md-1"></div><div class="col-md-11">hash your notes and navigate them</div>
+                <h1> <img src="img/logo.png" alt="logo" /> Stubb.</h1>
+                <div class="col-md-1"></div><div class="col-md-11">Simply hash your notes and navigate them</div>
             </header>
 
             <div class="content row" ng-view></div>
