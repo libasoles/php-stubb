@@ -13,9 +13,9 @@
         cardsFactory
             .getAll()
             .then(function (response) {
-                if(response.status == 200){
-                    $scope.cards = angular.fromJson(response.data.data);  
-                }
+                $scope.cards = angular.fromJson(response.data.data);  
+        
+                $scope.orderCardsBy = 'updated_at';
             })
             .catch(function(err) {                
                 console.log(err); // TODO: Tratar el error
