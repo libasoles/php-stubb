@@ -13,48 +13,56 @@ class CardController extends Controller
 {
     use ValidatesRequests;
 
-    public function getAll()
+    /**
+     * Display a listing of the cards.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-
+        $data = [];
+        
         try {
 
             $data = Card::all();
-            $status = 'success';
-
-            $msg = count($data) . ' results';
         } catch (\Exception $exc) {
-
-            $status = 'error';
-            $msg = 'There was an error retrieving records';
             Log::error(get_class() . ' ' . $exc->getMessage());
+            abort(500, 'There was an error retrieving the records'); 
         }
 
-        return compact('status', 'msg', 'data');
+        return $data;
     }
 
-    public function get(int $id)
-    {
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(int $id)
+    {        
+        $data = [];
+        
         try {
 
             $data = Card::findOrFail($id);
-
-            $status = 'success';
-            $msg = 'Ok';
         } catch (ModelNotFoundException $e) {
-
-            $status = 'error';
-            $msg = 'Not found';
+            abort(500, 'Not found'); 
         } catch (\Exception $exc) {
-
-            $status = 'error';
-            $msg = 'There was an error retrieving the record';
             Log::error(get_class() . ' ' . $exc->getMessage());
+            abort(500, 'There was an error retrieving the record');
         }
 
-        return compact('status', 'msg', 'data');
+        return $data;
     }
 
-    public function save(Request $request, int $id = null)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         try {
 
@@ -64,48 +72,71 @@ class CardController extends Controller
                 'content' => 'required'
             ]);
 
-            // get new or existing record                
-            $card = Card::find($id);
-            if (empty($card)) {
-                $card = new Card;
-            }            
-
-            // map data
+            // create record                
+            $card = new Card;
             $card->name = $request->input('name');
             $card->content = $request->input('content');
             $card->enabled = true;
 
             $card->save();
             
-            // response
-            $status = 'success';
-            $msg = 'Saved';
-
-            $id = $card->id;
         } catch (\Exception $exc) {
-            $status = 'error';
-            $msg = 'There was an error saving the record';
+            abort(500, 'There was an error creating the record');
             Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
-        return compact('status', 'msg', 'id');
+        return $this->response->created();
     }
-
-    public function delete(int $id)
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $id)
     {
         try {
 
-            Card::destroy($id);
-            $status = 'success';
-            $msg = 'Deleted';
-     
-        } catch (\Exception $exc) {
+            // validation
+            $this->validate($request, [
+                'name' => 'max:255',
+                'content' => 'required'
+            ]);
 
-            $status = 'error';
-            $msg = 'There was an error deleting the record';
+            // update existing record                
+            $card = Card::find($id);
+            $card->name = $request->input('name');
+            $card->content = $request->input('content');
+            $card->enabled = true;
+
+            $card->save();
+  
+        } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
+            abort(500, 'There was an error storing the record');
         }
 
-        return compact('status', 'msg');
+        return $this->response->noContent();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $id)
+    {
+        try {
+            
+            Card::destroy($id);
+        } catch (\Exception $exc) {
+            Log::error(get_class() . ' ' . $exc->getMessage());
+            abort(500, 'There was an error deleting the record');
+        }
+
+        return $this->response->noContent();
     }
 }

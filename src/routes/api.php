@@ -21,20 +21,28 @@ Route::group([
     'namespace' => 'Api'
     ], function () {
 
-    Route::get('cards', 'CardController@getAll');
-    Route::get('card/{id}', "CardController@get");
-    Route::post('card/{id?}', "CardController@save");
-    Route::delete('card/{id}', "CardController@delete");
+    Route::get('cards', 'CardController@index');
+    Route::get('cards/{id}', "CardController@get");
+    //Route::get('cards/{id}/stacks', "CardController@show");
+    //Route::get('cards/{id}/tags', "CardController@show");
+    Route::post('cards', "CardController@store");
+    Route::put('cards/{id}', "CardController@update");
+    Route::delete('cards/{id}', "CardController@destroy");
 
-    Route::get('stacks', 'StackController@getAll');
-    Route::get('stack/{id}', "StackController@get");
-    Route::post('stack/{id?}', "StackController@save");
-    Route::delete('stack/{id}', "StackController@delete");
+    Route::get('stacks', 'StackController@index');
+    Route::get('stacks/{id}', "StackController@show");
+    //Route::get('stacks/{id}/cards', "StackController@show");
+    //Route::get('stacks/{id}/cards/{card_id}', "StackController@show");
+    Route::post('stacks/{id?}', "StackController@store");
+    Route::put('stacks/{id}', "StackController@update");
+    Route::delete('stacks/{id}', "StackController@destroy");
 
-    Route::get('tags', 'TagController@getAll');
-    Route::get('tag/{id}', 'TagController@get');
-    Route::post('tag/{id?}', 'TagController@save');
-    Route::delete('tag/{id}', 'TagController@delete');
+    Route::get('tags', 'TagController@index');
+    Route::get('tags/{id}', 'TagController@show');
+    //Route::get('tags/{id}/cards', 'TagController@show');
+    //Route::post('tags', 'TagController@store');
+    //Route::put('tags/{id}', 'TagController@update');
+    Route::delete('tags/{id}', 'TagController@destroy');
 });
 
 
