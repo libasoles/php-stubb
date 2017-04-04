@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
@@ -8,6 +10,7 @@ var ngConstant = require('gulp-ng-constant');
 var argv = require('yargs').argv;
 var jshint = require('gulp-jshint');
 var enviroment = argv.env || 'dev';
+var sass = require('gulp-sass');
 
 gulp.task('config', function () {
   var config = gulp.src('config/' + enviroment + '.json')
@@ -23,8 +26,8 @@ gulp.task('config', function () {
     .on('error', function() { });
 });
 
-gulp.task('js', ['config'], function () {
-  gulp.src(['app-config.js', 'src/**/module.js', 'src/**/*.js'])
+gulp.task('build-js', ['config'], function () {
+  gulp.src(['app-config.js', 'app_modules/**/module.js', 'app_modules/**/*.js'])
     .pipe(sourcemaps.init())
       .pipe(concat('app.js'))
       .pipe(ngAnnotate())
@@ -33,12 +36,22 @@ gulp.task('js', ['config'], function () {
     .pipe(gulp.dest('.'))
 })
 
+gulp.task('build-css', function() {
+  return gulp.src('app_modules/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.init())
+      .pipe(concat('app.css'))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('.'));
+});
+
 gulp.task('lint', function() {
   return gulp.src('./lib/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default', { verbose: true }));
 });
 
-gulp.task('watch', ['lint','js'], function () {
-  gulp.watch('src/**/*.js', ['js'])
+gulp.task('watch', ['lint','build-js','build-css'], function () {
+  gulp.watch('app_modules/**/*.js', ['build-js'])
+  gulp.watch('app_modules/**/*.scss', ['build-css']);
 })
