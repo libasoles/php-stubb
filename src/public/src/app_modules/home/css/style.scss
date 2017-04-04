@@ -1,24 +1,28 @@
-/* New */
-.new-card {
-    padding-bottom: 10px;
-}
+#homepage {
+    
+    // New 
+    .new-card {
+        padding-bottom: 10px;
+    }
 
-/* List */
-.card {
-    -webkit-transition: 0.4s;
-    -moz-transition: 0.4s;
-    -o-transition: 0.4s;
-    transition: 0.4s;
-}
+    // List 
+    .card {
+        $tTime: 0.4s;
+        -webkit-transition: $tTime;
+        -moz-transition: $tTime;
+        -o-transition: $tTime;
+        transition: $tTime;
+    }
 
-.card.ng-enter.ng-enter-active,
-.card.ng-leave {
-    opacity: 1;   
-    height: 100px;
-}
+    .card.ng-enter.ng-enter-active,
+    .card.ng-leave {
+        opacity: 1;   
+        height: 100px;
+    }
 
-.card.ng-leave.ng-leave-active,
-.card.ng-enter {
-    opacity: 0;
-    height: 0;
+    .card.ng-leave.ng-leave-active,
+    .card.ng-enter {
+        opacity: 0;
+        height: 0;
+    }
 }

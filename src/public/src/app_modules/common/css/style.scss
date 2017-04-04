@@ -1,18 +1,21 @@
+$font_1: "Montserrat", sans-serif; 
+$font_2: 'Lato', sans-serif;
+
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: $font_1;
     line-height: 1.8;
 }
 h1 {
     color: #719e40;
     letter-spacing: -3px;
-    font-family: 'Lato', sans-serif;
+    font-family: $font_2;
     font-size: 100px;
     font-weight: 200;
     margin-bottom: 0;
 }
 p {font-size: 16px;}
 
-header{
+header {
     margin-bottom: 20px;
 }
 
@@ -20,6 +23,8 @@ textarea {
     border: none !important;
     height: 180px !important;
     -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -o-box-shadow: none !important;
     box-shadow: none !important; 
 }
 
@@ -29,24 +34,32 @@ textarea {
 .margin-bottom-lg {margin-bottom: 20px;}
 
 .panel, button, textarea, .drops-shadow {
-    -webkit-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
-    -moz-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
-    -o-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
-    transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
+    $tBgColor: .3s;
+    $tColor: .15s;
+    $tShadow: .3s;
+    $tOpacity: .3s;
+    $tScale: .1s;
+    
+    -webkit-transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
+    -moz-transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
+    -o-transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
+    transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
 }
 
 .panel:hover, button.drops-shadow:hover, .pagination:hover, .drops-shadow:hover{
+    $scale: 1.01;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    transform: scale(1.01);
-    -moz-transform: scale(1.01);
-    -webkit-transform: scale(1.01);
-    -o-transform: scale(1.01);
+    transform: scale($scale);
+    -moz-transform: scale($scale);
+    -webkit-transform: scale($scale);
+    -o-transform: scale($scale);
 }
 
 em, .hash {
     color: orange;
 }
 
+// forms
 form .input-group {
     margin-bottom: 8px;
 }
