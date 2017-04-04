@@ -19,7 +19,8 @@
             <div class="text-left">
 
                 <div ng-if="cards">
-                    <div ng-repeat="card in cards| filter: query | orderBy: orderCardsBy:direction">    
+                    <div ng-repeat="card in cards| filter: query | orderBy: orderCardsBy:direction" 
+                         class="card">    
                         <div class="panel panel-default">                        
                             <div class="panel-body">
                                 <h3>{{ card.name}}</h3>

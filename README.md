@@ -31,6 +31,15 @@ Init docker containers
 
 That may take long to download images.
 
+### Config files
+You should have two config files, one for frontend and the other for backend.
+
+#### Front
+Rename `src/public/src/app-config.example` to `app-config.js`
+
+That file points to the API, and should work for you with this docker environment.
+
+#### Back
 Rename *.env.example* to *.env* and set the correct permissions. With exactly this:  
 ```
 DB_CONNECTION=pgsql
@@ -43,6 +52,7 @@ DB_PASSWORD=d4REn0LdCH4B
 
 Hint: is important to replace DB_CONNECTION to *pgsql* instead of the default *mysql*
 
+#### Create and seed DB
 Now, in order to fill the database, run:
 
 `docker exec -it php-stubb php /src/artisan migrate`
@@ -52,10 +62,11 @@ Now, in order to fill the database, run:
 Or alternativelly just:
 `cd app && vendor/bin/robo install`
 
+#### Try it
 Then, navigate to:
 `http://localhost:8001/`
 
-You should see a login screen.
+You should see the homepage.
 
 Hint: configure a different port if neccesary and rerun docker.
 

@@ -28,9 +28,6 @@ textarea {
 .margin-bottom-md {margin-bottom: 15px;}
 .margin-bottom-lg {margin-bottom: 20px;}
 
-.new-card {
-    padding-bottom: 10px;
-}
 .panel, button, textarea, .drops-shadow {
     -webkit-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
     -moz-transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s,scale 0.1s;
@@ -53,3 +50,4 @@ em, .hash {
 form .input-group {
     margin-bottom: 8px;
 }
+
