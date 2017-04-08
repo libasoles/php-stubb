@@ -13,7 +13,8 @@
         cardsFactory
             .getAll()
             .then(function (response) {
-                $scope.cards = angular.fromJson(response.data.data);  
+                 
+                $scope.cards = angular.fromJson(response.data);  
         
                 $scope.orderCardsBy = 'updated_at';
             })
