@@ -33,18 +33,25 @@ Route::group([
     {
         Route::get('cards', 'CardController@index');
         Route::get('cards/{id}', "CardController@get");
+        Route::get('cards/{id}/stacks', "CardController@get");
+        Route::get('cards/{id}/tags', "CardController@get");
         Route::post('cards', "CardController@store");
         Route::put('cards/{id}', "CardController@update");
         Route::delete('cards/{id}', "CardController@destroy");
 
         Route::get('stacks', 'StackController@index');
         Route::get('stacks/{id}', "StackController@get");
+        Route::get('stacks/{id}/cards', "StackController@get");
+        Route::get('stacks/{stack_id}/cards/{card_id}', "StackController@get");
         Route::post('stacks/{id?}', "StackController@store");
         Route::put('stacks/{id}', "StackController@update");
         Route::delete('stacks/{id}', "StackController@destroy");
 
         Route::get('tags', 'TagController@index');
         Route::get('tags/{id}', 'TagController@get');
+        Route::get('tags/{id}/cards', 'TagController@get');
+        Route::post('tags', 'TagController@store');
+        Route::put('tags/{id}', 'TagController@update');
         Route::delete('tags/{id}', 'TagController@destroy');
     });
         
