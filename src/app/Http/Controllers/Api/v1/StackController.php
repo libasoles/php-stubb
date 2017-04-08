@@ -99,7 +99,10 @@ class StackController extends Controller
             Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
-        return response()->json(['stack_id'=>$stack->id], 201);
+        return response()->json([
+            'created'=>true,
+            'id'=>$stack->id
+            ], 201);
     }
     
     /**
@@ -131,7 +134,7 @@ class StackController extends Controller
             abort(500, 'There was an error storing the record');
         }
 
-        return $this->response->noContent();
+        return response("", 204);
     }
 
     /**
@@ -150,6 +153,6 @@ class StackController extends Controller
             abort(500, 'There was an error deleting the record');
         }
 
-        return $this->response->noContent();
+        return response("", 204);
     }
 }

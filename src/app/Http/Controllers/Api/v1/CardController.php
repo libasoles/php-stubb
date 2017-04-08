@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use function abort;
+use function response;
 
 
 class CardController extends Controller
@@ -16,7 +19,7 @@ class CardController extends Controller
     /**
      * Display a listing of the cards.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -37,7 +40,7 @@ class CardController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function get(int $id)
     {        
@@ -59,8 +62,8 @@ class CardController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -85,20 +88,23 @@ class CardController extends Controller
             Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
-        return response()->json(['card_id'=>$card->id], 201);
+        return response()->json([
+            'created'=>true,
+            'id'=>$card->id
+            ], 201);
     }
     
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, int $id)
     {
         try {
-
+            
             // validation
             $this->validate($request, [
                 'name' => 'max:255',
@@ -118,14 +124,14 @@ class CardController extends Controller
             abort(500, 'There was an error storing the record');
         }
 
-        return $this->response->noContent();
+        return response("", 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(int $id)
     {
@@ -137,6 +143,6 @@ class CardController extends Controller
             abort(500, 'There was an error deleting the record');
         }
 
-        return $this->response->noContent();
+        return response("", 204);
     }
 }

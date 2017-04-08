@@ -86,6 +86,6 @@ class TagController extends Controller
             abort(500, 'There was an error deleting the record');
         }
 
-        return $this->response->noContent();
+        return response("", 204);
     }
 }

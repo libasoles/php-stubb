@@ -9,7 +9,8 @@ use Tests\TestCase;
 
 class TagTest extends TestCase
 {
-
+    protected $api = '/api/v1';
+    
     protected function setUp(): void
     {
         $this->card_id = null;
@@ -25,13 +26,10 @@ class TagTest extends TestCase
     public function testTagsList()
     {
 
-        $response = $this->json('GET', '/api/tags')->decodeResponseJson();
+        $response = $this->json('GET', $this->api.'/tags')->decodeResponseJson();
 
         // is not an empty result
-        $this->assertNotEmpty($response['data'], 'Data list must not be empty');
-
-        // response success is true
-        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
+        $this->assertNotEmpty($response, 'Data list must not be empty');
     }
 
     /**
@@ -56,14 +54,11 @@ class TagTest extends TestCase
         $tag->cards()->attach($this->card_id);
         $this->tag_id = $tag->id;
 
-        $response = $this->json('GET', '/api/tag/' . $tag->id)
+        $response = $this->json('GET', $this->api.'/tags/' . $tag->id)
             ->decodeResponseJson();
 
         // is not an empty result
-        $this->assertNotEmpty($response['data'], 'Item data must not be empty');
-
-        // response success is true
-        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
+        $this->assertNotEmpty($response, 'Item data must not be empty');
         
         return $tag->id;
     }
@@ -76,16 +71,14 @@ class TagTest extends TestCase
      */
     public function testDeleteTag(int $tag_id)
     {
-        $response = $this->delete('/api/tag/' . $tag_id)->decodeResponseJson();
-
-        // response success is true
-        $this->assertEquals('success', $response['status'], 'The response status should be "success"');
+        $response = $this->delete($this->api.'/tags/' . $tag_id);
+        $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
     }
 
     protected function tearDown(): void
     {
-        $this->delete('/api/card/' . $this->card_id);
-        $this->delete('/api/tag/' . $this->tag_id);
+        $this->delete($this->api.'/card/' . $this->card_id);
+        $this->delete($this->api.'/tag/' . $this->tag_id);
         parent::tearDown();
     }
 }
