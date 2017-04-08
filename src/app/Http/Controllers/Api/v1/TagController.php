@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Tag;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class TagController extends Controller
      * @param int $id
      * @return json
      */
-    public function show(Request $request, int $id)
+    public function get(Request $request, int $id)
     {
         $data = [];
         

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Card;
 use App\Http\Controllers\Controller;
@@ -39,7 +39,7 @@ class CardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function get(int $id)
     {        
         $data = [];
         
@@ -85,7 +85,7 @@ class CardController extends Controller
             Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
-        return $this->response->created();
+        return response()->json(['card_id'=>$card->id], 201);
     }
     
     /**

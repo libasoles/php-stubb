@@ -21,28 +21,39 @@ Route::group([
     'namespace' => 'Api'
     ], function () {
 
-    Route::get('cards', 'CardController@index');
-    Route::get('cards/{id}', "CardController@get");
-    //Route::get('cards/{id}/stacks', "CardController@show");
-    //Route::get('cards/{id}/tags', "CardController@show");
-    Route::post('cards', "CardController@store");
-    Route::put('cards/{id}', "CardController@update");
-    Route::delete('cards/{id}', "CardController@destroy");
+    Route::get('/', function() {
+        
+        return [
+            'greetings'=> 'Welcome to Stubb API',
+            'api-version'=> Config::get('app.api_version')
+        ];
+    });
+    
+    Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function($app)
+    {
+        Route::get('cards', 'CardController@index');
+        Route::get('cards/{id}', "CardController@get");
+        Route::post('cards', "CardController@store");
+        Route::put('cards/{id}', "CardController@update");
+        Route::delete('cards/{id}', "CardController@destroy");
 
-    Route::get('stacks', 'StackController@index');
-    Route::get('stacks/{id}', "StackController@show");
-    //Route::get('stacks/{id}/cards', "StackController@show");
-    //Route::get('stacks/{id}/cards/{card_id}', "StackController@show");
-    Route::post('stacks/{id?}', "StackController@store");
-    Route::put('stacks/{id}', "StackController@update");
-    Route::delete('stacks/{id}', "StackController@destroy");
+        Route::get('stacks', 'StackController@index');
+        Route::get('stacks/{id}', "StackController@get");
+        Route::post('stacks/{id?}', "StackController@store");
+        Route::put('stacks/{id}', "StackController@update");
+        Route::delete('stacks/{id}', "StackController@destroy");
 
-    Route::get('tags', 'TagController@index');
-    Route::get('tags/{id}', 'TagController@show');
-    //Route::get('tags/{id}/cards', 'TagController@show');
-    //Route::post('tags', 'TagController@store');
-    //Route::put('tags/{id}', 'TagController@update');
-    Route::delete('tags/{id}', 'TagController@destroy');
+        Route::get('tags', 'TagController@index');
+        Route::get('tags/{id}', 'TagController@get');
+        Route::delete('tags/{id}', 'TagController@destroy');
+    });
+        
+    // redirect to current api version
+    Route::get('{any?}', function ($any = null) {   
+        $current_api_version = Config::get('app.api_version');
+        return redirect()->to("/api/{$current_api_version}/{$any}");
+    })->where('any', '.*');
+    
 });
 
 

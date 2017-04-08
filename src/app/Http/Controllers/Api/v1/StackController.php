@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Stack;
@@ -39,7 +39,7 @@ class StackController extends Controller
      * @param int $id
      * @return json
      */
-    public function show(Request $request, int $id)
+    public function get(Request $request, int $id)
     {
         $data = [];
         
@@ -99,7 +99,7 @@ class StackController extends Controller
             Log::error(get_class() . ' ' . $exc->getMessage());
         }
 
-        return $this->response->created();
+        return response()->json(['stack_id'=>$stack->id], 201);
     }
     
     /**
