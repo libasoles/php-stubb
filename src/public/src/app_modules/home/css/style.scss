@@ -1,17 +1,67 @@
+$green_1: #b4db34; // TODO: import from main css
+
 #homepage {
-    
-    // New 
+
+    textarea {
+        $initialHeight: 115px;
+        $border: none !important;
+        $tHeight: height .4s ease;
+        
+        border: none !important;
+        -webkit-box-shadow: $border;
+        -moz-box-shadow: $border;
+        -o-box-shadow: $border;
+        box-shadow: $border; 
+        
+        height: $initialHeight;
+        min-height: $initialHeight;
+        
+        -webkit-transition: $tHeight;
+        -moz-transition: $tHeight;
+        -ms-transition: $tHeight;
+        -o-transition: $tHeight;
+        transition: $tHeight;
+        
+        overflow: hidden;
+    }
+
+    /**
+     * Form 
+     */
     .new-card {
         padding-bottom: 10px;
     }
 
-    // List 
+    /**
+     * List 
+     */
     .card {
         $tTime: 0.4s;
         -webkit-transition: $tTime;
         -moz-transition: $tTime;
         -o-transition: $tTime;
-        transition: $tTime;
+        transition: $tTime;        
+    }
+    
+    .card .panel {        
+        border-left: 4px solid $green_1;
+    }
+    
+    .no-results {
+        background: #5bc0de;
+        border-color: #5bc0de;
+        color: white;
+    }
+    
+    .card .highlighted {
+        $bg_start: #d3e49b;
+        $bg_stop: #e0f0aa;
+        
+        background: $bg_start;
+        background: -webkit-linear-gradient(left, $bg_start, $bg_stop);
+        background: -moz-linear-gradient(left, $bg_start, $bg_stop);
+        background: -o-linear-gradient(left, $bg_start, $bg_stop);
+        background: linear-gradient(left, $bg_start, $bg_stop);
     }
 
     .card.ng-enter.ng-enter-active,

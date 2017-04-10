@@ -1,10 +1,31 @@
 $font_1: "Montserrat", sans-serif; 
 $font_2: 'Lato', sans-serif;
 
+$green_1: #b4db34;
+$green_2: #86a826;
+$green_3: #719e40;
+
 body {
     font-family: $font_1;
     line-height: 1.8;
 }
+
+@mixin green-gradient-2cols {
+    background: $green_3;
+    background: -webkit-linear-gradient(left, $green_1, $green_2);
+    background: -moz-linear-gradient(left, $green_1, $green_2);
+    background: -o-linear-gradient(left, $green_1, $green_2);
+    background: linear-gradient(left, $green_1, $green_2);
+}
+
+@mixin green-gradient-3cols {
+    background: $green_3;
+    background: -webkit-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: -moz-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: -o-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: linear-gradient(left, $green_1, $green_2, $green_3);
+}
+
 h1 {
     color: #719e40;
     letter-spacing: -3px;
@@ -12,6 +33,11 @@ h1 {
     font-size: 100px;
     font-weight: 200;
     margin-bottom: 0;
+    
+    @include green-gradient-3cols;
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 p {font-size: 16px;}
 
@@ -19,21 +45,12 @@ header {
     margin-bottom: 20px;
 }
 
-textarea {
-    border: none !important;
-    height: 180px !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    -o-box-shadow: none !important;
-    box-shadow: none !important; 
-}
-
 .margin-bottom-xs {margin-bottom: 5px;}  
 .margin-bottom-sm {margin-bottom: 10px;} 
 .margin-bottom-md {margin-bottom: 15px;}
 .margin-bottom-lg {margin-bottom: 20px;}
 
-.panel, button, textarea, .drops-shadow {
+button, .cast-shadow {
     $tBgColor: .3s;
     $tColor: .15s;
     $tShadow: .3s;
@@ -46,7 +63,7 @@ textarea {
     transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
 }
 
-.panel:hover, button.drops-shadow:hover, .pagination:hover, .drops-shadow:hover{
+button:hover, .cast-shadow:hover{
     $scale: 1.01;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     transform: scale($scale);
@@ -59,8 +76,20 @@ em, .hash {
     color: orange;
 }
 
-// forms
-form .input-group {
-    margin-bottom: 8px;
+kbd {
+    @include green-gradient-2cols;
+    box-shadow: none;
 }
+
+// forms
+form {
+    .input-group {
+        margin-bottom: 8px;
+    }
+    .v-separator {
+        width: 20px;
+        display: inline-block;
+    }
+}
+
 

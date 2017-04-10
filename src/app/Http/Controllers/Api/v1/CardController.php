@@ -3,11 +3,13 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Card;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use function abort;
 use function response;
 
@@ -15,7 +17,15 @@ use function response;
 class CardController extends Controller
 {
     use ValidatesRequests;
+    
+    protected $repository;
 
+    function __construct(Model $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    
     /**
      * Display a listing of the cards.
      *
@@ -27,7 +37,7 @@ class CardController extends Controller
         
         try {
 
-            $data = Card::all();
+            $data = $this->repository->all();
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
             abort(500, 'There was an error retrieving the records'); 
@@ -48,7 +58,7 @@ class CardController extends Controller
         
         try {
 
-            $data = Card::findOrFail($id);
+            $data = $this->repository->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             abort(500, 'Not found'); 
         } catch (\Exception $exc) {
@@ -83,9 +93,12 @@ class CardController extends Controller
 
             $card->save();
             
+        } catch (ValidationException $exc) {
+            Log::error('Invalid data: ' . json_decode($request->getContent(), true));
+            return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            abort(500, 'There was an error creating the record');
             Log::error(get_class() . ' ' . $exc->getMessage());
+            return response()->json([ 'message' => 'There was an error creating the record' ], 500);
         }
 
         return response()->json([
@@ -112,7 +125,7 @@ class CardController extends Controller
             ]);
 
             // update existing record                
-            $card = Card::find($id);
+            $card = $this->repository->find($id);
             $card->name = $request->input('name');
             $card->content = $request->input('content');
             $card->enabled = true;
@@ -121,7 +134,7 @@ class CardController extends Controller
   
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error storing the record');
+            return response()->json([ 'message' => 'There was an error storing the record' ], 500);
         }
 
         return response("", 204);
@@ -137,10 +150,10 @@ class CardController extends Controller
     {
         try {
             
-            Card::destroy($id);
+            $this->repository->destroy($id);
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error deleting the record');
+            return response()->json([ 'message' => 'There was an error deleting the record' ], 500);
         }
 
         return response("", 204);

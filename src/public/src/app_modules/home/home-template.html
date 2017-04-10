@@ -2,36 +2,58 @@
 
     <div class="main-column col-md-8">
 
-        <div class="new-card clearfix">
+        <div class="new-card clearfix" ng-controller="FormController">
             <form ng-submit="createCard()">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <textarea class="form-control margin-bottom-md" name="copy" 
-                                  placeholder="Write something and hash it..." ng-model="copy"></textarea>
+                        <textarea class="form-control margin-bottom-md" name="content" 
+                                  placeholder="{{ translations.write_something }}" ng-model="content" ng-keyup="autoExpand($event)"></textarea>
                     </div>
                 </div> 
 
-                <button type="submit" class="btn btn-primary pull-right drops-shadow">Submit</button>
+                <button type="submit" class="btn btn-primary pull-right">Submit</button>
             </form>
         </div>
 
-        <div id="cards-list" class="list">
+        <div id="cards-list" class="list" ng-controller="ListController">
             <div class="text-left">
 
-                <div ng-if="cards">
-                    <div ng-repeat="card in cards| filter: query | orderBy: orderCardsBy:direction" 
+                <div class="form-group">
+                    <form>
+                        <label>                    
+                            <select ng-model="orderCardsBy" class="form-control">
+                                <option value="updated_at">Modified Date</option>
+                                <option value="name">Name</option>
+                            </select>
+                        </label> 
+
+                        <span class='v-separator'></span>
+
+                        <label>
+                            <input type="radio" ng-model="direction" name="direction" />
+                            asc
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="direction" name="direction" value="reverse" checked />
+                            desc
+                        </label>
+                    </form>
+                </div>
+                
+                <div ng-if="context.cards">
+                    <div ng-repeat="card in context.cards | filter: context.query | orderBy: orderCardsBy:direction" 
                          class="card">    
-                        <div class="panel panel-default">                        
+                        <div class="panel panel-default cast-shadow {{ card.class }}">                        
                             <div class="panel-body">
-                                <h3>{{ card.name}}</h3>
-                                {{ card.content}}
+                                <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query"></h3>
+                                <span ng-bind-html="card.content | highlightText: context.query"></span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div ng-if="!cards.length">
-                    <div>{{ translations.no_results}}</div>
+                <div ng-if="!context.cards.length" class='panel panel-default'>
+                    <div class='panel-body no-results'>{{ translations.no_results}}</div>
                 </div>
             </div>
             <ul class="pagination pull-right">
@@ -46,8 +68,7 @@
 
     <div class="side-column col-md-4">
 
-        <div class="panel panel-default">
-
+        <div class="panel panel-default" ng-controller="SearchController">
             <div class="panel-body">
                 <form>
                     
@@ -55,44 +76,25 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
-                        <input type="text" class="form-control cf" name="filter" placeholder="Quick search..." aria-describedby="filter" 
-                               ng-model="query" />
+                        <input type="text" class="form-control cf" name="filter" placeholder="{{ translations.quick_search }}" aria-describedby="filter" 
+                               ng-model="context.query" />
                     </div>
-                    
-                    <div class="form-group">
-
-                        <label>                    
-                            <select ng-model="orderCardsBy" class="form-control">
-                                <option value="updated_at">Modified Date</option>
-                                <option value="name">Name</option>
-                            </select>
-                        </label> 
-
-                        <label>
-                            <input type="radio" ng-model="direction" name="direction" checked />
-                            asc
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="direction" name="direction" value="reverse" />
-                            desc
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary pull-right drops-shadow">Deep search</button>
+                                        
+                    <button type="submit" class="btn btn-primary pull-right">Deep search</button>
                 </form>
             </div>
         </div>
 
-        <div class="panel panel-default tag-cloud">
+        <div class="panel panel-defaulttag-cloud">
             <div class="panel-body">
                 <ul class="list-unstyled list-inline">
-                    <li><button class="btn btn-xs btn-info drops-shadow">filter Label</button></li>
-                    <li><button class="btn btn-xs btn-info drops-shadow">Hash Label</button></li>
-                    <li><button class="btn btn-xs btn-info drops-shadow">Hash Tag</button></li>
-                    <li><button class="btn btn-xs btn-info drops-shadow">Tagging</button></li>
-                    <li><button class="btn btn-xs btn-info drops-shadow">Hash</button></li>
-                    <li><button class="btn btn-xs btn-info drops-shadow">Hash Demo</button></li>
-                    <li><button class="btn btn-xs btn-info drops-shadow">Dummy Hash</button></li>
+                    <li><button class="btn btn-xs btn-info cast-shadow">filter Label</button></li>
+                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Label</button></li>
+                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Tag</button></li>
+                    <li><button class="btn btn-xs btn-info cast-shadow">Tagging</button></li>
+                    <li><button class="btn btn-xs btn-info cast-shadow">Hash</button></li>
+                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Demo</button></li>
+                    <li><button class="btn btn-xs btn-info cast-shadow">Dummy Hash</button></li>
                 </ul>
             </div>
         </div>
