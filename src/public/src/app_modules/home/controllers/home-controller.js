@@ -11,30 +11,37 @@
         };
 
         cardsFactory
-            .getAll()
-            .then(function (response) {
-                 
-                $scope.cards = angular.fromJson(response.data);  
-        
-                $scope.orderCardsBy = 'updated_at';
-            })
-            .catch(function(err) {                
-                console.log(err); // TODO: Tratar el error
-            });
+                .getAll()
+                .then(function (response) {
 
-        $scope.createCard = function() {
-         
-            if ($scope.copy) {
-          
-                cardsFactory.save().then(function(response){
-                    $scope.cards.push(response.data);
-                })                 
-                
-                $scope.copy = '';
+                    $scope.cards = angular.fromJson(response.data);
+
+                    $scope.orderCardsBy = 'updated_at';
+
+                    $scope.direction = 'reverse';
+                })
+                .catch(function (err) {
+                    console.log(err); // TODO: Tratar el error
+                });
+
+        $scope.createCard = function () {
+
+            if ($scope.content) {
+
+                let data = {
+                    content: $scope.content
+                };
+
+                cardsFactory.save(data).then(function (response) {
+                    $scope.cards.push(data);
+                }, function (response) {
+                    console.log(response);
+                })
+
+                $scope.content = '';
             }
-        };    
+        };
     }
 })();
-
 
 

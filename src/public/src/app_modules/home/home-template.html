@@ -6,8 +6,8 @@
             <form ng-submit="createCard()">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <textarea class="form-control margin-bottom-md" name="copy" 
-                                  placeholder="Write something and hash it..." ng-model="copy"></textarea>
+                        <textarea class="form-control margin-bottom-md" name="content" 
+                                  placeholder="Write something and hash it..." ng-model="content"></textarea>
                     </div>
                 </div> 
 
@@ -18,6 +18,25 @@
         <div id="cards-list" class="list">
             <div class="text-left">
 
+                <div class="form-group">
+
+                    <label>                    
+                        <select ng-model="orderCardsBy" class="form-control">
+                            <option value="updated_at">Modified Date</option>
+                            <option value="name">Name</option>
+                        </select>
+                    </label> 
+
+                    <label>
+                        <input type="radio" ng-model="direction" name="direction" />
+                        asc
+                    </label>
+                    <label>
+                        <input type="radio" ng-model="direction" name="direction" value="reverse" checked />
+                        desc
+                    </label>
+                </div>
+                
                 <div ng-if="cards">
                     <div ng-repeat="card in cards| filter: query | orderBy: orderCardsBy:direction" 
                          class="card">    
@@ -58,26 +77,7 @@
                         <input type="text" class="form-control cf" name="filter" placeholder="Quick search..." aria-describedby="filter" 
                                ng-model="query" />
                     </div>
-                    
-                    <div class="form-group">
-
-                        <label>                    
-                            <select ng-model="orderCardsBy" class="form-control">
-                                <option value="updated_at">Modified Date</option>
-                                <option value="name">Name</option>
-                            </select>
-                        </label> 
-
-                        <label>
-                            <input type="radio" ng-model="direction" name="direction" checked />
-                            asc
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="direction" name="direction" value="reverse" />
-                            desc
-                        </label>
-                    </div>
-                    
+                                        
                     <button type="submit" class="btn btn-primary pull-right drops-shadow">Deep search</button>
                 </form>
             </div>

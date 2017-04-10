@@ -12,20 +12,15 @@ h1 {
     font-size: 100px;
     font-weight: 200;
     margin-bottom: 0;
+    
+    background: -webkit-linear-gradient(left, #B4DB34, #75C15D, #719e40);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 p {font-size: 16px;}
 
 header {
     margin-bottom: 20px;
-}
-
-textarea {
-    border: none !important;
-    height: 180px !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    -o-box-shadow: none !important;
-    box-shadow: none !important; 
 }
 
 .margin-bottom-xs {margin-bottom: 5px;}  

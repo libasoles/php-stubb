@@ -1,5 +1,16 @@
 #homepage {
-    
+
+    textarea {
+        $border: none !important;
+
+        border: none !important;
+        -webkit-box-shadow: $border;
+        -moz-box-shadow: $border;
+        -o-box-shadow: $border;
+        box-shadow: $border; 
+        height: 115px;
+    }
+
     // New 
     .new-card {
         padding-bottom: 10px;
@@ -12,6 +23,10 @@
         -moz-transition: $tTime;
         -o-transition: $tTime;
         transition: $tTime;
+    }
+
+    .card.highlighted {
+        background: #f0efdd;
     }
 
     .card.ng-enter.ng-enter-active,

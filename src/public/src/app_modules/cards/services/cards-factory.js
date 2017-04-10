@@ -6,33 +6,33 @@
 
         var factory = {};
         var endpoint = "/cards";
-
+        var cards;
+                
         factory.getAll = function () {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            var cards = $http.get(config.api + endpoint); // get list
+            cards = $http.get(config.api + endpoint); // get list
 
-            cards.then(function (data) {
-                defered.resolve(data);
+            cards.then(function (response) {
+                defered.resolve(response);
             }, function (err) {
-                    defered.reject(err)
+                defered.reject(err);
             });
 
             return promise;
         };
 
-        factory.save = function () {
+        factory.save = function (data) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post(endpoint + "/save")
-            cards.then(function (response) {
+            $http.post(config.api + endpoint, data).then(function (response) {
                 defered.resolve(response);
             }, function (err) {
-                    defered.reject(err)
+                defered.reject(err);
             });
  
             return promise;
