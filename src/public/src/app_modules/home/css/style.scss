@@ -53,8 +53,15 @@ $green_1: #b4db34; // TODO: import from main css
         color: white;
     }
     
-    .card.highlighted {
-        background: #f0efdd;
+    .card .highlighted {
+        $bg_start: #d3e49b;
+        $bg_stop: #e0f0aa;
+        
+        background: $bg_start;
+        background: -webkit-linear-gradient(left, $bg_start, $bg_stop);
+        background: -moz-linear-gradient(left, $bg_start, $bg_stop);
+        background: -o-linear-gradient(left, $bg_start, $bg_stop);
+        background: linear-gradient(left, $bg_start, $bg_stop);
     }
 
     .card.ng-enter.ng-enter-active,

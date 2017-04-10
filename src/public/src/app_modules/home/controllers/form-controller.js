@@ -31,10 +31,12 @@
             if ($scope.content) {
 
                 let data = {
+                    name: $scope.name,
                     content: $scope.content
                 };
 
                 cardsFactory.save(data).then(function (response) {
+                    data.class = 'highlighted';
                     $scope.context.cards.push(data);
                 }, function (response) {
                     console.log(response);

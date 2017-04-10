@@ -43,7 +43,7 @@
                 <div ng-if="context.cards">
                     <div ng-repeat="card in context.cards | filter: context.query | orderBy: orderCardsBy:direction" 
                          class="card">    
-                        <div class="panel panel-default cast-shadow">                        
+                        <div class="panel panel-default cast-shadow {{ card.class }}">                        
                             <div class="panel-body">
                                 <h3>{{ card.name}}</h3>
                                 {{ card.content}}

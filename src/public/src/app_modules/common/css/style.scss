@@ -17,7 +17,12 @@ h1 {
     font-weight: 200;
     margin-bottom: 0;
     
+    background: $green_3;
     background: -webkit-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: -moz-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: -o-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: linear-gradient(left, $green_1, $green_2, $green_3);
+    
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
