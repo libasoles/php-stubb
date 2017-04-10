@@ -45,8 +45,8 @@
                          class="card">    
                         <div class="panel panel-default cast-shadow {{ card.class }}">                        
                             <div class="panel-body">
-                                <h3>{{ card.name}}</h3>
-                                {{ card.content}}
+                                <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query"></h3>
+                                <span ng-bind-html="card.content | highlightText: context.query"></span>
                             </div>
                         </div>
                     </div>

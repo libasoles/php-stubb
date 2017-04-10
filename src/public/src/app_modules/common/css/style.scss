@@ -2,13 +2,30 @@ $font_1: "Montserrat", sans-serif;
 $font_2: 'Lato', sans-serif;
 
 $green_1: #b4db34;
-$green_2: #75C15D;
+$green_2: #86a826;
 $green_3: #719e40;
 
 body {
     font-family: $font_1;
     line-height: 1.8;
 }
+
+@mixin green-gradient-2cols {
+    background: $green_3;
+    background: -webkit-linear-gradient(left, $green_1, $green_2);
+    background: -moz-linear-gradient(left, $green_1, $green_2);
+    background: -o-linear-gradient(left, $green_1, $green_2);
+    background: linear-gradient(left, $green_1, $green_2);
+}
+
+@mixin green-gradient-3cols {
+    background: $green_3;
+    background: -webkit-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: -moz-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: -o-linear-gradient(left, $green_1, $green_2, $green_3);
+    background: linear-gradient(left, $green_1, $green_2, $green_3);
+}
+
 h1 {
     color: #719e40;
     letter-spacing: -3px;
@@ -17,11 +34,7 @@ h1 {
     font-weight: 200;
     margin-bottom: 0;
     
-    background: $green_3;
-    background: -webkit-linear-gradient(left, $green_1, $green_2, $green_3);
-    background: -moz-linear-gradient(left, $green_1, $green_2, $green_3);
-    background: -o-linear-gradient(left, $green_1, $green_2, $green_3);
-    background: linear-gradient(left, $green_1, $green_2, $green_3);
+    @include green-gradient-3cols;
     
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -61,6 +74,11 @@ button:hover, .cast-shadow:hover{
 
 em, .hash {
     color: orange;
+}
+
+kbd {
+    @include green-gradient-2cols;
+    box-shadow: none;
 }
 
 // forms
