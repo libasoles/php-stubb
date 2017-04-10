@@ -11,6 +11,7 @@ Search is powered by Elasticsearch.
 ## Involved technologies
   - *Docker* for virtualization
   - *AngularJs* as frontend technology 
+  - *Sass* as css precompiler  
   - *Nginx* as server
   - *PHP-fpm* as server process manager
   - *PHP 7* as language
@@ -69,9 +70,4 @@ Then, navigate to:
 You should see the homepage.
 
 Hint: configure a different port if neccesary and rerun docker.
-
-## Api convention
-All responses have metadata in the first level, and a "data" field with the response you are really expecting. It's made this way just to give flexibility to future features. 
-
-
 
