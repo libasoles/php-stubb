@@ -1,30 +1,58 @@
+$green_1: #b4db34; // TODO: import from main css
+
 #homepage {
 
     textarea {
+        $initialHeight: 115px;
         $border: none !important;
-
+        $tHeight: height .4s ease;
+        
         border: none !important;
         -webkit-box-shadow: $border;
         -moz-box-shadow: $border;
         -o-box-shadow: $border;
         box-shadow: $border; 
-        height: 115px;
+        
+        height: $initialHeight;
+        min-height: $initialHeight;
+        
+        -webkit-transition: $tHeight;
+        -moz-transition: $tHeight;
+        -ms-transition: $tHeight;
+        -o-transition: $tHeight;
+        transition: $tHeight;
+        
+        overflow: hidden;
     }
 
-    // New 
+    /**
+     * Form 
+     */
     .new-card {
         padding-bottom: 10px;
     }
 
-    // List 
+    /**
+     * List 
+     */
     .card {
         $tTime: 0.4s;
         -webkit-transition: $tTime;
         -moz-transition: $tTime;
         -o-transition: $tTime;
-        transition: $tTime;
+        transition: $tTime;        
     }
-
+    
+    .card .panel {        
+        border-left: 4px solid $green_1;
+    }
+    
+    .no-results {
+        background: #5bc0de;
+        border-color: #5bc0de;
+        color: white;
+    }
+    
     .card.highlighted {
         background: #f0efdd;
     }
