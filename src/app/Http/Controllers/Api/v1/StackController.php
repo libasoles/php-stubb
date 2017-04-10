@@ -6,6 +6,8 @@ use App\Stack;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
+use function response;
 
 class StackController extends Controller
 {
@@ -24,7 +26,7 @@ class StackController extends Controller
             $data = Stack::all();
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error retrieving the records'); 
+            return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
         }
 
         return $data;
@@ -65,7 +67,7 @@ class StackController extends Controller
             abort(500, 'Not found'); 
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error retrieving the record');
+            return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);
         }
 
         return $data;
@@ -94,9 +96,12 @@ class StackController extends Controller
 
             $stack->save();
 
+        } catch (ValidationException $exc) {
+            Log::error('Invalid data: ' . json_decode($request->getContent(), true));
+            return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            abort(500, 'There was an error creating the record');
             Log::error(get_class() . ' ' . $exc->getMessage());
+            return response()->json([ 'message' => 'There was an error creating the record' ], 500);
         }
 
         return response()->json([
@@ -131,7 +136,7 @@ class StackController extends Controller
 
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error storing the record');
+            return response()->json([ 'message' => 'There was an error storing the record' ], 500);
         }
 
         return response("", 204);
@@ -150,7 +155,7 @@ class StackController extends Controller
             Stack::destroy($id);
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error deleting the record');
+            return response()->json([ 'message' => 'There was an error deleting the record' ], 500);
         }
 
         return response("", 204);

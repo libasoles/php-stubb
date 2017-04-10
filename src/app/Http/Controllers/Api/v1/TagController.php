@@ -23,7 +23,7 @@ class TagController extends Controller
             $data = Tag::all();
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error retrieving the records'); 
+            return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
         }
 
         return $data;
@@ -64,7 +64,7 @@ class TagController extends Controller
             abort(500, 'Not found'); 
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error retrieving the record');
+            return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);
         }
 
         return $data;
@@ -83,7 +83,7 @@ class TagController extends Controller
             Tag::destroy($id);
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error deleting the record');
+            return response()->json([ 'message' => 'There was an error deleting the record' ], 500);
         }
 
         return response("", 204);
