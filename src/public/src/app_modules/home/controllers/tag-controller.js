@@ -1,8 +1,8 @@
 (function () {
 
-    angular.module('app.home').controller('TagController', ['$scope', 'cardsFactory', 'HomeContextService', TagController]);
+    angular.module('app.home').controller('TagController', ['$scope', 'cardsFactory', 'reduceByFilter', 'HomeContextService', TagController]);
 
-    function TagController($scope, cardsFactory, HomeContextService) {
+    function TagController($scope, cardsFactory, reduceByFilter, HomeContextService) {
 
         $scope.translations.title = "In this page";
 
@@ -32,10 +32,9 @@
 
                     // merge tags in flatten array
                     let merged = [].concat.apply([], tags);
-                    
-                    // serve array to view
-                    $scope.context.tags = merged;
-
+                
+                    // eliminate duplicates and serve array to view
+                    $scope.context.tags = reduceByFilter(merged, 'id');
                 })
                 .catch(function (err) {
                     console.log(err); // TODO: Tratar el error
