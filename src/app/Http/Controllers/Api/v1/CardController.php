@@ -40,7 +40,7 @@ class CardController extends Controller
         
         try {
 
-            $data = $this->repository->with('tag')->get();           
+            $data = $this->repository->with('tags')->get();           
         } catch (\Exception $exc) {
             $this->logException($exc);
             abort(500, 'There was an error retrieving the records'); 
@@ -65,7 +65,7 @@ class CardController extends Controller
         } catch (ModelNotFoundException $e) {
             abort(500, 'Not found'); 
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             abort(500, 'There was an error retrieving the record');
         }
 
@@ -98,16 +98,16 @@ class CardController extends Controller
 
             // extract tags
             $tags = preg_match_all('/#(\w+)/', $request->input('content'), $matches);      
-            array_walk($matches[1], function($tag){
+            array_walk($matches[1], function($tag) use ($card ){
                 $tag = Tag::firstOrCreate(['name'=>$tag]);
-                $tag->cards()->attach($card_id);
+                $tag->cards()->attach($card->id);
             });
             
         } catch (ValidationException $exc) {
             Log::error('Invalid data: ' . json_decode($request->getContent(), true));
             return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error creating the record' ], 500);
         }
 
@@ -143,7 +143,7 @@ class CardController extends Controller
             $card->save();
   
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error storing the record' ], 500);
         }
 
@@ -162,7 +162,7 @@ class CardController extends Controller
             
             $this->repository->destroy($id);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error deleting the record' ], 500);
         }
 

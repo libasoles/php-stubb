@@ -47,6 +47,20 @@ $green_1: #b4db34; // TODO: import from main css
     
     .card .panel {        
         border-left: 4px solid $green_1;
+        
+        .panel-footer {
+            padding: 0;
+            
+            ul {
+               margin: 0 30px; 
+            }
+            li {
+                list-style-type: none;
+                a {
+                    color: #5bc0de;
+                }
+            }
+        }
     }
     
     .card .tools {

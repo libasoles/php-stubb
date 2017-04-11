@@ -27,7 +27,7 @@ class Card extends Model
         return $this->belongsToMany('App\Stack');
     }
 
-    public function tag()
+    public function tags()
     {
         return $this->belongsToMany('App\Tag');
     }
