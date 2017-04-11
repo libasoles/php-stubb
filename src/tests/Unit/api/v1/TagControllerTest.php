@@ -7,7 +7,7 @@ use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-class TagTest extends TestCase
+class TagControllerTest extends TestCase
 {
     protected $api = '/api/v1';
     

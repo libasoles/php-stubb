@@ -5,51 +5,47 @@ use Faker\Factory as Faker;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tests\TestCase;
 
-class CardTest extends TestCase
+class StackControllerTest extends TestCase
 {
-    protected $api;
+    protected $api = '/api/v1';
     protected $faker;
 
     protected function setUp(): void
     {
-        $this->api = '/api/v1';
         $this->faker = Faker::create();
         parent::setUp();
     }
 
     /**
-     * List cards
+     * Test stack list
      *
      * @return void
      */
-    public function testCardsList()
+    public function testStackList()
     {
-
-        $response = $this->json('GET', $this->api.'/cards');
-        $this->assertEquals(200, $response->status(), 'Response code must be 200');
-    
-        $data = $response->decodeResponseJson();
+        $response = $this->json('GET', $this->api.'/stacks')->decodeResponseJson();
 
         // is not an empty result
         $this->assertNotEmpty($response, 'Data list must not be empty');
     }
 
     /**
-     * Create Card
+     * Create Stack
      *
-     * @return int card id
+     * @return int stack id
      */
-    public function testCreateCard(): int
+    public function testCreateStack(): int
     {
-        $response = $this->post($this->api.'/cards', [
-                'name' => 'My testing Card',
-                'content' => $this->faker->text($maxNbChars = 200)
-            ]);
 
+        $response = $this->post($this->api.'/stacks', [
+                'name' => 'My testing Stack',
+                'description' => $this->faker->text($maxNbChars = 200)
+            ]);
+        
         $this->assertEquals(201, $response->status(), 'Response code must be 201 Created');
     
         $data = $response->decodeResponseJson();
-        
+
         // is not an empty result
         $this->assertNotEmpty($data['id'], 'Response must have an id');
 
@@ -57,65 +53,67 @@ class CardTest extends TestCase
     }
 
     /**
-     * Update card
+     * Update stack
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testSaveCard(int $id)
+    public function testSaveStack(int $id)
     {
-        $response = $this->put($this->api.'/cards/' . $id, [
-                'name' => 'My testing Card',
-                'content' => 'updated ' . date("Y-m-d H:i:s"),
+        $response = $this->put($this->api.'/stacks/' . $id, [
+                'name' => 'My testing Stack',
+                'description' => 'updated ' . date("Y-m-d H:i:s"),
                 'enabled' => false
             ]);
 
         $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
     }
-    
+
     /**
-     * Update card with null values
+     * Update stack with null value
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testSaveCardNullValues(int $id)
+    public function testSaveStackNullValues(int $id)
     {
-        $response = $this->put($this->api.'/cards/' . $id, [
+        $response = $this->put($this->api.'/stacks/' . $id, [
                 'name' => null,
-                'content' => null,
+                'description' => null,
                 'enabled' => false
-            ]);      
+            ]);
+        
         $this->assertEquals(500, $response->status(), 'Response code must be 500 Server Error');
     }
 
     /**
-     * Retrieve card
+     * Retrieve stack
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testGetCard(int $id)
+    public function testGetStack(int $id)
     {
-        $response = $this->json('GET', $this->api.'/cards/' . $id);
-
+        $response = $this->json('GET', $this->api.'/stacks/' . $id);
+        
         $this->assertEquals(200, $response->status(), 'Response code must be 200 OK');
     
         $data = $response->decodeResponseJson();
-        
+
         // is not an empty result
         $this->assertNotEmpty($data, 'Item data must not be empty');
     }
 
     /**
-     * Delete card
+     * Delete stack
      *
-     * @depends testCreateCard
+     * @depends testCreateStack
      * @return void
      */
-    public function testDeleteCard(int $id)
+    public function testDeleteStack(int $id)
     {
-        $response = $this->delete($this->api.'/cards/' . $id);
+        $response = $this->delete($this->api.'/stacks/' . $id);
         $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
     }
+    
 }
