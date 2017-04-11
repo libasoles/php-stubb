@@ -45,12 +45,12 @@ class DatabaseSeeder extends Seeder
                 $card->stack()->attach($stack_id);
 
                 // assign random tags (belonging to card content)
-                $tags = explode(' ', $cardContent);
+                $tags = explode(' ', str_replace('.', '', $cardContent));
                 $indices = array_rand($tags, 3); // create three random tags
                 
                 foreach ($indices as $index) {
 
-                    Tag::create([
+                    Tag::firstOrCreate([
                         'name' => $tags[$index]
                     ])->cards()->attach($card->id);
                 }
