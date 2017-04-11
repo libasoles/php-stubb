@@ -12,33 +12,28 @@
         $scope.context = HomeContextService.context;
 
         /**
-         * Get tag list
+         * Keep track of card list changes
+         * @returns void
          */
-        cardsFactory
-                .getAll()
-                .then(function (response) {
+        function updateTagCloud() {
+            
+            // exclude card with no tags
+            let cards = $scope.context.filtered.filter(function (card) {
+                return card.tags.length > 0;
+            });
 
-                    $scope.context.cards = angular.fromJson(response.data);
+            // extract tags from card
+            let tags = cards.map(function (card) {
+                return JSON.parse(angular.toJson(card.tags));
+            });
 
-                    // exclude card with no tags
-                    let cards = $scope.context.cards.filter(function (card) {
-                        return card.tags.length > 0;
-                    });
+            // merge tags in flatten array
+            let merged = [].concat.apply([], tags);
 
-                    // extract tags from card
-                    let tags = cards.map(function (card) {
-                        return JSON.parse(angular.toJson(card.tags));
-                    });
-
-                    // merge tags in flatten array
-                    let merged = [].concat.apply([], tags);
-                
-                    // eliminate duplicates and serve array to view
-                    $scope.context.tags = reduceByFilter(merged, 'id');
-                })
-                .catch(function (err) {
-                    console.log(err); // TODO: Tratar el error
-                });
-
+            // eliminate duplicates and serve array to view
+            $scope.context.tags = reduceByFilter(merged, 'id');
+        }
+       
+        $scope.$watchCollection('context.filtered', updateTagCloud );
     }
 })();
