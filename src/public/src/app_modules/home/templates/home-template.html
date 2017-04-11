@@ -100,16 +100,11 @@
             </div>
         </div>
 
-        <div class="panel panel-defaulttag-cloud">
+        <div class="panel panel-defaulttag-cloud" ng-controller="TagController" ang-if="context.tags">
             <div class="panel-body">
-                <ul class="list-unstyled list-inline">
-                    <li><button class="btn btn-xs btn-info cast-shadow">filter Label</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Label</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Tag</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Tagging</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Demo</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Dummy Hash</button></li>
+                <h4>{{ translations.title }}</h4>
+                <ul class="list-unstyled list-inline">                  
+                    <li ng-repeat="tag in context.tags track by tag.id"><button class="btn btn-xs btn-info cast-shadow" ng-click="console.log({{ tag.id }})">{{ tag.name }}</button></li>
                 </ul>
             </div>
         </div>

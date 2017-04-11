@@ -13,7 +13,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            cards = $http.get(config.api + endpoint); // get list
+            cards = $http.get(config.api + endpoint, { cache: true}); // get list
 
             cards.then(function (response) {
                 defered.resolve(response);
