@@ -40,13 +40,38 @@ $green_1: #b4db34; // TODO: import from main css
         -webkit-transition: $tTime;
         -moz-transition: $tTime;
         -o-transition: $tTime;
-        transition: $tTime;        
+        transition: $tTime;   
+        
+        position: relative;
     }
     
     .card .panel {        
         border-left: 4px solid $green_1;
     }
     
+    .card .tools {
+        display: none;
+    }
+    
+    .card:hover .tools {
+        
+        display: block;
+        margin-top: 10px;
+        padding: 0;
+        
+        button {          
+            color: #777;
+            border: none;
+            padding: 6px;
+            background: none;
+        }
+        
+        button:hover {          
+            color: #222;
+            background: none;
+        }
+    }
+       
     .no-results {
         background: #5bc0de;
         border-color: #5bc0de;
