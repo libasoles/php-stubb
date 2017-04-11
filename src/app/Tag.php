@@ -8,6 +8,7 @@ class Tag extends Model
 
     public $timestamps = false;
     protected $fillable = ['name'];
+    protected $hidden = ['pivot'];
 
     public function cards()
     {

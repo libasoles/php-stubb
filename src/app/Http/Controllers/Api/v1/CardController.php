@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Card;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\LogHelper;
+use App\Tag;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,6 +19,7 @@ use function response;
 class CardController extends Controller
 {
     use ValidatesRequests;
+    use LogHelper;
     
     protected $repository;
 
@@ -37,9 +40,9 @@ class CardController extends Controller
         
         try {
 
-            $data = $this->repository->all();
+            $data = $this->repository->with('tag')->get();           
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             abort(500, 'There was an error retrieving the records'); 
         }
 
@@ -92,6 +95,13 @@ class CardController extends Controller
             $card->enabled = true;
 
             $card->save();
+
+            // extract tags
+            $tags = preg_match_all('/#(\w+)/', $request->input('content'), $matches);      
+            array_walk($matches[1], function($tag){
+                $tag = Tag::firstOrCreate(['name'=>$tag]);
+                $tag->cards()->attach($card_id);
+            });
             
         } catch (ValidationException $exc) {
             Log::error('Invalid data: ' . json_decode($request->getContent(), true));

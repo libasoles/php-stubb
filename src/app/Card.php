@@ -29,6 +29,6 @@ class Card extends Model
 
     public function tag()
     {
-        return $this->belongsToMany('App\Card');
+        return $this->belongsToMany('App\Tag');
     }
 }
