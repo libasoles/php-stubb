@@ -56,8 +56,14 @@ $green_1: #b4db34; // TODO: import from main css
             }
             li {
                 list-style-type: none;
+                display: inline;
+                padding: 0 3px;
                 a {
                     color: #5bc0de;
+                }
+                a:hover {
+                    color: #337AB7;
+                    text-decoration: none;
                 }
             }
         }

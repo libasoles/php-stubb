@@ -44,7 +44,6 @@
                     <div ng-repeat="card in context.cards | filter: context.query | orderBy: orderCardsBy:direction" 
                          class="card"> 
                         
-                        
                         <div class="panel panel-default cast-shadow {{ card.class }}">                        
                             <div class="panel-body">
                                 <div class="col-md-11">                                    
@@ -53,7 +52,7 @@
                                 </div>
                                 <div class="col-md-1 btn-group-vertical pull-right tools">
                                     <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pushpin"></span></button>
-                                    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" ng-click="deleteCard(card)"><span class="glyphicon glyphicon-trash"></span></button>
                                     <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pencil"></span></button>
                                 </div>
                             </div>

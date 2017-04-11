@@ -38,6 +38,20 @@
             return promise;
         }
 
+        factory.delete = function (id) {
+            
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.delete(config.api + endpoint + '/' + id).then(function (response) {
+                defered.resolve(response);
+            }, function (err) {
+                defered.reject(err);
+            });
+ 
+            return promise;
+        }
+
         return factory;
     }
 
