@@ -4,7 +4,9 @@
 
     function HomeController($scope) {
 
-        $scope.translations = {};            
+        $scope.translations = {
+            home: {}
+        };            
     }
 })();
 

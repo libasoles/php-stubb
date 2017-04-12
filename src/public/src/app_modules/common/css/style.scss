@@ -5,6 +5,11 @@ $green_1: #b4db34;
 $green_2: #86a826;
 $green_3: #719e40;
 
+$blue_1: #337ab7;
+$blue_2: #2e6da4;
+$light_blue_1: #46b8da;
+$light_blue_2: #269abc;
+
 body {
     font-family: $font_1;
     line-height: 1.8;
@@ -24,6 +29,13 @@ body {
     background: -moz-linear-gradient(left, $green_1, $green_2, $green_3);
     background: -o-linear-gradient(left, $green_1, $green_2, $green_3);
     background: linear-gradient(left, $green_1, $green_2, $green_3);
+}
+
+@mixin scale ($scale: 1.01) {
+    transform: scale($scale);
+    -moz-transform: scale($scale);
+    -webkit-transform: scale($scale);
+    -o-transform: scale($scale);
 }
 
 h1 {
@@ -106,6 +118,34 @@ header {
     {
         font-size: 87px;
     }
+}
+
+/**
+* Panels
+*/
+.panel {    
+    .no-padding{
+        padding: 0;
+    }
+    .shadowed {
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+    }
+    a {
+        color: $light_blue_1;
+        text-decoration: none;
+    }
+    a:hover {
+        color: $light_blue_2;
+        @include scale;
+    }
+}
+.panel.no-border {
+    border: none;
+    box-shadow: none;
+}
+.panel.no-border > .panel-heading {
+    border: 1px solid #dddddd;
+    border-radius: 0;
 }
 
 /**

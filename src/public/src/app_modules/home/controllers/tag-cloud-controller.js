@@ -4,7 +4,9 @@
 
     function TagCloudController($scope, reduceByFilter, HomeContextService) {
 
-        $scope.translations.title = "In this page";
+         $scope.translations.home.tagCloud = {
+            title: "In this page"
+        };
 
         /**
          * Way to keep siblings connected and sharing scope
