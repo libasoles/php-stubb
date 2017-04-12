@@ -50,7 +50,7 @@ header {
 .margin-bottom-md {margin-bottom: 15px;}
 .margin-bottom-lg {margin-bottom: 20px;}
 
-button, .cast-shadow {
+.cast-shadow {
     $tBgColor: .3s;
     $tColor: .15s;
     $tShadow: .3s;
@@ -63,7 +63,7 @@ button, .cast-shadow {
     transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
 }
 
-button:hover, .cast-shadow:hover{
+.cast-shadow:hover{
     $scale: 1.01;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     transform: scale($scale);
@@ -77,7 +77,7 @@ em, .hash {
 }
 
 kbd {
-    @include green-gradient-2cols;
+    background: #75c15d;
     box-shadow: none;
 }
 
@@ -92,4 +92,23 @@ form {
     }
 }
 
+header {
+    .navbar-login
+    {
+        width: 305px;
+        padding: 10px;
+        padding-bottom: 0px;
+    }
 
+    .navbar-login-session
+    {
+        padding: 10px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    .icon-size
+    {
+        font-size: 87px;
+    }
+}

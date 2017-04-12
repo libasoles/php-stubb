@@ -7,9 +7,8 @@ use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-class TagTest extends TestCase
+class TagControllerTest extends TestCase
 {
-    protected $api = '/api/v1';
     
     protected function setUp(): void
     {
@@ -48,12 +47,12 @@ class TagTest extends TestCase
             'updated_at' => Carbon::now()
         ]);
 
-        $tag = Tag::create([
+        $tag = Tag::firstOrCreate([
                 'name' => $faker->word()
         ]);
         $tag->cards()->attach($this->card_id);
         $this->tag_id = $tag->id;
-
+        
         $response = $this->json('GET', $this->api.'/tags/' . $tag->id)
             ->decodeResponseJson();
 
@@ -73,12 +72,5 @@ class TagTest extends TestCase
     {
         $response = $this->delete($this->api.'/tags/' . $tag_id);
         $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
-    }
-
-    protected function tearDown(): void
-    {
-        $this->delete($this->api.'/card/' . $this->card_id);
-        $this->delete($this->api.'/tag/' . $this->tag_id);
-        parent::tearDown();
     }
 }

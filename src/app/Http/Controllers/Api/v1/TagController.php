@@ -61,7 +61,7 @@ class TagController extends Controller
             }
 
         } catch (ModelNotFoundException $e) {
-            abort(500, 'Not found'); 
+            return response()->json([ 'message' => 'Not found' ], 404);
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
             return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);

@@ -68,6 +68,16 @@ class RoboFile extends \Robo\Tasks
     }
 
     /**
+     * Watch logs in real time
+     * tail -f log 
+     */
+    public function watchLog()
+    {
+        $this->taskExec('tail -f storage/logs/laravel.log')->run();
+    }
+    
+    
+    /**
      * Arguments must be wrapped altogether in quotes. 
      * Eg: "make:test MyUnitest"
      * 

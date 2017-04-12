@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Card;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\LogHelper;
+use App\Tag;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -10,13 +12,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use function abort;
 use function response;
 
 
 class CardController extends Controller
 {
     use ValidatesRequests;
+    use LogHelper;
     
     protected $repository;
 
@@ -24,7 +26,6 @@ class CardController extends Controller
     {
         $this->repository = $repository;
     }
-
     
     /**
      * Display a listing of the cards.
@@ -37,10 +38,10 @@ class CardController extends Controller
         
         try {
 
-            $data = $this->repository->all();
+            $data = $this->repository->with('tags')->get();           
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error retrieving the records'); 
+            $this->logException($exc);
+            return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
         }
 
         return $data;
@@ -60,10 +61,10 @@ class CardController extends Controller
 
             $data = $this->repository->findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            abort(500, 'Not found'); 
+            return response()->json([ 'message' => 'Not found'], 404);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
-            abort(500, 'There was an error retrieving the record');
+            $this->logException($exc);
+            return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);
         }
 
         return $data;
@@ -92,12 +93,19 @@ class CardController extends Controller
             $card->enabled = true;
 
             $card->save();
+
+            // extract tags
+            $tags = preg_match_all('/#(\w+)/', $request->input('content'), $matches);      
+            array_walk($matches[1], function($tag) use ($card ){
+                $tag = Tag::firstOrCreate(['name'=>$tag]);
+                $tag->cards()->attach($card->id);
+            });
             
         } catch (ValidationException $exc) {
             Log::error('Invalid data: ' . json_decode($request->getContent(), true));
             return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error creating the record' ], 500);
         }
 
@@ -125,18 +133,21 @@ class CardController extends Controller
             ]);
 
             // update existing record                
-            $card = $this->repository->find($id);
+            $card = Card::find($id); 
             $card->name = $request->input('name');
             $card->content = $request->input('content');
             $card->enabled = true;
-
             $card->save();
   
+        } catch (ValidationException $exc) {
+            Log::error('Invalid data: ' . json_decode($request->getContent(), true));
+            return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            
+            $this->logException($exc);         
             return response()->json([ 'message' => 'There was an error storing the record' ], 500);
-        }
-
+        } 
+            
         return response("", 204);
     }
 
@@ -152,7 +163,7 @@ class CardController extends Controller
             
             $this->repository->destroy($id);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error deleting the record' ], 500);
         }
 

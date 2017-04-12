@@ -27,18 +27,35 @@
         <script src="src/app.js"></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container" ng-controller="LayoutController">
 
-            <header class="text-left margin-bottom-lg clearfix">
-                <h1> <img src="img/logo.png" alt="logo" /> Stubb.</h1>
-                <div class="col-md-1"></div><div class="col-md-11">Simply hash your notes and navigate them</div>
+            <header class="margin-bottom-lg clearfix" ng-controller="HeaderController">
+                
+                <div class="col-md-8 text-left">
+                    <h1 class="col-md-12"><img src="img/logo.png" alt="logo" /> Stubb.</h1>
+                    <div class="col-md-1"></div><div class="col-md-11" ng-bind="translations.subtitle"></div>
+                </div>
+                
+                <div class="col-md-4 text-right">
+                    
+                    <div class="navbar navbar-default pull-right" role="navigation">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                 <ng-include src="'/src/app_modules/common/templates/session-template.html'"></ng-include>
+                             </li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </a>
+                             </li>                                
+                         </ul>
+                    </div>
+                </div>
             </header>
 
             <div class="content row" ng-view></div>
 
-            <footer>
-
-            </footer>
+            <footer></footer>
         </div>
     </body>
 </html>

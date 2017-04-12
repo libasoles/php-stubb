@@ -27,5 +27,15 @@
             .catch(function (err) {
                 console.log(err); // TODO: Tratar el error
             });  
+            
+        $scope.deleteCard = function(item) {
+            
+            cardsFactory.delete(item.id).then(function(){
+                let index = $scope.context.cards.indexOf(item);
+                $scope.context.cards.splice(index, 1);
+            }, function(err) {
+                console.log(err);
+            });
+        }
     }
 })();

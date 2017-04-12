@@ -1,8 +1,8 @@
 (function () {
 
-    angular.module('app.home').controller('HomeController', ['$scope', 'cardsFactory', HomeController]);
+    angular.module('app.home').controller('HomeController', ['$scope', HomeController]);
 
-    function HomeController($scope, cardsFactory) {
+    function HomeController($scope) {
 
         $scope.translations = {};            
     }

@@ -11,7 +11,7 @@
                     </div>
                 </div> 
 
-                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                <button type="submit" class="btn btn-primary pull-right cast-shadow">Submit</button>
             </form>
         </div>
 
@@ -41,12 +41,27 @@
                 </div>
                 
                 <div ng-if="context.cards">
-                    <div ng-repeat="card in context.cards | filter: context.query | orderBy: orderCardsBy:direction" 
-                         class="card">    
+                    <div ng-repeat="card in context.filtered = (context.cards | filter: context.query | orderBy: orderCardsBy:direction)" 
+                         class="card"> 
+                        
                         <div class="panel panel-default cast-shadow {{ card.class }}">                        
                             <div class="panel-body">
-                                <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query"></h3>
-                                <span ng-bind-html="card.content | highlightText: context.query"></span>
+                                <div class="col-md-11">                                    
+                                    <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query"></h3>                                    
+                                    <span ng-bind-html="card.content | highlightText: context.query"></span>
+                                </div>
+                                <div class="col-md-1 btn-group-vertical pull-right tools">
+                                    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pushpin"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" ng-click="deleteCard(card)"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pencil"></span></button>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <ul class="text-right">
+                                    <li ng-repeat="tag in card.tags">
+                                        <a href="{{ tag.id }}">#{{ tag.name }}</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -71,7 +86,6 @@
         <div class="panel panel-default" ng-controller="SearchController">
             <div class="panel-body">
                 <form>
-                    
                     <div class="input-group">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
@@ -80,21 +94,15 @@
                                ng-model="context.query" />
                     </div>
                                         
-                    <button type="submit" class="btn btn-primary pull-right">Deep search</button>
                 </form>
             </div>
         </div>
 
-        <div class="panel panel-defaulttag-cloud">
+        <div class="panel panel-default tag-cloud" ng-controller="TagController" ang-if="context.tags">
             <div class="panel-body">
-                <ul class="list-unstyled list-inline">
-                    <li><button class="btn btn-xs btn-info cast-shadow">filter Label</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Label</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Tag</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Tagging</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Hash Demo</button></li>
-                    <li><button class="btn btn-xs btn-info cast-shadow">Dummy Hash</button></li>
+                <h4>{{ translations.title }}</h4>
+                <ul class="list-unstyled list-inline">                  
+                    <li ng-repeat="tag in context.tags"><button class="btn btn-xs btn-info cast-shadow" >{{ tag.name }}</button></li>
                 </ul>
             </div>
         </div>

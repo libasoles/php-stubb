@@ -5,9 +5,8 @@ use Faker\Factory as Faker;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tests\TestCase;
 
-class StackTest extends TestCase
+class StackControllerTest extends TestCase
 {
-    protected $api = '/api/v1';
     protected $faker;
 
     protected function setUp(): void
@@ -23,10 +22,13 @@ class StackTest extends TestCase
      */
     public function testStackList()
     {
-        $response = $this->json('GET', $this->api.'/stacks')->decodeResponseJson();
-
+        $response = $this->json('GET', $this->api.'/stacks');
+        $response->assertStatus(200);
+    
         // is not an empty result
         $this->assertNotEmpty($response, 'Data list must not be empty');
+        
+        $response->assertJsonFragment(["id"=> 1]);
     }
 
     /**
@@ -38,7 +40,7 @@ class StackTest extends TestCase
     {
 
         $response = $this->post($this->api.'/stacks', [
-                'name' => 'My testing Stack',
+                'name' => $this->faker->text($maxNbChars = 9),
                 'description' => $this->faker->text($maxNbChars = 200)
             ]);
         
@@ -55,13 +57,12 @@ class StackTest extends TestCase
     /**
      * Update stack
      *
-     * @depends testCreateStack
      * @return void
      */
-    public function testSaveStack(int $id)
+    public function testSaveStack()
     {
-        $response = $this->put($this->api.'/stacks/' . $id, [
-                'name' => 'My testing Stack',
+        $response = $this->put($this->api.'/stacks/1', [
+                'name' => $this->faker->text($maxNbChars = 9),
                 'description' => 'updated ' . date("Y-m-d H:i:s"),
                 'enabled' => false
             ]);
@@ -72,29 +73,27 @@ class StackTest extends TestCase
     /**
      * Update stack with null value
      *
-     * @depends testCreateStack
      * @return void
      */
-    public function testSaveStackNullValues(int $id)
+    public function testSaveStackNullValues()
     {
-        $response = $this->put($this->api.'/stacks/' . $id, [
+        $response = $this->put($this->api.'/stacks/1', [
                 'name' => null,
                 'description' => null,
                 'enabled' => false
             ]);
         
-        $this->assertEquals(500, $response->status(), 'Response code must be 500 Server Error');
+        $this->assertEquals(400, $response->status(), 'Response code must be 400');
     }
 
     /**
      * Retrieve stack
      *
-     * @depends testCreateStack
      * @return void
      */
-    public function testGetStack(int $id)
+    public function testGetStack()
     {
-        $response = $this->json('GET', $this->api.'/stacks/' . $id);
+        $response = $this->json('GET', $this->api.'/stacks/1');
         
         $this->assertEquals(200, $response->status(), 'Response code must be 200 OK');
     
@@ -110,9 +109,9 @@ class StackTest extends TestCase
      * @depends testCreateStack
      * @return void
      */
-    public function testDeleteStack(int $id)
+    public function testDeleteStack()
     {
-        $response = $this->delete($this->api.'/stacks/' . $id);
+        $response = $this->delete($this->api.'/stacks/1');
         $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
     }
     

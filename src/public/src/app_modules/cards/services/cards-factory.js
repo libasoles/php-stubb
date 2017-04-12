@@ -13,7 +13,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            cards = $http.get(config.api + endpoint); // get list
+            cards = $http.get(config.api + endpoint, { cache: true}); // get list
 
             cards.then(function (response) {
                 defered.resolve(response);
@@ -30,6 +30,20 @@
             var promise = defered.promise;
 
             $http.post(config.api + endpoint, data).then(function (response) {
+                defered.resolve(response);
+            }, function (err) {
+                defered.reject(err);
+            });
+ 
+            return promise;
+        }
+
+        factory.delete = function (id) {
+            
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.delete(config.api + endpoint + '/' + id).then(function (response) {
                 defered.resolve(response);
             }, function (err) {
                 defered.reject(err);
