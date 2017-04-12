@@ -14,3 +14,7 @@
 Route::get('/', function() {
     return View::make('home'); 
 });
+
+Route::get('/login', function() {
+    return View::make('login'); 
+});
