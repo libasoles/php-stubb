@@ -61,7 +61,7 @@ class CardController extends Controller
 
             $data = $this->repository->findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            return response()->json([ 'message' => 'Not found'], 500);
+            return response()->json([ 'message' => 'Not found'], 404);
         } catch (\Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Stack;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -12,6 +13,13 @@ use function response;
 class StackController extends Controller
 {
 
+    protected $repository;
+
+    function __construct(Model $repository)
+    {
+        $this->repository = $repository;
+    }
+    
     /**
      * Display a listing of the stacks.
      *
@@ -23,7 +31,7 @@ class StackController extends Controller
         
         try {
 
-            $data = Stack::all();
+            $data = $this->repository->all();
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
@@ -52,7 +60,7 @@ class StackController extends Controller
             if ($lightweight) {
 
                 // retrieving lightweight data from DB
-                $data = Stack::lightweight()->findOrFail($id);
+                $data = $this->repository->lightweight()->findOrFail($id);
 
                 $cards = $data->cards->pluck('id')->all();
            
@@ -60,11 +68,11 @@ class StackController extends Controller
                 $data = $data->toArray();
             } else {
 
-                $data = Stack::with('cards')->findOrFail($id)->toArray();
+                $data = $this->repository->with('cards')->findOrFail($id)->toArray();
             }
 
         } catch (ModelNotFoundException $e) {
-            abort(500, 'Not found'); 
+            return response()->json([ 'message' => 'Not found' ], 404);
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
             return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);
@@ -127,13 +135,16 @@ class StackController extends Controller
             ]);
 
             // get existing record                
-            $stack = Stack::find($id);  
+            $stack = $this->repository->find($id);  
             $stack->name = $request->input('name');
             $stack->description = $request->input('description');
             $stack->enabled = true;
 
             $stack->save();
 
+        } catch (ValidationException $exc) {
+            Log::error('Invalid data: ' . json_decode($request->getContent(), true));
+            return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
             return response()->json([ 'message' => 'There was an error storing the record' ], 500);
@@ -152,7 +163,7 @@ class StackController extends Controller
     {
         try {
 
-            Stack::destroy($id);
+           $this->repository->destroy($id);
         } catch (\Exception $exc) {
             Log::error(get_class() . ' ' . $exc->getMessage());
             return response()->json([ 'message' => 'There was an error deleting the record' ], 500);

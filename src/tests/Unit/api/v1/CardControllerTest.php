@@ -6,7 +6,6 @@ use Tests\TestCase;
 
 class CardControllerTest extends TestCase
 {
-    protected $api = '/api/v1';
     protected $faker;
     
     protected function setUp(): void
@@ -83,7 +82,8 @@ class CardControllerTest extends TestCase
                 'content' => null,
                 'enabled' => false
             ]);      
-        $this->assertEquals(400, $response->status(), 'Response code must be 500 Server Error');
+        
+        $this->assertEquals(400, $response->status(), 'Response code must be 400');
     }
 
     /**
@@ -113,11 +113,4 @@ class CardControllerTest extends TestCase
         $response = $this->delete($this->api.'/cards/1');
         $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
     }
-    
-    protected function tearDown(): void
-    {
-        \Mockery::close();
-        parent::tearDown();
-    }
-    
 }

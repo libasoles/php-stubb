@@ -11,6 +11,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     
+    protected $api = '/api/v1';
+    
     protected function setUp()
     {
         parent::setUp();

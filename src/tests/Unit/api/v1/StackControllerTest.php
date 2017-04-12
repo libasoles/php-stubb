@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class StackControllerTest extends TestCase
 {
-    protected $api = '/api/v1';
     protected $faker;
 
     protected function setUp(): void
@@ -23,10 +22,13 @@ class StackControllerTest extends TestCase
      */
     public function testStackList()
     {
-        $response = $this->json('GET', $this->api.'/stacks')->decodeResponseJson();
-
+        $response = $this->json('GET', $this->api.'/stacks');
+        $response->assertStatus(200);
+    
         // is not an empty result
         $this->assertNotEmpty($response, 'Data list must not be empty');
+        
+        $response->assertJsonFragment(["id"=> 1]);
     }
 
     /**
@@ -38,7 +40,7 @@ class StackControllerTest extends TestCase
     {
 
         $response = $this->post($this->api.'/stacks', [
-                'name' => 'My testing Stack',
+                'name' => $this->faker->text($maxNbChars = 9),
                 'description' => $this->faker->text($maxNbChars = 200)
             ]);
         
@@ -60,7 +62,7 @@ class StackControllerTest extends TestCase
     public function testSaveStack()
     {
         $response = $this->put($this->api.'/stacks/1', [
-                'name' => 'My testing Stack',
+                'name' => $this->faker->text($maxNbChars = 9),
                 'description' => 'updated ' . date("Y-m-d H:i:s"),
                 'enabled' => false
             ]);
@@ -81,7 +83,7 @@ class StackControllerTest extends TestCase
                 'enabled' => false
             ]);
         
-        $this->assertEquals(500, $response->status(), 'Response code must be 500 Server Error');
+        $this->assertEquals(400, $response->status(), 'Response code must be 400');
     }
 
     /**
