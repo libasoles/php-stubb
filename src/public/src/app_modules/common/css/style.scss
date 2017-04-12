@@ -76,11 +76,6 @@ em, .hash {
     color: orange;
 }
 
-kbd {
-    background: #75c15d;
-    box-shadow: none;
-}
-
 // forms
 form {
     .input-group {
@@ -111,4 +106,20 @@ header {
     {
         font-size: 87px;
     }
+}
+
+/**
+* Text highlighting
+*/
+a.hashtag {
+    color: $green_3;
+    cursor: pointer;
+}
+
+a.hashtag:hover {
+    text-decoration: underline;
+}
+
+span.highlight-text {
+    color: $green_3;
 }
