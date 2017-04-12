@@ -48,12 +48,12 @@ class TagControllerTest extends TestCase
             'updated_at' => Carbon::now()
         ]);
 
-        $tag = Tag::create([
+        $tag = Tag::firstOrCreate([
                 'name' => $faker->word()
         ]);
         $tag->cards()->attach($this->card_id);
         $this->tag_id = $tag->id;
-
+        
         $response = $this->json('GET', $this->api.'/tags/' . $tag->id)
             ->decodeResponseJson();
 

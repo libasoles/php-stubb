@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use function abort;
 use function response;
 
 
@@ -27,7 +26,6 @@ class CardController extends Controller
     {
         $this->repository = $repository;
     }
-
     
     /**
      * Display a listing of the cards.
@@ -43,7 +41,7 @@ class CardController extends Controller
             $data = $this->repository->with('tags')->get();           
         } catch (\Exception $exc) {
             $this->logException($exc);
-            abort(500, 'There was an error retrieving the records'); 
+            return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
         }
 
         return $data;
@@ -63,10 +61,10 @@ class CardController extends Controller
 
             $data = $this->repository->findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            abort(500, 'Not found'); 
+            return response()->json([ 'message' => 'Not found'], 500);
         } catch (\Exception $exc) {
             $this->logException($exc);
-            abort(500, 'There was an error retrieving the record');
+            return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);
         }
 
         return $data;
@@ -135,18 +133,21 @@ class CardController extends Controller
             ]);
 
             // update existing record                
-            $card = $this->repository->find($id);
+            $card = Card::find($id); 
             $card->name = $request->input('name');
             $card->content = $request->input('content');
             $card->enabled = true;
-
             $card->save();
   
+        } catch (ValidationException $exc) {
+            Log::error('Invalid data: ' . json_decode($request->getContent(), true));
+            return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            $this->logException($exc);
+            
+            $this->logException($exc);         
             return response()->json([ 'message' => 'There was an error storing the record' ], 500);
-        }
-
+        } 
+            
         return response("", 204);
     }
 

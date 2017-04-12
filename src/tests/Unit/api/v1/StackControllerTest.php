@@ -55,12 +55,11 @@ class StackControllerTest extends TestCase
     /**
      * Update stack
      *
-     * @depends testCreateStack
      * @return void
      */
-    public function testSaveStack(int $id)
+    public function testSaveStack()
     {
-        $response = $this->put($this->api.'/stacks/' . $id, [
+        $response = $this->put($this->api.'/stacks/1', [
                 'name' => 'My testing Stack',
                 'description' => 'updated ' . date("Y-m-d H:i:s"),
                 'enabled' => false
@@ -72,12 +71,11 @@ class StackControllerTest extends TestCase
     /**
      * Update stack with null value
      *
-     * @depends testCreateStack
      * @return void
      */
-    public function testSaveStackNullValues(int $id)
+    public function testSaveStackNullValues()
     {
-        $response = $this->put($this->api.'/stacks/' . $id, [
+        $response = $this->put($this->api.'/stacks/1', [
                 'name' => null,
                 'description' => null,
                 'enabled' => false
@@ -89,12 +87,11 @@ class StackControllerTest extends TestCase
     /**
      * Retrieve stack
      *
-     * @depends testCreateStack
      * @return void
      */
-    public function testGetStack(int $id)
+    public function testGetStack()
     {
-        $response = $this->json('GET', $this->api.'/stacks/' . $id);
+        $response = $this->json('GET', $this->api.'/stacks/1');
         
         $this->assertEquals(200, $response->status(), 'Response code must be 200 OK');
     
@@ -110,9 +107,9 @@ class StackControllerTest extends TestCase
      * @depends testCreateStack
      * @return void
      */
-    public function testDeleteStack(int $id)
+    public function testDeleteStack()
     {
-        $response = $this->delete($this->api.'/stacks/' . $id);
+        $response = $this->delete($this->api.'/stacks/1');
         $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
     }
     
