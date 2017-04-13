@@ -19,7 +19,7 @@ class DropTablesCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Deletes all your tables from DB';
 
     /**
      * Create a new command instance.
