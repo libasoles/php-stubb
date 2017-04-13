@@ -56,5 +56,13 @@ class DatabaseSeeder extends Seeder
                 }
             }
         }
+        
+        DB::table('users')->insert([
+            'name'=> 'SysAdmin',
+            'email'=> 'admin@stubb.net',
+            'password'=> Hash::make('sysadmin'),
+            'api_token'=> $faker->password(60, 60),
+        ]);
+        
     }
 }
