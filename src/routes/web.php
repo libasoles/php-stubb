@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function() {
-    return View::make('home'); 
-});
+Auth::routes();
 
-Route::get('/login', function() {
-    return View::make('login'); 
-});
+Route::get('/', 'HomeController@index');

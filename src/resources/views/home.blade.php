@@ -30,25 +30,26 @@
         <div class="container" ng-controller="LayoutController">
 
             <header class="margin-bottom-lg clearfix" ng-controller="HeaderController">
-                
+
                 <div class="col-md-8 text-left">
                     <h1 class="col-md-12"><img src="img/logo.png" alt="logo" /> Stubb.</h1>
                     <div class="col-md-1"></div><div class="col-md-11" ng-bind="translations.subtitle"></div>
                 </div>
-                
+
                 <div class="col-md-4 text-right">
-                    
+
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
-                                 <ng-include src="'/src/app_modules/common/templates/session-template.html'"></ng-include>
-                             </li>
+                                <ng-include src="'/src/app_modules/common/templates/session-template.html'"></ng-include>
+                                <form id="logout-form" action="{{ route('logout')}}" method="POST" style="display: none;">{{ csrf_field()}}</form>
+                            </li>
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="glyphicon glyphicon-cog"></span>
                                 </a>
-                             </li>                                
-                         </ul>
+                            </li>                                
+                        </ul>
                     </div>
                 </div>
             </header>
