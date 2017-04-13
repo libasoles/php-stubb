@@ -45,8 +45,12 @@
                          class="card"> 
                         
                         <div class="panel panel-default cast-shadow {{ card.class }}">                        
-                            <div class="panel-body">
-                                <div class="col-md-11">                                    
+                            <div class="panel-body" >
+                                <div class="col-md-11" ng-bind-html="trustHtml(card.content)" 
+                                        hashtagify
+                                        term-click="tagTermClick($event)" 
+                                        user-click="tagUserClick($event)">
+                                   
                                     <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query"></h3>                                    
                                     <span ng-bind-html="card.content | highlightText: context.query"></span>
                                 </div>
@@ -92,15 +96,37 @@
                         </span>
                         <input type="text" class="form-control cf" name="filter" placeholder="{{ translations.quick_search }}" aria-describedby="filter" 
                                ng-model="context.query" />
-                    </div>
-                                        
+                    </div>                                        
                 </form>
             </div>
         </div>
-
+        
+        <div class="panel panel-default no-border stack-list" ng-controller="StackController">
+            <div class="panel-heading">
+                <h4>{{ translations.home.stackList.title }}</h4>
+            </div>
+            <div class="panel-body no-padding">
+                <ul class="list-group">
+                    <li class="list-group-item " ng-if="context.stacks" ng-repeat="stack in context.stacks">
+                        <a href="console.log({{ stack.id }})" class="col-md-6">
+                            <span class="name">{{ stack.name }}</span>
+                        </a>
+                        <ul class="participants col-md-6 text-right">
+                            <li ng-if="stack.participants.count > 0" ng-repeat="participant in stack.participants.list">
+                                <img src="/img/{{ participant.img }}" alt="participant" />
+                            </li>
+                            <li ng-if="stack.participants.count > 3">and {{ stack.participants.count - 3 }} more</li>
+                        </ul>
+                    </li>                 
+                </ul>
+            </div>
+        </div>
+        
         <div class="panel panel-default tag-cloud" ng-controller="TagController" ang-if="context.tags">
+            <div class="panel-heading">
+                <h4>{{ translations.home.tagCloud.title }}</h4>
+            </div>
             <div class="panel-body">
-                <h4>{{ translations.title }}</h4>
                 <ul class="list-unstyled list-inline">                  
                     <li ng-repeat="tag in context.tags"><button class="btn btn-xs btn-info cast-shadow" >{{ tag.name }}</button></li>
                 </ul>

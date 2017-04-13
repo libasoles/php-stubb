@@ -120,4 +120,24 @@ $green_1: #b4db34; // TODO: import from main css
         opacity: 0;
         height: 0;
     }
+    
+    .panel.stack-list{
+        .list-group-item {
+            height: 40px;
+            line-height: 20px;
+        }
+        a {
+        }
+        ul.participants {
+            li {
+                list-style-type: none;
+                float: right;
+                margin: 2px;
+                font-size: 10px;
+                img {
+                    width: 16px;
+                }
+            }
+        }
+    }
 }

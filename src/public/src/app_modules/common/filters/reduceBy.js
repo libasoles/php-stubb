@@ -1,5 +1,5 @@
 (function () {
-    angular.module('app.home')
+    angular.module('app')
         .filter('reduceBy', function() {
             return function (collection, field) {
                 

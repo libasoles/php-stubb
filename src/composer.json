@@ -9,6 +9,7 @@
         "consolidation/robo": "^1.0",
         "doctrine/dbal": "^2.5",
         "laravel/framework": "5.4.*",
+        "laravel/passport": "^2.0",
         "laravel/tinker": "~1.0"
     },
     "require-dev": {

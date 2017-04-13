@@ -1,10 +1,12 @@
 (function () {
 
-    angular.module('app.home').controller('TagController', ['$scope', 'cardsFactory', 'reduceByFilter', 'HomeContextService', TagController]);
+    angular.module('app.home').controller('TagController', ['$scope', 'reduceByFilter', 'HomeContextService', TagCloudController]);
 
-    function TagController($scope, cardsFactory, reduceByFilter, HomeContextService) {
+    function TagCloudController($scope, reduceByFilter, HomeContextService) {
 
-        $scope.translations.title = "In this page";
+         $scope.translations.home.tagCloud = {
+            title: "In this page"
+        };
 
         /**
          * Way to keep siblings connected and sharing scope
