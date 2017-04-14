@@ -19,7 +19,7 @@ class DropTablesCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Deletes all your tables from DB';
 
     /**
      * Create a new command instance.
@@ -33,15 +33,12 @@ class DropTablesCommand extends Command
 
     /**
      * Execute the console command.
+     * Note this has no confirmation
      *
      * @return mixed
      */
     public function handle()
     {
-
-        if (!$this->confirm('CONFIRM DROP AL TABLES IN THE CURRENT DATABASE? [y|N]')) {
-            exit('Drop Tables command aborted');
-        }
 
         $query = 'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname=\'public\'';
         $tables = array_column(DB::select($query), 'tablename');

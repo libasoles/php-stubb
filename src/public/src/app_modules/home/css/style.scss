@@ -48,6 +48,24 @@ $green_1: #b4db34; // TODO: import from main css
     .card .panel {        
         border-left: 4px solid $green_1;
         
+        .panel-body {
+       
+            .card-content{
+                white-space: pre-line;
+            }
+            
+            .show-more-widget {
+                cursor: pointer;
+                
+                a.arrow {
+                    color: #777;
+                    font-size: 20px;
+                    right: 20px;
+                    position: relative;
+                }
+            }
+        }
+        
         .panel-footer {
             padding: 0;
             
@@ -70,14 +88,10 @@ $green_1: #b4db34; // TODO: import from main css
     }
     
     .card .tools {
-        display: none;
-    }
-    
-    .card:hover .tools {
+        white-space: normal;
+        opacity: 0;
+        visibility: hidden;
         
-        display: block;
-        margin-top: 10px;
-        padding: 0;
         
         button {          
             color: #777;
@@ -90,6 +104,20 @@ $green_1: #b4db34; // TODO: import from main css
             color: #222;
             background: none;
         }
+    }
+    
+    .card:hover .tools {
+        
+        opacity: 1;
+        visibility: visible;
+        margin-top: 10px;
+        padding: 0;
+        
+        $tTime: .5s;
+        -webkit-transition: opacity $tTime ease-out, visibility $tTime;
+        -moz-transition: opacity $tTime ease-out, visibility $tTime;
+        -o-transition: opacity $tTime ease-out, visibility $tTime;
+        transition: opacity $tTime ease-out, visibility $tTime;
     }
        
     .no-results {

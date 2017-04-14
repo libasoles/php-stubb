@@ -49,7 +49,7 @@ class TagController extends Controller
             if ($lightweight) {
 
                 // retrieving lightweight data from DB
-                $data = Tag::lightweight()->findOrFail($id);
+                $data = Tag::withCards()->findOrFail($id);
 
                 $cards = $data->cards->pluck('id')->all();
 
