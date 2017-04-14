@@ -26,6 +26,11 @@ class Stack extends Model
     {
         return $this->belongsToMany('App\Card');
     }
+    
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 
     public function scopeLightweight($query)
     {
