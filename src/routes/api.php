@@ -21,7 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * APIs
  */
 Route::group([
-    'namespace' => 'Api'
+    'namespace' => 'Api',
+    'middleware' => ['auth:api'],
     ], function () {
 
     Route::get('/', function() {
