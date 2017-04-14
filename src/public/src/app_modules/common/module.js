@@ -2,12 +2,18 @@
 
 angular.module('app', ['ngRoute', 'app.config', 'app.home']);
   
-angular.module('app').config([function () {
-    //Bloque config para configurar el resto de cosas que no son las rutas.
+angular.module('app').config(['$httpProvider', function ($httpProvider) {
+        
+    $httpProvider.defaults.headers.common = { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json;odata=verbose',
+        'X-Login-Ajax-call': 'true',
+        'X-Requested-With': "XMLHttpRequest",
+        'X-CSRF-TOKEN': Laravel.csrfToken,
+      };
 }])
  
 angular.module('app').run([function () {
- 
  
 }]);
 
