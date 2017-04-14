@@ -71,3 +71,7 @@ You should see the homepage.
 
 Hint: configure a different port if neccesary and rerun docker.
 
+#### Test user
+If you want to skip the registering process, use these credentials:
+`admin@stubb.net`
+`sysadmin`
