@@ -2,42 +2,25 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\LogHelper;
 use App\Stack;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use function response;
 
 class StackController extends Controller
 {
-
+    use LogHelper;
+    
     protected $repository;
 
     function __construct(Model $repository)
     {
         $this->repository = $repository;
-    }
-    
-    /**
-     * Display a listing of the stacks.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $data = [];
-        
-        try {
-
-            $data = $this->repository->all();
-        } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
-            return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
-        }
-
-        return $data;
     }
 
     /**
@@ -74,7 +57,7 @@ class StackController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([ 'message' => 'Not found' ], 404);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the record' ], 500);
         }
 
@@ -84,8 +67,8 @@ class StackController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -108,7 +91,7 @@ class StackController extends Controller
             Log::error('Invalid data: ' . json_decode($request->getContent(), true));
             return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error creating the record' ], 500);
         }
 
@@ -121,9 +104,9 @@ class StackController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, int $id)
     {
@@ -146,7 +129,7 @@ class StackController extends Controller
             Log::error('Invalid data: ' . json_decode($request->getContent(), true));
             return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error storing the record' ], 500);
         }
 
@@ -157,7 +140,7 @@ class StackController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(int $id)
     {
@@ -165,7 +148,7 @@ class StackController extends Controller
 
            $this->repository->destroy($id);
         } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
+            $this->logException($exc);
             return response()->json([ 'message' => 'There was an error deleting the record' ], 500);
         }
 

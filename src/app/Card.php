@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Card extends Model
 {
 
-    protected $fillable = ['name', 'content', 'enabled'];
-    protected $hidden = ['pivot'];
+    protected $fillable = ['name', 'content'];
+    protected $hidden = ['pivot', 'enabled'];
 
     /**
      * The "booting" method of the model.
