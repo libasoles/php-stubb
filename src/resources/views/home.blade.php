@@ -25,11 +25,18 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-animate.min.js"></script>
         <script src="src/app.js"></script>
+        
+        <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'laravel_token' => request()->cookie('laravel_token') 
+        ]) !!};
+    </script>
     </head>
     <body>
         <div class="container" ng-controller="LayoutController">
 
-            <header class="margin-bottom-lg clearfix" ng-controller="HeaderController">
+            <header class="margin-bottom-lg clearfix" ng-controller="HeaderController"> 
 
                 <div class="col-md-8 text-left">
                     <h1 class="col-md-12"><img src="img/logo.png" alt="logo" /> Stubb.</h1>

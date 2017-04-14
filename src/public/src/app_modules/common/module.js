@@ -5,10 +5,13 @@ angular.module('app', ['ngRoute', 'app.config', 'app.home']);
 angular.module('app').config(['$httpProvider', function ($httpProvider) {
         
     $httpProvider.defaults.headers.common = { 
-        'Authorization': 'Bearer $AaHZSu"`uHGC|Iwd2rCuD98LQQ[&,;_s8a^"UJ6.&lu_](3\'(t4Op8k[_4y',
+        'Authorization': 'Bearer '+Laravel.laravel_token,
+        'access_token': Laravel.laravel_token,
+        'Content-Type': 'application/json',
         'Accept': 'application/json;odata=verbose',
         'X-Login-Ajax-call': 'true',
-        'X-Requested-With': "XMLHttpRequest"
+        'X-Requested-With': "XMLHttpRequest",
+        'X-CSRF-TOKEN': Laravel.csrfToken,
       };
 }])
  
