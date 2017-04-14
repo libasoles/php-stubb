@@ -49,20 +49,20 @@ $green_1: #b4db34; // TODO: import from main css
         border-left: 4px solid $green_1;
         
         .panel-body {
-            
-            max-height: 220px;
-            overflow: hidden;
-            
-            $dark: #333;
-            $faded: #ccc;
-            color: $dark; /* For browsers that do not support gradients */
-            color: -webkit-linear-gradient($dark, $faded); /* For Safari 5.1 to 6.0 */
-            color: -o-linear-gradient($dark, $faded); /* For Opera 11.1 to 12.0 */
-            color: -moz-linear-gradient($dark, $faded); /* For Firefox 3.6 to 15 */
-            color: linear-gradient($dark, $faded); /* Standard syntax */
-            
+       
             .card-content{
                 white-space: pre-line;
+            }
+            
+            .show-more-widget {
+                cursor: pointer;
+                
+                a.arrow {
+                    color: #777;
+                    font-size: 20px;
+                    right: 20px;
+                    position: relative;
+                }
             }
         }
         
@@ -88,15 +88,10 @@ $green_1: #b4db34; // TODO: import from main css
     }
     
     .card .tools {
-        display: none;
         white-space: normal;
-    }
-    
-    .card:hover .tools {
+        opacity: 0;
+        visibility: hidden;
         
-        display: block;
-        margin-top: 10px;
-        padding: 0;
         
         button {          
             color: #777;
@@ -109,6 +104,20 @@ $green_1: #b4db34; // TODO: import from main css
             color: #222;
             background: none;
         }
+    }
+    
+    .card:hover .tools {
+        
+        opacity: 1;
+        visibility: visible;
+        margin-top: 10px;
+        padding: 0;
+        
+        $tTime: .5s;
+        -webkit-transition: opacity $tTime ease-out, visibility $tTime;
+        -moz-transition: opacity $tTime ease-out, visibility $tTime;
+        -o-transition: opacity $tTime ease-out, visibility $tTime;
+        transition: opacity $tTime ease-out, visibility $tTime;
     }
        
     .no-results {

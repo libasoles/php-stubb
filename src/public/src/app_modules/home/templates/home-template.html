@@ -45,10 +45,14 @@
                          class="card"> 
                         
                         <div class="panel panel-default cast-shadow {{ card.class }}">                        
-                            <div class="panel-body" >
+                            <div class="panel-body" show-more show-more-height='150'>
                                 <div class="col-md-11"> 
-                                    <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query" hashtagify term-click="tagTermClick($event)" user-click="tagUserClick($event)"></h3>                                    
-                                    <div class="card-content" ng-bind-html="card.content | highlightText: context.query" hashtagify term-click="tagTermClick($event)" user-click="tagUserClick($event)"></div>
+                                    <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query" hashtagify 
+                                        term-click="tagTermClick($event)" user-click="tagUserClick($event)"></h3> 
+                                    
+                                    <div class="card-content" ng-app="
+                                         "ng-bind-html="card.content | highlightText: context.query" hashtagify 
+                                         term-click="tagTermClick($event)" user-click="tagUserClick($event)"></div>
                                 </div>
                                 <div class="col-md-1 btn-group-vertical pull-right tools">
                                     <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pushpin"></span></button>

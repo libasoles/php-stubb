@@ -10,3 +10,5 @@ angular.module('app').run([function () {
  
  
 }]);
+
+angular.module('app').constant('IMG_FOLDER', 'src/app_modules/common/templates/');
