@@ -2,7 +2,7 @@
 
     angular.module('app').directive('showMore',
             function (IMG_FOLDER) {
-                console.log(IMG_FOLDER);
+               
                 return {
                     templateUrl: IMG_FOLDER + 'showMore.html',
                     restrict: 'A',
