@@ -1,4 +1,26 @@
-$green_1: #b4db34; // TODO: import from main css
+// TODO: import from main css
+$green_1: #b4db34;
+$green_2: #86a826;
+$green_3: #719e40;
+
+$blue_1: #337ab7;
+$blue_2: #2e6da4;
+$light_blue_1: #46b8da;
+$light_blue_2: #269abc; 
+
+@mixin glyphicon-ring($width: 32px, $border:#b2cc3a) 
+{
+    width: $width;
+    height: $width;
+    border-radius: 50%;
+    color: white;
+    display: inline-table;
+    text-align: center;
+    background: #719e40;
+    border: 3px solid $border;
+    vertical-align: middle;
+    padding-top: $width / 10;
+}
 
 #homepage {
 
@@ -100,6 +122,16 @@ $green_1: #b4db34; // TODO: import from main css
             background: none;
         }
         
+        .btn:active, .btn:focus, .btn:active:focus, .btn.active:focus {
+            $border: none;
+            outline: $border;
+            border: $border;
+            -webkit-box-shadow: $border;
+            -moz-box-shadow: $border;
+            -o-box-shadow: $border;
+            box-shadow: $border;
+        }
+        
         button:hover {          
             color: #222;
             background: none;
@@ -126,15 +158,26 @@ $green_1: #b4db34; // TODO: import from main css
         color: white;
     }
     
-    .card .highlighted {
-        $bg_start: #d3e49b;
-        $bg_stop: #e0f0aa;
+    .card.highlighted .panel,
+    .card.sticky {
         
-        background: $bg_start;
-        background: -webkit-linear-gradient(left, $bg_start, $bg_stop);
-        background: -moz-linear-gradient(left, $bg_start, $bg_stop);
-        background: -o-linear-gradient(left, $bg_start, $bg_stop);
-        background: linear-gradient(left, $bg_start, $bg_stop);
+        .panel{
+            
+            border-left: 1px solid #ddd;
+            
+            $bg_start: #d3e49b;
+            $bg_stop: #e0f0aa;
+
+            background: $bg_start;
+            background: -webkit-linear-gradient(left, $bg_start, $bg_stop);
+            background: -moz-linear-gradient(left, $bg_start, $bg_stop);
+            background: -o-linear-gradient(left, $bg_start, $bg_stop);
+            background: linear-gradient(left, $bg_start, $bg_stop);
+            
+            .glyphicon-pushpin {
+                @include glyphicon-ring;
+            }
+        }
     }
 
     .card.ng-enter.ng-enter-active,

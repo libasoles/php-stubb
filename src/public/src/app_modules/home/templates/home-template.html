@@ -24,6 +24,7 @@
                             <select ng-model="orderCardsBy" class="form-control">
                                 <option value="updated_at">Modified Date</option>
                                 <option value="created_at">Created Date</option>
+                                <option value="name">Name</option>
                             </select>
                         </label> 
 
@@ -41,10 +42,10 @@
                 </div>
                 
                 <div ng-if="context.cards">
-                    <div ng-repeat="card in context.filtered = (context.cards | filter: context.query | orderBy: orderCardsBy:direction)" 
-                         class="card"> 
+                    <div ng-repeat="card in context.filtered = (context.cards | filter: context.query)" 
+                         class="card {{ card.class }}"> 
                         
-                        <div class="panel panel-default cast-shadow {{ card.class }}">                        
+                        <div class="panel panel-default cast-shadow">                        
                             <div class="panel-body" show-more show-more-height='150'>
                                 <div class="col-md-11"> 
                                     <h3 ng-if="card.name" ng-bind-html="card.name" hashtagify 
@@ -55,7 +56,7 @@
                                          term-click="tagTermClick($event)" user-click="tagUserClick($event)"></div>
                                 </div>
                                 <div class="col-md-1 btn-group-vertical pull-right tools">
-                                    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pushpin"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" ng-click="pinCard(card)"><span class="glyphicon glyphicon-pushpin"></span></button>
                                     <button type="button" class="btn btn-default btn-lg" ng-click="deleteCard(card)"><span class="glyphicon glyphicon-trash"></span></button>
                                     <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pencil"></span></button>
                                 </div>

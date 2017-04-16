@@ -36,6 +36,14 @@
             }, function(err) {
                 console.log(err);
             });
-        }
+        };
+        
+        $scope.pinCard = function(item) {
+            let index = $scope.context.cards.indexOf(item);
+            $scope.context.cards.splice(index, 1);
+            item.sticky = true;
+            item.class = item.class ? item.class + " sticky" : "sticky";
+            $scope.context.cards.unshift(item);
+        };        
     }
 })();
