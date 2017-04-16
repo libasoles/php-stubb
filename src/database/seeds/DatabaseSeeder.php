@@ -63,7 +63,8 @@ class DatabaseSeeder extends Seeder
                         'content' => $cardContent,
                         'enabled' => 1,
                         'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
+                        'updated_at' => Carbon::now(),
+                        'sticky' => rand(0, 100) < 30
                 ]);
                 // associate stack and card
                 $card->stack()->attach($stack->id);
