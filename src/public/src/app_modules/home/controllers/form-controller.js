@@ -12,17 +12,6 @@
         $scope.context = HomeContextService.context;
         
         /**
-         * Autoexpand form
-         * @param event e
-         * @returns void
-         */
-        $scope.autoExpand = function(e) {
-            var element = typeof e === 'object' ? e.target : document.getElementById(e);
-                    var scrollHeight = element.scrollHeight 
-            element.style.height =  scrollHeight + "px";    
-        };
-        
-        /**
          * Submit form
          * @returns void
          */
