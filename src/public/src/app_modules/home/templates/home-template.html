@@ -43,7 +43,7 @@
                 
                 <div ng-if="context.cards">
                     <div ng-repeat="card in context.filtered = (context.cards | filter: context.query)" 
-                         class="card {{ card.class }}"> 
+                         class="card {{ card.class }}" ng-class="{sticky: card.sticky}"> 
                         
                         <div class="panel panel-default cast-shadow">                        
                             <div class="panel-body" show-more show-more-height='150'>
