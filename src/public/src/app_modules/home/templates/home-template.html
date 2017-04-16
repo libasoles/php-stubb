@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <textarea class="form-control margin-bottom-md" name="content" 
-                                  placeholder="{{ translations.write_something }}" ng-model="content" ng-keyup="autoExpand($event)"></textarea>
+                                  placeholder="{{ translations.write_something }}" ng-model="content"></textarea>
                     </div>
                 </div> 
 
@@ -23,7 +23,7 @@
                         <label>                    
                             <select ng-model="orderCardsBy" class="form-control">
                                 <option value="updated_at">Modified Date</option>
-                                <option value="name">Name</option>
+                                <option value="created_at">Created Date</option>
                             </select>
                         </label> 
 
@@ -47,11 +47,11 @@
                         <div class="panel panel-default cast-shadow {{ card.class }}">                        
                             <div class="panel-body" show-more show-more-height='150'>
                                 <div class="col-md-11"> 
-                                    <h3 ng-if="card.name" ng-bind-html="card.name | highlightText: context.query" hashtagify 
+                                    <h3 ng-if="card.name" ng-bind-html="card.name" hashtagify 
                                         term-click="tagTermClick($event)" user-click="tagUserClick($event)"></h3> 
                                     
                                     <div class="card-content" ng-app="
-                                         "ng-bind-html="card.content | highlightText: context.query" hashtagify 
+                                         "ng-bind-html="card.content | linky" hashtagify 
                                          term-click="tagTermClick($event)" user-click="tagUserClick($event)"></div>
                                 </div>
                                 <div class="col-md-1 btn-group-vertical pull-right tools">
