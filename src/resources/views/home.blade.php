@@ -25,6 +25,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-sanitize.min.js"></script>
+        <script src="src/node_modules/marked/lib/marked.js"></script>
+        <script src="src/node_modules/angular-marked/dist/angular-marked.js"></script>
         <script src="src/app.js"></script>
         
         <script>
