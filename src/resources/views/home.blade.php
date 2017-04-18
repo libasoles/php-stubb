@@ -31,8 +31,7 @@
         
         <script>
         window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-            'laravel_token' => request()->cookie('laravel_token') 
+            'csrfToken' => csrf_token()
         ]) !!};
     </script>
     </head>
