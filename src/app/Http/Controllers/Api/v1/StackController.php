@@ -32,7 +32,7 @@ class StackController extends Controller
      * @param int $id
      * @return json
      */
-    public function get(Request $request, int $id)
+    public function show(Request $request, int $id)
     {
         $data = [];
         

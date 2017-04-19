@@ -38,7 +38,7 @@ class CardController extends Controller
         
         try {
 
-            $data = $this->repository->with('tags')->orderBy('sticky', 'desc')->get();           
+            $data = $this->repository->orderBy('sticky', 'desc')->get();           
         } catch (\Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
@@ -53,7 +53,7 @@ class CardController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function get(int $id)
+    public function show($id)
     {        
         $data = [];
         

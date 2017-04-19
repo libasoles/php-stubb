@@ -37,34 +37,37 @@ Route::group([
      * API v1
      */
     Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function($app) {
-        Route::get('cards', 'CardController@index');
-        Route::get('cards/{id}', "CardController@get");
-        Route::get('cards/{id}/stacks', "CardController@get");
-        Route::get('cards/{id}/tags', "CardController@get");
-        Route::post('cards', "CardController@store");
-        Route::put('cards/{id}', "CardController@update");
-        Route::delete('cards/{id}', "CardController@destroy");
-        Route::get('cards/{id}/stacks', "CardController@get");
-
-        Route::get('stacks', 'StackUserController@index');
-        Route::get('stacks/{id}', "StackController@get");
-        Route::post('stacks', "StackController@store");
-        Route::put('stacks/{id}', "StackController@update");
-        Route::delete('stacks/{id}', "StackController@destroy");
         
-        Route::get('stacks/{id}/cards', "StackController@get");
-        Route::get('stacks/{stack_id}/cards/{card_id}', "StackController@get");
-
-        Route::get('tags', 'TagController@index');
-        Route::get('tags/{id}', 'TagController@get');
-        Route::get('tags/{id}/cards', 'TagController@get');
-        Route::post('tags', 'TagController@store');
-        Route::put('tags/{id}', 'TagController@update');
-        Route::get('tags/{id}/cards', 'TagController@get'); // TBD
-        Route::delete('tags/{id}', 'TagController@destroy');
-
-        Route::get('cards/{card_id}/tags', "CardTagController@index");
+        // Basic CRUD
+        Route::resource('cards', 'CardController', ['except' => ['create', 'edit']]);
+        Route::resource('stacks', 'StackController', ['except' => ['create', 'edit']]);
+        Route::resource('tags', 'TagController', ['only' => ['index', 'show', 'destroy']]);
+        
+        // Card & Tag relationship
+        /**
+         * ALl cards w/tags
+         */
+        Route::get('cards-tags', "CardTagController@index");
+        
+        /**
+         * Single card w/tags
+         */
+        Route::get('cards/{id}/tags', "CardTagController@showTags");
+        
+        /**
+         * Single tag cards
+         */
+        Route::get('tags/{id}/cards', 'CardTagController@showCards');
+        
+        /**
+         * Create card tag
+         */
         Route::post('cards/{card_id}/tags', 'CardTagController@store');
+
+        // Card & Stack relationship
+        Route::get('stacks/{id}/cards', "StackController@show");
+        Route::get('stacks/{stack_id}/cards/{card_id}', "CardStackController@show");
+        Route::get('cards/{id}/stacks', "CardStackController@show");
         Route::get('cards/{card_id}/stacks', "CardStackController@index");
         Route::post('cards/{card_id}/stacks', "CardStackController@store");
         Route::put('cards/{card_id}/stacks/{stack_id}', "CardStackController@update");

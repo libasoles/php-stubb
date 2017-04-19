@@ -38,28 +38,14 @@ class TagController extends Controller
      * @param int $id
      * @return json
      */
-    public function get(Request $request, int $id)
+    public function show(Request $request, int $id)
     {
         $data = [];
         
         try {
 
-            $lightweight = filter_input(INPUT_GET, 'lightweight', FILTER_VALIDATE_BOOLEAN);
-
-            if ($lightweight) {
-
-                // retrieving lightweight data from DB
-                $data = Tag::withCards()->findOrFail($id);
-
-                $cards = $data->cards->pluck('id')->all();
-
-                // replacing object data with grouped lightweight data
-                $data = $data->toArray();
-            } else {
-
-                $data = Tag::with('cards')->findOrFail($id)->toArray();
-            }
-
+            $data = Tag::with('cards')->findOrFail($id)->toArray();
+           
         } catch (ModelNotFoundException $e) {
             return response()->json([ 'message' => 'Not found' ], 404);
         } catch (\Exception $exc) {
