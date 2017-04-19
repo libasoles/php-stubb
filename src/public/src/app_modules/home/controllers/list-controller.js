@@ -78,7 +78,7 @@
                         }
                       
                         cardsFactory.update(card).then(function() {
-                            console.log("updated");
+                            
                             let index = $scope.context.cards.indexOf(item);
                             angular.copy(card, $scope.context.cards[index]);
                         }, function(err) {

@@ -46,7 +46,7 @@
                     <div class="col-md-1"></div><div class="col-md-11" ng-bind="translations.subtitle"></div>
                 </div>
 
-                <div class="col-md-4 text-right">
+                <div class="col-md-4 text-right profile-area">
 
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">

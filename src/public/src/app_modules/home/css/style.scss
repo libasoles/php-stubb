@@ -32,6 +32,16 @@ $green_1: #b4db34; // TODO: import from main css
         padding-bottom: 10px;
     }
     
+    .order-by{
+        label {
+            vertical-align: middle;
+            input {
+                vertical-align: middle;
+                margin: 0;
+            }
+        }
+    }
+    
     /**
      * List 
      */
@@ -167,6 +177,14 @@ $green_1: #b4db34; // TODO: import from main css
                 }
             }
         }
+    }
+    
+    /**
+    * Sidebar
+    */
+    
+    .list-group-item {
+        padding: 10px 0px;
     }
 }
 
