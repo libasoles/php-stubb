@@ -18,7 +18,7 @@
         <div id="cards-list" class="list" ng-controller="ListController">
             <div class="text-left">
 
-                <div class="form-group">
+                <div class="form-group order-by">
                     <form>
                         <label>                    
                             <select ng-model="orderCardsBy" class="form-control">
@@ -50,14 +50,14 @@
                                     <h3 ng-if="card.name" ng-bind-html="card.name" hashtagify 
                                         term-click="tagTermClick($event)" user-click="tagUserClick($event)"></h3> 
                                     
-                                    <div class="card-content" ng-app="
-                                         "ng-bind-html="card.content | linky" hashtagify 
+                                    <div class="card-content" ng-bind-html="card.content | linky" hashtagify 
                                          term-click="tagTermClick($event)" user-click="tagUserClick($event)"></div>
                                 </div>
                                 <div class="col-md-1 btn-group-vertical pull-right tools">
-                                    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pushpin"></span></button>
-                                    <button type="button" class="btn btn-default btn-lg" ng-click="deleteCard(card)"><span class="glyphicon glyphicon-trash"></span></button>
-                                    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" title="delete" ng-click="delete(card)"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" title="edit" ng-click="edit(card)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" title="view as rich html" ng-click="viewAsMarkdownModal(card)"><span class="glyphicon glyphicon-eye-open"></span></button>
                                 </div>
                             </div>
                             <div class="panel-footer">

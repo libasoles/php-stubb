@@ -31,7 +31,17 @@ $green_1: #b4db34; // TODO: import from main css
     .new-card {
         padding-bottom: 10px;
     }
-
+    
+    .order-by{
+        label {
+            vertical-align: middle;
+            input {
+                vertical-align: middle;
+                margin: 0;
+            }
+        }
+    }
+    
     /**
      * List 
      */
@@ -168,4 +178,35 @@ $green_1: #b4db34; // TODO: import from main css
             }
         }
     }
+    
+    /**
+    * Sidebar
+    */
+    
+    .list-group-item {
+        padding: 10px 0px;
+    }
+}
+
+/**
+* Modals
+*/
+#edit-card-modal textarea {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+        border: none;
+        box-shadow: none;
+    }
+}
+
+#edit-card-modal .modal-header input {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 3px 15px;
+    font-size: 20px;
 }

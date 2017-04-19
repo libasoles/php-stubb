@@ -37,6 +37,20 @@
  
             return promise;
         }
+        
+        factory.update = function (data) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.put(config.api + endpoint + '/' + data.id, data).then(function (response) {
+                defered.resolve(response);
+            }, function (err) {
+                defered.reject(err);
+            });
+ 
+            return promise;
+        }
 
         factory.delete = function (id) {
             

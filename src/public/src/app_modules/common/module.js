@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app', ['ngRoute', 'app.config', 'app.home']);
+angular.module('app', ['ngRoute', 'app.config', 'app.home', 'angularModalService']);
   
 angular.module('app').config(['$httpProvider', function ($httpProvider) {
         
@@ -16,5 +16,3 @@ angular.module('app').config(['$httpProvider', function ($httpProvider) {
 angular.module('app').run([function () {
  
 }]);
-
-angular.module('app').constant('IMG_FOLDER', 'src/app_modules/common/templates/');
