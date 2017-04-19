@@ -46,11 +46,11 @@ Route::group([
         Route::delete('cards/{id}', "CardController@destroy");
         Route::get('cards/{id}/stacks', "CardController@get");
 
-        Route::get('users/{user_id}/stacks', 'StackUserController@index');
-        Route::get('users/{user_id}/stacks/{id}', "StackController@get");
-        Route::post('users/{user_id}/stacks', "StackController@store");
-        Route::put('users/{user_id}/stacks/{id}', "StackController@update");
-        Route::delete('users/{user_id}/stacks/{id}', "StackController@destroy");
+        Route::get('stacks', 'StackUserController@index');
+        Route::get('stacks/{id}', "StackController@get");
+        Route::post('stacks', "StackController@store");
+        Route::put('stacks/{id}', "StackController@update");
+        Route::delete('stacks/{id}', "StackController@destroy");
         
         Route::get('stacks/{id}/cards', "StackController@get");
         Route::get('stacks/{stack_id}/cards/{card_id}', "StackController@get");
