@@ -65,10 +65,16 @@ Route::group([
         Route::post('cards/{card_id}/tags', 'CardTagController@store');
 
         // Card & Stack relationship
-        Route::get('stacks/{id}/cards', "StackController@show");
-        Route::get('stacks/{stack_id}/cards/{card_id}', "CardStackController@show");
-        Route::get('cards/{id}/stacks', "CardStackController@show");
-        Route::get('cards/{card_id}/stacks', "CardStackController@index");
+        /**
+         * Stack cards
+         */
+        Route::get('stacks/{id}/cards', "CardStackController@showCards");
+        
+        /**
+         * Cards stacks
+         */
+        Route::get('cards/{id}/stacks', "CardStackController@showStacks");
+        
         Route::post('cards/{card_id}/stacks', "CardStackController@store");
         Route::put('cards/{card_id}/stacks/{stack_id}', "CardStackController@update");
     });

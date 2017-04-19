@@ -4,36 +4,12 @@ namespace Tests\Unit\Api\v1;
 use Faker\Factory as Faker;
 use Tests\TestCase;
 
-class CardTagControllerTest extends TestCase
+class CardStackControllerTest extends TestCase
 {
     
     protected function setUp(): void
     {
         parent::setUp();
-    }
-
-    /**
-     * List cards w/tags
-     *
-     * @return void
-     */
-    public function testCardTagsList()
-    {
-        
-        $response = $this->call('GET', $this->api.'/cards-tags');
- 
-        $response->assertStatus(200);
-        
-        $data = $response->decodeResponseJson();
-        
-        // is not an empty result
-        $this->assertNotEmpty($data, 'Data list must not be empty');
-                
-        $this->assertNotEmpty($data[0]['tags'], 'Tag list must not be empty');
-        
-        //$this->assertNotEmpty($data[0]['tag_count'], 'Tag count must not be null');
-        
-        $response->assertJsonFragment(["id"=> 1]);
     }
     
     /**
@@ -41,9 +17,9 @@ class CardTagControllerTest extends TestCase
      *
      * @return void
      */
-    public function testGetCardTags()
+    public function testGetCardStacks()
     {
-        $response = $this->json('GET', $this->api.'/cards/1/tags');
+        $response = $this->json('GET', $this->api.'/cards/1/stacks');
 
         $this->assertEquals(200, $response->status(), 'Response code must be 200 OK');
     
@@ -52,7 +28,7 @@ class CardTagControllerTest extends TestCase
         // is not an empty result
         $this->assertNotEmpty($data, 'Item data must not be empty');
         
-        $this->assertNotEmpty($data['tags'], 'Tag list must not be empty');
+        $this->assertNotEmpty($data['stacks'], 'Stack list must not be empty');
         
         //$this->assertNotEmpty($data['tag_count'], 'Tag count must not be null');
     }
@@ -62,9 +38,9 @@ class CardTagControllerTest extends TestCase
      *
      * @return void
      */
-    public function testGetTagCards()
+    public function testGetStackCards()
     {
-        $response = $this->json('GET', $this->api.'/tags/1/cards');
+        $response = $this->json('GET', $this->api.'/stacks/1/cards');
 
         $this->assertEquals(200, $response->status(), 'Response code must be 200 OK');
     

@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
                         'sticky' => rand(0, 100) < 30
                 ]);
                 // associate stack and card
-                $card->stack()->attach($stack->id);
+                $card->stacks()->attach($stack->id);
 
                 // assign random tags (belonging to card content)
                 $tags = explode(' ', str_replace('.', '', $cardContent));
