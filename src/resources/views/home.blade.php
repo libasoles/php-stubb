@@ -25,12 +25,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-sanitize.min.js"></script>
+        <script src="src/node_modules/marked/lib/marked.js"></script>
+        <script src="src/node_modules/angular-marked/dist/angular-marked.js"></script>
+        <script src="src/node_modules/angular-modal-service/dst/angular-modal-service.min.js"></script>
         <script src="src/app.js"></script>
         
         <script>
         window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-            'laravel_token' => request()->cookie('laravel_token') 
+            'csrfToken' => csrf_token()
         ]) !!};
     </script>
     </head>
@@ -44,7 +46,7 @@
                     <div class="col-md-1"></div><div class="col-md-11" ng-bind="translations.subtitle"></div>
                 </div>
 
-                <div class="col-md-4 text-right">
+                <div class="col-md-4 text-right profile-area">
 
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">

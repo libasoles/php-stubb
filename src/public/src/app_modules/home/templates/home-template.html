@@ -6,7 +6,7 @@
             <form ng-submit="createCard()">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <textarea class="form-control margin-bottom-md" name="content" 
+                        <textarea elasticarea class="form-control margin-bottom-md" name="content" 
                                   placeholder="{{ translations.write_something }}" ng-model="content"></textarea>
                     </div>
                 </div> 
@@ -18,7 +18,7 @@
         <div id="cards-list" class="list" ng-controller="ListController">
             <div class="text-left">
 
-                <div class="form-group">
+                <div class="form-group order-by">
                     <form>
                         <label>                    
                             <select ng-model="orderCardsBy" class="form-control">
@@ -31,12 +31,12 @@
                         <span class='v-separator'></span>
 
                         <label>
+                            <span class="glyphicon glyphicon-arrow-up"></span>
                             <input type="radio" ng-model="direction" name="direction" />
-                            asc
                         </label>
                         <label>
                             <input type="radio" ng-model="direction" name="direction" value="reverse" checked />
-                            desc
+                            <span class="glyphicon glyphicon-arrow-down"></span>
                         </label>
                     </form>
                 </div>
@@ -51,14 +51,14 @@
                                     <h3 ng-if="card.name" ng-bind-html="card.name" hashtagify 
                                         term-click="tagTermClick($event)" user-click="tagUserClick($event)"></h3> 
                                     
-                                    <div class="card-content" ng-app="
-                                         "ng-bind-html="card.content | linky" hashtagify 
+                                    <div class="card-content" ng-bind-html="card.content | linky" hashtagify 
                                          term-click="tagTermClick($event)" user-click="tagUserClick($event)"></div>
                                 </div>
                                 <div class="col-md-1 btn-group-vertical pull-right tools">
                                     <button type="button" class="btn btn-default btn-lg" ng-click="pinCard(card)"><span class="glyphicon glyphicon-pushpin"></span></button>
-                                    <button type="button" class="btn btn-default btn-lg" ng-click="deleteCard(card)"><span class="glyphicon glyphicon-trash"></span></button>
-                                    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" title="delete" ng-click="delete(card)"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" title="edit" ng-click="edit(card)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button type="button" class="btn btn-default btn-lg" title="view as rich html" ng-click="viewAsMarkdownModal(card)"><span class="glyphicon glyphicon-eye-open"></span></button>
                                 </div>
                             </div>
                             <div class="panel-footer">

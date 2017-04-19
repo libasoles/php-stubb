@@ -4,6 +4,7 @@ $font_2: 'Lato', sans-serif;
 $green_1: #b4db34;
 $green_2: #86a826;
 $green_3: #719e40;
+$green_4: #788b3a;
 
 $blue_1: #337ab7;
 $blue_2: #2e6da4;
@@ -38,7 +39,7 @@ body {
     -o-transform: scale($scale);
 }
 
-h1 {
+header h1 {
     color: #719e40;
     letter-spacing: -3px;
     font-family: $font_2;
@@ -88,7 +89,14 @@ em, .hash {
     color: orange;
 }
 
-// forms
+.profile-area {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/** 
+* Forms
+*/
 form {
     .input-group {
         margin-bottom: 8px;
@@ -97,6 +105,10 @@ form {
         width: 20px;
         display: inline-block;
     }
+}
+
+textarea {
+  resize: none;
 }
 
 header {
@@ -162,4 +174,41 @@ a.hashtag:hover {
 
 span.highlight-text {
     color: $green_3;
+}
+
+/**
+* Modals 
+*/
+.modal.ng-enter {
+  transition: opacity .5s ease-out;
+  opacity: 0;
+}
+.modal.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+.modal.ng-leave {
+  transition: opacity .5s ease-out;
+  opacity: 1;
+}
+.modal.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+.modal.fade .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0); // IE9 only
+        transform: translate(0, 0);
+}
+.modal {    
+    .modal-dialog {
+        width: 800px;
+    }
+}
+.modal-backdrop{
+    background: #140d32;
+}
+.modal.markdown .modal-header {
+    h4 {
+        font-size: 38px;
+    }
+    border-color: #b2cc3a;
 }
