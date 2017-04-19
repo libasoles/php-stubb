@@ -35,6 +35,12 @@
             $scope.context.cards.push(data);
         });
         
+        /**
+         * Pin Card (make it 'sticky')
+         * 
+         * @param Card item
+         * @returns void
+         */
         $scope.pinCard = function(item) {
             
             let index = $scope.context.cards.indexOf(item);
@@ -62,6 +68,12 @@
             });
         };  
             
+        /**
+         * Delete Card
+         * 
+         * @param Card item
+         * @returns void
+         */
         $scope.delete = function(item) {
                         
             // Just provide a template url, a controller and call 'showModal'.
@@ -90,6 +102,12 @@
             });
         };
         
+        /**
+         * Edit Card
+         * 
+         * @param Card item
+         * @returns void
+         */
         $scope.edit = function(item){
             
             ModalService.showModal({
@@ -123,6 +141,12 @@
             });
         };
         
+        /**
+         * View content in modalbox with Markdown (rich text mode)
+         * 
+         * @param Card item
+         * @returns void
+         */
         $scope.viewAsMarkdownModal = function (item) {
 
             // Just provide a template url, a controller and call 'showModal'.
