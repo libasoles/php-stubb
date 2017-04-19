@@ -4,6 +4,7 @@ $font_2: 'Lato', sans-serif;
 $green_1: #b4db34;
 $green_2: #86a826;
 $green_3: #719e40;
+$green_4: #788b3a;
 
 $blue_1: #337ab7;
 $blue_2: #2e6da4;
@@ -38,7 +39,7 @@ body {
     -o-transform: scale($scale);
 }
 
-h1 {
+header h1 {
     color: #719e40;
     letter-spacing: -3px;
     font-family: $font_2;
@@ -162,4 +163,22 @@ a.hashtag:hover {
 
 span.highlight-text {
     color: $green_3;
+}
+
+/**
+* Modals 
+*/
+.modal.fade .modal-dialog {
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0); // IE9 only
+          transform: translate(0, 0);
+
+ }
+ 
+ body .modal .modal-dialog {
+    width: 800px;
+}
+
+.modal-backdrop{
+    background: $green_4;
 }

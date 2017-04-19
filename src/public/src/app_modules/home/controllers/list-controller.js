@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', 'cardsFactory', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', 'config', 'cardsFactory', 'ModalService', 'HomeContextService', ListController]);
     
-    function ListController($scope, cardsFactory, HomeContextService){
+    function ListController($scope, config, cardsFactory, ModalService, HomeContextService){
                 
         $scope.translations.no_results = "No results";        
         
@@ -29,13 +29,50 @@
             });  
             
         $scope.deleteCard = function(item) {
-            
-            cardsFactory.delete(item.id).then(function(){
-                let index = $scope.context.cards.indexOf(item);
-                $scope.context.cards.splice(index, 1);
-            }, function(err) {
-                console.log(err);
+                        
+            // Just provide a template url, a controller and call 'showModal'.
+            ModalService.showModal({
+                templateUrl: config.SRC_FOLDER + "home/modals/confirm.html",
+                controller: "YesNoController",
+                inputs: {
+                    data: {
+                        'title': 'Delete card?',
+                        'content': "You'll not be able to recover it" 
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                       
+                    if(result) {
+                        cardsFactory.delete(item.id).then(function(){
+                            let index = $scope.context.cards.indexOf(item);
+                            $scope.context.cards.splice(index, 1);
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    } 
+                });
             });
-        }
+        };
+        
+        $scope.viewAsMarkdownModal = function (card) {
+
+            // Just provide a template url, a controller and call 'showModal'.
+            ModalService.showModal({
+                templateUrl: config.SRC_FOLDER + "home/modals/markdown.html",
+                controller: "MarkdownController",
+                inputs: {
+                    data: {
+                        'card': card
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                    $scope.message = result ? "You said Yes" : "You said No";
+                });
+            });
+        };
     }
 })();
