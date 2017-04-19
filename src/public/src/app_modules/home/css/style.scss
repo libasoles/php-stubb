@@ -35,6 +35,8 @@ $green_1: #b4db34; // TODO: import from main css
     .order-by{
         label {
             vertical-align: middle;
+            color: #999;
+            
             input {
                 vertical-align: middle;
                 margin: 0;
@@ -196,7 +198,10 @@ $green_1: #b4db34; // TODO: import from main css
     padding: 0px;
     border: none;
     box-shadow: none;
-
+    height: 220px;
+    min-height: 220px;
+    max-height: 700px;
+    
     &:hover {
         border: none;
         box-shadow: none;

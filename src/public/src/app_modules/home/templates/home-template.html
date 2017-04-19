@@ -6,7 +6,7 @@
             <form ng-submit="createCard()">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <textarea class="form-control margin-bottom-md" name="content" 
+                        <textarea elasticarea class="form-control margin-bottom-md" name="content" 
                                   placeholder="{{ translations.write_something }}" ng-model="content"></textarea>
                     </div>
                 </div> 
@@ -30,12 +30,12 @@
                         <span class='v-separator'></span>
 
                         <label>
+                            <span class="glyphicon glyphicon-arrow-up"></span>
                             <input type="radio" ng-model="direction" name="direction" />
-                            asc
                         </label>
                         <label>
                             <input type="radio" ng-model="direction" name="direction" value="reverse" checked />
-                            desc
+                            <span class="glyphicon glyphicon-arrow-down"></span>
                         </label>
                     </form>
                 </div>

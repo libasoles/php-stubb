@@ -1,9 +1,9 @@
 (function () {
     // Because of the anme and E type, works automatically for every textarea
     // ref: https://gist.github.com/thomseddon/4703968
-    angular.module('app').directive('textarea', function () {
+    angular.module('app').directive('elasticarea', function () {
         return {
-            restrict: 'E',
+            restrict: 'A',
             link: function (scope, element, attributes) {
                 var threshold = 35,
                         minHeight = element[0].offsetHeight,
