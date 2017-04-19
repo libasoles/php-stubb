@@ -9,7 +9,7 @@
                 },
                 replace: true,
                 templateUrl: config.SRC_FOLDER + 'cards/templates/new-form.html',
-                controller: function ($scope, $rootScope, cardsFactory) {
+                controller: ['$scope', '$rootScope', 'cardsFactory', function ($scope, $rootScope, cardsFactory) {
 
                     $scope.translations = {};
                     $scope.translations.write_something = "Write something and hash it...";
@@ -39,6 +39,6 @@
                         }
                     };
                 }
-            }
+            ]}
         }]);
 })();
