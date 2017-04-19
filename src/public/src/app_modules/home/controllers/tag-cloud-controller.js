@@ -21,7 +21,7 @@
             
             // exclude card with no tags
             let cards = $scope.context.filtered.filter(function (card) {
-                return card.tags.length > 0;
+                return card.tags ? card.tags.length > 0 : false;
             });
 
             // extract tags from card
