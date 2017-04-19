@@ -75,8 +75,11 @@ Route::group([
          */
         Route::get('cards/{id}/stacks', "CardStackController@showStacks");
         
-        Route::post('cards/{card_id}/stacks', "CardStackController@store");
+        /**
+         * Assign card to stack
+         */
         Route::put('cards/{card_id}/stacks/{stack_id}', "CardStackController@update");
+        Route::put('stacks/{stack_id}/cards/{card_id}', "CardStackController@update");
     });
 
     // redirect to current api version

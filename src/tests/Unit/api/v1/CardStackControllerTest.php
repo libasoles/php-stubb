@@ -53,4 +53,11 @@ class CardStackControllerTest extends TestCase
         
         //$this->assertNotEmpty($data['cards_count'], 'Tag count must not be null');
     }
+    
+    public function testAttachCardToStack()
+    {
+        $response = $this->json('PUT', $this->api.'/stacks/1/cards/4');
+        
+        $this->assertEquals(204, $response->status(), 'Response code must be 204 No Content');
+    }
 }

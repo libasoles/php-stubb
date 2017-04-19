@@ -57,4 +57,27 @@ class CardStackController
 
         return $data;
     }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(int $card_id, int $stack_id)
+    {
+        try {
+         
+            // assign card to stack               
+            $stack = Stack::findOrFail($stack_id)->cards()->attach($card_id); 
+  
+        } catch (\Exception $exc) {
+            
+            $this->logException($exc);         
+            return response()->json([ 'message' => 'There was an error storing the record' ], 500);
+        } 
+            
+        return response("", 204);
+    }
 }
