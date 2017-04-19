@@ -28,7 +28,7 @@
                 console.log(err); // TODO: Tratar el error
             });  
             
-        $scope.deleteCard = function(item) {
+        $scope.delete = function(item) {
                         
             // Just provide a template url, a controller and call 'showModal'.
             ModalService.showModal({
@@ -56,7 +56,25 @@
             });
         };
         
-        $scope.viewAsMarkdownModal = function (card) {
+        $scope.edit = function(item){
+            
+            ModalService.showModal({
+                templateUrl: config.SRC_FOLDER + "home/modals/edit.html",
+                controller: "EditController",
+                inputs: {
+                    data: {
+                        card: item
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result){
+                                        
+                });
+            });
+        };
+        
+        $scope.viewAsMarkdownModal = function (item) {
 
             // Just provide a template url, a controller and call 'showModal'.
             ModalService.showModal({
@@ -64,14 +82,11 @@
                 controller: "MarkdownController",
                 inputs: {
                     data: {
-                        'card': card
+                        'card': item
                     }
                 }
             }).then(function (modal) {
                 modal.element.modal();
-                modal.close.then(function (result) {
-                    $scope.message = result ? "You said Yes" : "You said No";
-                });
             });
         };
     }

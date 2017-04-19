@@ -89,7 +89,9 @@ em, .hash {
     color: orange;
 }
 
-// forms
+/** 
+* Forms
+*/
 form {
     .input-group {
         margin-bottom: 8px;
@@ -180,5 +182,5 @@ span.highlight-text {
 }
 
 .modal-backdrop{
-    background: $green_4;
+    background: #140d32;
 }
