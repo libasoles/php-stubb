@@ -22,7 +22,7 @@ class Card extends Model
         static::addGlobalScope(new EnabledScope);
     }
 
-    public function stack()
+    public function stacks()
     {
         return $this->belongsToMany('App\Stack');
     }

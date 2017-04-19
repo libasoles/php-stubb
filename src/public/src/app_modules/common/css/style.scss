@@ -107,6 +107,10 @@ form {
     }
 }
 
+textarea {
+  resize: none;
+}
+
 header {
     .navbar-login
     {
@@ -194,9 +198,17 @@ span.highlight-text {
     -ms-transform: translate(0, 0); // IE9 only
         transform: translate(0, 0);
 }
-body .modal .modal-dialog {
-    width: 800px;
+.modal {    
+    .modal-dialog {
+        width: 800px;
+    }
 }
 .modal-backdrop{
     background: #140d32;
+}
+.modal.markdown .modal-header {
+    h4 {
+        font-size: 38px;
+    }
+    border-color: #b2cc3a;
 }

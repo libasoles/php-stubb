@@ -27,82 +27,47 @@
             .catch(function (err) {
                 console.log(err); // TODO: Tratar el error
             });  
-            
-        $scope.delete = function(item) {
-                        
-            // Just provide a template url, a controller and call 'showModal'.
-            ModalService.showModal({
-                templateUrl: config.SRC_FOLDER + "home/modals/confirm.html",
-                controller: "YesNoController",
-                inputs: {
-                    data: {
-                        'title': 'Delete card?',
-                        'content': "You'll not be able to recover it" 
-                    }
-                }
-            }).then(function (modal) {
-                modal.element.modal();
-                modal.close.then(function (result) {
-                       
-                    if(result) {
-                        cardsFactory.delete(item.id).then(function(){
-                            let index = $scope.context.cards.indexOf(item);
-                            $scope.context.cards.splice(index, 1);
-                        }, function(err) {
-                            console.log(err);
-                        });
-                    } 
-                });
-            });
-        };
+                
+        /**
+         * Create card
+         */
+        $scope.$on('new-card', function(evt, item) {
+            $scope.context.cards.push(item);
+        });
         
-        $scope.edit = function(item){
-            
-            ModalService.showModal({
-                templateUrl: config.SRC_FOLDER + "home/modals/edit.html",
-                controller: "EditController",
-                inputs: {
-                    data: {
-                        card: item
-                    }
-                }
-            }).then(function (modal) {
-                modal.element.modal();
-                modal.close.then(function (result){
-                    if(result) {
-                        
-                        let card = {
-                            id: item.id,
-                            name: modal.scope.form.name,
-                            content: modal.scope.form.content,
-                        }
-                      
-                        cardsFactory.update(card).then(function() {
-                            
-                            let index = $scope.context.cards.indexOf(item);
-                            angular.copy(card, $scope.context.cards[index]);
-                        }, function(err) {
-                            console.log(err);
-                        });
-                    }
-                });
-            });
-        };
+        /**
+         * Pin card
+         */
+        $scope.$on('pin-card', function(evt, item) {
+           
+            if(item.sticky) {
+                // not sticky anymore
+                item.sticky = false;
+                item.class = item.class ? item.class.replace("sticky", "") : "";
+            } else {
+                // sticky. Put it first
+                item.sticky = true;
+                item.class = item.class ? item.class + " sticky" : "sticky";                
+                let index = $scope.context.cards.indexOf(item);
+                $scope.context.cards.splice(index, 1);
+                $scope.context.cards.unshift(item);
+            } 
+        });
+    
+        /**
+         * Delete card
+         */
+        $scope.$on('delete-card', function(evt, item) {
+            let index = $scope.context.cards.indexOf(item);
+            $scope.context.cards.splice(index, 1);
+        });
         
-        $scope.viewAsMarkdownModal = function (item) {
-
-            // Just provide a template url, a controller and call 'showModal'.
-            ModalService.showModal({
-                templateUrl: config.SRC_FOLDER + "home/modals/markdown.html",
-                controller: "MarkdownController",
-                inputs: {
-                    data: {
-                        'card': item
-                    }
-                }
-            }).then(function (modal) {
-                modal.element.modal();
-            });
-        };
+        /**
+         * Update card
+         */
+        $scope.$on('update-card', function(evt, original, newCard) {
+            let index = $scope.context.cards.indexOf(original);
+            angular.copy(newCard, $scope.context.cards[index]);
+        });
     }
 })();

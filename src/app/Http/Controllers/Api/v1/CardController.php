@@ -38,7 +38,7 @@ class CardController extends Controller
         
         try {
 
-            $data = $this->repository->with('tags')->get();           
+            $data = $this->repository->orderBy('sticky', 'desc')->get();           
         } catch (\Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
@@ -53,7 +53,7 @@ class CardController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function get(int $id)
+    public function show($id)
     {        
         $data = [];
         
@@ -129,18 +129,18 @@ class CardController extends Controller
             // validation
             $this->validate($request, [
                 'name' => 'max:255',
-                'content' => 'required'
+                'sticky' => 'bool'
             ]);
 
             // update existing record                
             $card = Card::find($id); 
-            $card->name = $request->input('name');
-            $card->content = $request->input('content');
-            $card->enabled = true;
+            foreach ($request->input() as $key => $input) {
+                $card->{$key} = $input;
+            }
             $card->save();
   
         } catch (ValidationException $exc) {
-            Log::error('Invalid data: ' . json_decode($request->getContent(), true));
+            Log::error('Invalid data: ' . json_decode($request->json(), true));
             return response()->json([ 'message' => 'There was a validation error' ], 400);
         } catch (\Exception $exc) {
             

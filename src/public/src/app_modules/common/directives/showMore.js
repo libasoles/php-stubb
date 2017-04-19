@@ -4,7 +4,7 @@
         ['config', function (config) {
 
             return {
-                templateUrl: config.IMG_FOLDER + 'showMore.html',
+                templateUrl: config.SRC_FOLDER + 'common/templates/showMore.html',
                 restrict: 'A',
                 transclude: true,
                 scope: {
