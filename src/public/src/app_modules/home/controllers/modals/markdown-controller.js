@@ -4,7 +4,7 @@
     
     function MarkdownController($scope, data, close) {
 
-        $scope.title = data.card.title;
+        $scope.title = data.card.name;
         $scope.content = data.card.content;
 
         $scope.dismissModal = function (result) {
