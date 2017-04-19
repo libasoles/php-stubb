@@ -5,12 +5,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <input type="text" value="{{ title }}" />
+        <input type="text" name="name" ng-model="form.name" />
       </div>
       <div class="modal-body">          
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <textarea class="form-control margin-bottom-md" name="content">{{ content }}</textarea>
+                    <textarea class="form-control margin-bottom-md" name="content" ng-model="form.content"></textarea>
                 </div>
             </div>                 
       </div>

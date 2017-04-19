@@ -69,7 +69,22 @@
             }).then(function (modal) {
                 modal.element.modal();
                 modal.close.then(function (result){
-                                        
+                    if(result) {
+                        
+                        let card = {
+                            id: item.id,
+                            name: modal.scope.form.name,
+                            content: modal.scope.form.content,
+                        }
+                      
+                        cardsFactory.update(card).then(function() {
+                            console.log("updated");
+                            let index = $scope.context.cards.indexOf(item);
+                            angular.copy(card, $scope.context.cards[index]);
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    }
                 });
             });
         };

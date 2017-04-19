@@ -170,17 +170,28 @@ span.highlight-text {
 /**
 * Modals 
 */
+.modal.ng-enter {
+  transition: opacity .5s ease-out;
+  opacity: 0;
+}
+.modal.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+.modal.ng-leave {
+  transition: opacity .5s ease-out;
+  opacity: 1;
+}
+.modal.ng-leave.ng-leave-active {
+  opacity: 0;
+}
 .modal.fade .modal-dialog {
-      -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0); // IE9 only
-          transform: translate(0, 0);
-
- }
- 
- body .modal .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0); // IE9 only
+        transform: translate(0, 0);
+}
+body .modal .modal-dialog {
     width: 800px;
 }
-
 .modal-backdrop{
     background: #140d32;
 }
