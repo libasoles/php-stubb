@@ -8,10 +8,10 @@ $blue_2: #2e6da4;
 $light_blue_1: #46b8da;
 $light_blue_2: #269abc; 
 
-@mixin glyphicon-ring($width: 34px, $border: #8eb4bf) 
+@mixin glyphicon-ring($size: 34px, $border: #8eb4bf) 
 {
-    width: $width;
-    height: $width;
+    width: $size;
+    height: $size;
     border-radius: 50%;
     color: white;
     display: inline-table;
@@ -19,7 +19,7 @@ $light_blue_2: #269abc;
     background: $blue_1;
     border: 3px solid $border;
     vertical-align: middle;
-    padding-top: $width / 9;
+    padding-top: $size / 8;
     top: 0;
     left: 1px;
 }

@@ -32,17 +32,27 @@
             
             let index = $scope.context.cards.indexOf(item);
             
-            if(item.sticky) {
-                
-                item.sticky = false;
-                item.class = item.class ? item.class.replace("sticky", "") : "";
-            } else {
-                // put it first
-                item.sticky = true;
-                item.class = item.class ? item.class + " sticky" : "sticky";
-                $scope.context.cards.splice(index, 1);
-                $scope.context.cards.unshift(item);
-            }            
+            let card = {
+                id: item.id,
+                sticky: !item.sticky
+            }
+
+            cardsFactory.update(card).then(function() {
+
+                if(item.sticky) {
+                    // not sticky anymore
+                    item.sticky = false;
+                    item.class = item.class ? item.class.replace("sticky", "") : "";
+                } else {
+                    // sticky. Put it first
+                    item.sticky = true;
+                    item.class = item.class ? item.class + " sticky" : "sticky";
+                    $scope.context.cards.splice(index, 1);
+                    $scope.context.cards.unshift(item);
+                } 
+            }, function(err) {
+                console.log(err);
+            });
         };  
             
         $scope.delete = function(item) {
