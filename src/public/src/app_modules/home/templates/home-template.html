@@ -3,16 +3,7 @@
     <div class="main-column col-md-8">
 
         <div class="new-card clearfix" ng-controller="FormController">
-            <form ng-submit="createCard()">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <textarea elasticarea class="form-control margin-bottom-md" name="content" 
-                                  placeholder="{{ translations.write_something }}" ng-model="content"></textarea>
-                    </div>
-                </div> 
-
-                <button type="submit" class="btn btn-primary pull-right cast-shadow">Submit</button>
-            </form>
+            <new-card-form></new-card-form>
         </div>
 
         <div id="cards-list" class="list" ng-controller="ListController">

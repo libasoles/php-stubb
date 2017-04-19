@@ -27,6 +27,13 @@
             .catch(function (err) {
                 console.log(err); // TODO: Tratar el error
             });  
+                
+        /**
+         * Create card
+         */
+        $scope.$on('new-card', function(evt, data) {
+            $scope.context.cards.push(data);
+        });
         
         $scope.pinCard = function(item) {
             
