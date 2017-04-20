@@ -212,3 +212,32 @@ span.highlight-text {
     }
     border-color: #b2cc3a;
 }
+
+/**
+* Button Icons
+*/
+.btn-icon {      
+    color: #888;
+    border: none;
+    box-shadow: none;
+    background: none;
+    padding: 6px;
+    
+    &:hover {       
+        background: none;
+        
+        .glyphicon {
+            color: #222;
+        }
+    }
+}
+.btn-icon:active, .btn-icon:focus, 
+.btn-icon:active:focus, .btn-icon.active:focus {
+    $border: none;
+    outline: $border;
+    border: $border;
+    -webkit-box-shadow: $border;
+    -moz-box-shadow: $border;
+    -o-box-shadow: $border;
+    box-shadow: $border;
+}
