@@ -16,22 +16,6 @@ class StackControllerTest extends TestCase
     }
 
     /**
-     * Test stack list
-     *
-     * @return void
-     */
-    public function testStackList()
-    {
-        $response = $this->json('GET', $this->api . '/stacks');
-        $response->assertStatus(200);
-
-        // is not an empty result
-        $this->assertNotEmpty($response, 'Data list must not be empty');
-
-        $response->assertJsonFragment(["id" => 1]);
-    }
-
-    /**
      * Create Stack
      *
      * @return int stack id

@@ -22,26 +22,6 @@ class StackController extends Controller
     {
         $this->repository = $repository;
     }
-    
-    /**
-     * Display a listing of the stacks.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $data = [];
-
-        try {
-
-            $data = $this->repository->all();
-        } catch (\Exception $exc) {
-            Log::error(get_class() . ' ' . $exc->getMessage());
-            return response()->json(['message' => 'There was an error retrieving the records'], 500);
-        }
-
-        return $data;
-    }
 
     /**
      * Get a single Stack

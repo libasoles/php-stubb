@@ -9,8 +9,8 @@
                     <span class="name">{{ stack.name}}</span>
                 </a>
                 <ul class="participants col-md-6 text-right">
-                    <li ng-if="stack.users_count > 0" ng-repeat="users in stack.users">
-                        <img src="/img/{{ users.avatar }}" alt="participant" />
+                    <li ng-if="stack.users_count > 0" ng-repeat="user in stack.users">
+                        <img src="/img/{{ user.avatar }}" alt="{{ user.name}}" title="{{ user.name}}" />
                     </li>
                     <li ng-if="stack.users_count > 3">and {{ stack.users_count - 3}} more</li>
                 </ul>

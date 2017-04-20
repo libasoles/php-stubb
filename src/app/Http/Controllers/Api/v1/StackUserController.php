@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Traits\LogHelper;
 use App\Stack;
 use Exception;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use function response;
 
-class StackUserController
+class StackUserController extends ApiBaseController
 {
     use LogHelper;
     
@@ -24,13 +24,9 @@ class StackUserController
         
         try {
 
-            $data = Stack::select(['id', 'name'])->with(
-                [
-                    'users' => function($query) {
-                        return $query->select(['id', 'name', 'avatar'])->take(3);
-                    }
-                ])
-                ->withCount('users')
+            $user_id = $this->authenticatedUser()->id;
+            
+            $data = auth('api')->user()->stacks()->select(['id', 'name'])->withUsers()
                 ->get();
           
         } catch (Exception $exc) {

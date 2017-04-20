@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'name'=> 'SysAdmin',
             'email'=> 'admin@stubb.net',
             'password'=> Hash::make('sysadmin'),
-            'api_token'=> $faker->password(60, 60),
+            'avatar'=> 'profile-picture.png',
         ]);
         
         // create more users
