@@ -93,11 +93,10 @@ $light_blue_2: #269abc;
             .show-more-widget {
                 cursor: pointer;
                 
-                a.arrow {
-                    color: #777;
+                .arrow {
                     font-size: 20px;
-                    right: 20px;
                     position: relative;
+                    padding: 2px 5px;
                 }
             }
         }
@@ -128,27 +127,8 @@ $light_blue_2: #269abc;
         opacity: 0;
         visibility: hidden;
         
-        
         button {          
-            color: #777;
-            border: none;
             padding: 6px;
-            background: none;
-        }
-        
-        .btn:active, .btn:focus, .btn:active:focus, .btn.active:focus {
-            $border: none;
-            outline: $border;
-            border: $border;
-            -webkit-box-shadow: $border;
-            -moz-box-shadow: $border;
-            -o-box-shadow: $border;
-            box-shadow: $border;
-        }
-        
-        button:hover {          
-            color: #222;
-            background: none;
         }
     }
     
@@ -207,11 +187,20 @@ $light_blue_2: #269abc;
     }
     
     .panel.stack-list{
+        h4 .btn-icon {
+            padding: 0;
+        }
         .list-group-item {
             height: 40px;
             line-height: 20px;
         }
         a {
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            text-overflow: ellipsis;
         }
         ul.participants {
             li {

@@ -43,7 +43,6 @@ Route::group([
         Route::resource('stacks', 'StackController', ['except' => ['create', 'edit']]);
         Route::resource('tags', 'TagController', ['only' => ['index', 'show', 'destroy']]);
         
-        // Card & Tag relationship
         /**
          * ALl cards w/tags
          */
@@ -64,7 +63,6 @@ Route::group([
          */
         Route::post('cards/{card_id}/tags', 'CardTagController@store');
 
-        // Card & Stack relationship
         /**
          * Stack cards
          */
@@ -80,6 +78,11 @@ Route::group([
          */
         Route::put('cards/{card_id}/stacks/{stack_id}', "CardStackController@update");
         Route::put('stacks/{stack_id}/cards/{card_id}', "CardStackController@update");
+        
+        /**
+         * User stacks
+         */
+        Route::get('users-stacks', 'StackUserController@index');
     });
 
     // redirect to current api version
