@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
 
             // create stack
             $stack = App\Stack::create([
-                'name' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                'name' => $faker->sentence($nbWords = 2, $variableNbWords = true),
                 'description' => $faker->text($maxNbChars = 200),
                 'enabled' => 1,
                 'created_at' => Carbon::now(),
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
                 $cardContent = $faker->text($maxNbChars = 200);
 
                 $card = Card::create([
-                        'name' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'name' => $faker->sentence($nbWords = 5, $variableNbWords = true),
                         'content' => $cardContent,
                         'enabled' => 1,
                         'created_at' => Carbon::now(),
