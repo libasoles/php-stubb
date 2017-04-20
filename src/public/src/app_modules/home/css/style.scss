@@ -195,6 +195,12 @@ $light_blue_2: #269abc;
             line-height: 20px;
         }
         a {
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            text-overflow: ellipsis;
         }
         ul.participants {
             li {

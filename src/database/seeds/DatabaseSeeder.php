@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                 'name'=> $faker->name(),
                 'email'=> $faker->email(),
                 'password'=> Hash::make( $faker->password() ),
-                'api_token'=> $faker->password(60, 60),
+                'avatar'=> 'profile-picture.png',
             ]);
         }
         
