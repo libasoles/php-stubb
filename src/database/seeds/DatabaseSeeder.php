@@ -49,9 +49,8 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ]);
             
-            foreach (range(1, 5) as $index) {
-                $stack->users()->attach(random_int(1, 5));
-            }
+            // assign stacks to random users
+            $stack->users()->attach(array_rand( range(1, 5), random_int(1, 4) ));
 
             // assign cards
             foreach (range(1, 2) as $index) {
@@ -75,9 +74,13 @@ class DatabaseSeeder extends Seeder
                 
                 foreach ($indices as $index) {
 
-                    Tag::firstOrCreate([
+                    $tag = Tag::firstOrCreate([
                         'name' => $tags[$index]
-                    ])->cards()->attach($card->id);
+                    ]);
+                    
+                    if(!$tag->cards->contains($card->id)) {      
+                        $tag->cards()->attach($card->id);
+                    }                    
                 }
             }
         }        
