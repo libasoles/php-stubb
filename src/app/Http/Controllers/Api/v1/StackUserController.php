@@ -26,9 +26,10 @@ class StackUserController extends ApiBaseController
 
             $user_id = $this->authenticatedUser()->id;
             
-            $data = auth('api')->user()->stacks()->select(['id', 'name'])->withUsers()
+            $data = auth('api')->user()
+                ->stacks()->select(['id', 'name'])->withUsers()
                 ->get();
-          
+            
         } catch (Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);

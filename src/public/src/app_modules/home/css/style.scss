@@ -227,6 +227,7 @@ $light_blue_2: #269abc;
 /**
 * Modals
 */
+#new-stack-modal textarea,
 #edit-card-modal textarea {
     margin: 0px;
     padding: 0px;
@@ -242,6 +243,7 @@ $light_blue_2: #269abc;
     }
 }
 
+#new-stack-modal .modal-header input,
 #edit-card-modal .modal-header input {
     width: 100%;
     border: 1px solid #ddd;

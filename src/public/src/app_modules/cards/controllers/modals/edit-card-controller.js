@@ -1,8 +1,8 @@
 (function() {
 
-    angular.module('app.home').controller('EditController', ['$scope', 'data', 'close', EditController]);
+    angular.module('app.cards').controller('EditCardController', ['$scope', 'data', 'close', EditCardController]);
     
-    function EditController($scope, data, close) {
+    function EditCardController($scope, data, close) {
 
         $scope.form = {};
         $scope.form.name = data.card.name;

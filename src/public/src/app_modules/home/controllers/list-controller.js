@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', 'config', 'cardsFactory', 'ModalService', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', 'config', 'cardsFactory', 'HomeContextService', ListController]);
     
-    function ListController($scope, config, cardsFactory, ModalService, HomeContextService){
+    function ListController($scope, config, cardsFactory, HomeContextService){
                 
         $scope.translations.no_results = "No results";        
         
