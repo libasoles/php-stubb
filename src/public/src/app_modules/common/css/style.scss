@@ -179,6 +179,7 @@ span.highlight-text {
 /**
 * Modals 
 */
+/*
 .modal.ng-enter {
   transition: opacity .5s ease-out;
   opacity: 0;
@@ -193,11 +194,26 @@ span.highlight-text {
 .modal.ng-leave.ng-leave-active {
   opacity: 0;
 }
+*/
 .modal.fade .modal-dialog {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0); // IE9 only
         transform: translate(0, 0);
 }
+
+.fade-scale {
+  transform: scale(0.4);
+  opacity: 0;
+  -webkit-transition: all .25s linear;
+  -o-transition: all .25s linear;
+  transition: all .25s linear;
+}
+
+.fade-scale.in {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .modal {    
     .modal-dialog {
         width: 800px;
@@ -206,11 +222,43 @@ span.highlight-text {
 .modal-backdrop{
     background: #140d32;
 }
-.modal.markdown .modal-header {
-    h4 {
-        font-size: 38px;
+.modal.markdown {
+    
+    .modal-dialog {
+        width: 100%;
+        .modal-content {
+            background: url("/img/bg.jpg") repeat repeat;
+        }
     }
-    border-color: #b2cc3a;
+    .modal-header {
+        
+        max-width: 1024px;
+        margin: 0 auto;
+        border-color: #b2cc3a;
+        background: white; 
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        
+        h4 {
+            font-size: 38px;
+        }
+        
+        button {
+            font-size: 50px;
+        }
+    }
+    .modal-body {
+        
+        max-width: 1024px;
+        margin: 0 auto;
+        background: white; 
+        border: 1px solid #ddd;
+    }
+    .modal-footer {
+        
+        max-width: 1024px;
+        margin: 0 auto;
+    }
 }
 
 /**
