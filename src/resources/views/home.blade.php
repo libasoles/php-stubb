@@ -52,7 +52,7 @@
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
-                                <ng-include src="'/src/app_modules/common/templates/session-template.html'"></ng-include>
+                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>
                                 <form id="logout-form" action="{{ route('logout')}}" method="POST" style="display: none;">{{ csrf_field()}}</form>
                             </li>
                             <li>
