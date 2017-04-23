@@ -26,7 +26,7 @@
                             }
 
                             // ajax call
-                            cardsFactory.update(card).then(function () {
+                            cardsFactory.update(card).$promise.then(function () {
 
                                 // emmit event
                                 $rootScope.$broadcast('pin-card', item);
@@ -59,7 +59,7 @@
 
                                     if (result) {    
                                         // ajax call
-                                        cardsFactory.delete(item.id).then(function () {
+                                        cardsFactory.delete({id: item.id}).$promise.then(function () {
                                             
                                             // emmit event
                                             $rootScope.$broadcast('delete-card', item);                                            
@@ -100,7 +100,7 @@
                                         }
 
                                         // ajax call
-                                        cardsFactory.update(card).then(function () {
+                                        cardsFactory.update(card).$promise.then(function () {
                                             
                                             // emmit event
                                             $rootScope.$broadcast('update-card', item, card);     

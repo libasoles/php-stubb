@@ -4,7 +4,7 @@
 
         return $resource(config.api + '/cards/:id', 
             {
-                id: '@_id',
+                id: '@id',
                 page: '@page'
             }, 
             {

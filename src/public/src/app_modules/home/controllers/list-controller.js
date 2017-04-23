@@ -85,7 +85,7 @@
          */
         $scope.$on('update-card', function(evt, original, newCard) {
             let index = $scope.context.cards.indexOf(original);
-            angular.copy(newCard, $scope.context.cards[index]);
+            angular.extend($scope.context.cards[index], newCard);
         });
     }
 })();
