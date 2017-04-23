@@ -1,12 +1,4 @@
-// TODO: import from main css
-$green_1: #b4db34;
-$green_2: #86a826;
-$green_3: #719e40;
-
-$blue_1: #337ab7;
-$blue_2: #2e6da4;
-$light_blue_1: #46b8da;
-$light_blue_2: #269abc; 
+@import "common/css/style.scss";
 
 @mixin glyphicon-ring($size: 34px, $border: #8eb4bf) 
 {

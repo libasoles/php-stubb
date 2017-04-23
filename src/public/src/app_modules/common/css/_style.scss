@@ -63,6 +63,14 @@ header {
 .margin-bottom-md {margin-bottom: 15px;}
 .margin-bottom-lg {margin-bottom: 20px;}
 
+@mixin with-shadow {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);    
+}
+
+.with-shadow {
+    @include with-shadow;
+}
+
 .cast-shadow {
     $tBgColor: .3s;
     $tColor: .15s;
@@ -78,11 +86,11 @@ header {
 
 .cast-shadow:hover{
     $scale: 1.01;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     transform: scale($scale);
     -moz-transform: scale($scale);
     -webkit-transform: scale($scale);
     -o-transform: scale($scale);
+    @include with-shadow;
 }
 
 em, .hash {
@@ -187,22 +195,6 @@ span.highlight-text {
 
 /**
 * Modals 
-*/
-/*
-.modal.ng-enter {
-  transition: opacity .5s ease-out;
-  opacity: 0;
-}
-.modal.ng-enter.ng-enter-active {
-  opacity: 1;
-}
-.modal.ng-leave {
-  transition: opacity .5s ease-out;
-  opacity: 1;
-}
-.modal.ng-leave.ng-leave-active {
-  opacity: 0;
-}
 */
 .modal.fade .modal-dialog {
     -webkit-transform: translate(0, 0);
