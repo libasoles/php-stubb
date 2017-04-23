@@ -10,12 +10,12 @@
                 },
                 controller: ['$scope', function ($scope) {
                         
-                        $scope.user = $scope.data;
-                        
-                        $scope.translations = {
-                            update_info: 'Update info',
-                            logout: 'Logout',
-                        }
+                    $scope.user = $scope.data;
+
+                    $scope.translations = {
+                        update_info: 'Update info',
+                        logout: 'Logout',
+                    }
                 }]
             };
         }
