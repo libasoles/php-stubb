@@ -24,10 +24,7 @@
         $tHeight: height .4s ease;
         
         border: none !important;
-        -webkit-box-shadow: $border;
-        -moz-box-shadow: $border;
-        -o-box-shadow: $border;
-        box-shadow: $border; 
+        @include box-shadow($border);
         
         height: $initialHeight;
         min-height: $initialHeight;
@@ -210,9 +207,11 @@
     /**
     * Sidebar
     */
-    
-    .list-group-item {
-        padding: 10px 0px;
+    .side-column {
+        
+        .list-group-item {
+            padding: 10px 0px;
+        }
     }
 }
 
@@ -224,14 +223,14 @@
     margin: 0px;
     padding: 0px;
     border: none;
-    box-shadow: none;
+    @include box-shadow(none);
     height: 220px;
     min-height: 220px;
     max-height: 700px;
     
     &:hover {
         border: none;
-        box-shadow: none;
+        @include box-shadow(none);
     }
 }
 
