@@ -9,28 +9,7 @@
         <div id="cards-list" class="list" ng-controller="ListController">
             <div class="text-left">
 
-                <div class="form-group order-by">
-                    <form>
-                        <label>                    
-                            <select ng-model="orderCardsBy" class="form-control">
-                                <option value="updated_at">Modified Date</option>
-                                <option value="created_at">Created Date</option>
-                                <option value="name">Name</option>
-                            </select>
-                        </label> 
-
-                        <span class='v-separator'></span>
-
-                        <label>
-                            <span class="glyphicon glyphicon-arrow-up"></span>
-                            <input type="radio" ng-model="direction" name="direction" />
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="direction" name="direction" value="reverse" checked />
-                            <span class="glyphicon glyphicon-arrow-down"></span>
-                        </label>
-                    </form>
-                </div>
+                <order-by></order-by>
                 
                 <div ng-if="context.cards">
                     <div ng-repeat="card in context.filtered = (context.cards | filter: context.query)" 

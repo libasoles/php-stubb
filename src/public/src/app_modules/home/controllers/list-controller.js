@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', 'config', 'cardsFactory', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', '$cookies', 'cardsFactory', 'HomeContextService', ListController]);
     
-    function ListController($scope, config, cardsFactory, HomeContextService){
+    function ListController($scope, $cookies, cardsFactory, HomeContextService){
                 
         $scope.translations.no_results = "No results";        
         
@@ -14,20 +14,27 @@
         /**
          * Get cards list
          */
-        cardsFactory
-            .getAll()
-            .then(function (response) {
-
-                $scope.context.cards = angular.fromJson(response.data);
-
-                $scope.orderCardsBy = 'updated_at';
-
-                $scope.direction = 'reverse';
-            })
-            .catch(function (err) {
-                console.log(err); // TODO: Tratar el error
-            });  
-                
+        $scope.load = function() {
+            
+            // get data from server
+            $scope.context.cards =cardsFactory
+                .query(function (response) {
+                    // all neat
+                }, function(err) {
+                    console.log(err);
+                });  
+        };
+        
+        $scope.load(); // run at page load
+        
+        /**
+         * load cards
+         */
+        $scope.$on('order-changed', function(evt, data) {
+            $cookies.putObject('order', angular.fromJson(data));
+            $scope.load();
+        });
+        
         /**
          * Create card
          */

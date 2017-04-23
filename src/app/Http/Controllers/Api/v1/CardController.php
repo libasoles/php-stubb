@@ -33,12 +33,27 @@ class CardController extends ApiBaseController
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = [];
         
         try {
-            $data = auth('api')->user()->cards()->orderBy('sticky', 'desc')->get();           
+            
+            // get order
+            $order = json_decode($request->cookie('order'));
+           
+            // query 
+            $query = auth('api')->user()
+                ->cards()
+                ->orderBy('sticky', 'desc');
+            
+            if(!empty($order)) {
+                $query->orderBy($order->order, $order->direction);
+            }
+            
+         
+            $data = $query->paginate(10);
+            
         } catch (\Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
