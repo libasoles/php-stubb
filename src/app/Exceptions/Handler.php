@@ -44,6 +44,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($request->expectsJson()) {
+            return response()->json(['error' => 'Internal error. Please check logs.'], 500);
+        }
+        
         return parent::render($request, $exception);
     }
 
