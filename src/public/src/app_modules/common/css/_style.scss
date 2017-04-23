@@ -11,6 +11,8 @@ $blue_2: #2e6da4;
 $light_blue_1: #46b8da;
 $light_blue_2: #269abc;
 
+$light_gray: #777;
+
 body {
     font-family: $font_1;
     line-height: 1.8;
@@ -37,6 +39,13 @@ body {
     -moz-transform: scale($scale);
     -webkit-transform: scale($scale);
     -o-transform: scale($scale);
+}
+
+@mixin box-shadow ($border: none) { 
+    -webkit-box-shadow: $border;
+    -moz-box-shadow: $border;
+    -o-box-shadow: $border;
+    box-shadow: $border;
 }
 
 header h1 {
@@ -141,6 +150,19 @@ header {
 
 
         }
+        
+        button.dropdown-toggle {
+            border: none;
+            margin: 10px 0;
+            color: $light_gray;
+            
+            .glyphicon-user {
+                top: 0;
+            }
+            .glyphicon-chevron-down {
+                top: 2px;
+            }
+        }
 
         .icon-size
         {
@@ -170,7 +192,7 @@ header {
 }
 .panel.no-border {
     border: none;
-    box-shadow: none;
+    @include box-shadow(none);
 }
 .panel.no-border > .panel-heading {
     border: 1px solid #dddddd;
@@ -266,9 +288,9 @@ span.highlight-text {
 * Button Icons
 */
 .btn-icon {      
-    color: #888;
+    color: $light_gray;
     border: none;
-    box-shadow: none;
+    @include box-shadow(none);
     background: none;
     padding: 6px;
     
@@ -285,8 +307,40 @@ span.highlight-text {
     $border: none;
     outline: $border;
     border: $border;
-    -webkit-box-shadow: $border;
-    -moz-box-shadow: $border;
-    -o-box-shadow: $border;
-    box-shadow: $border;
+    @include box-shadow($border);
+}
+
+/**
+* Pagination
+*/
+.pagination {
+    display: table;
+    width: 100%;
+    list-style: none;
+}
+.pagination li {
+    display: table-cell;
+    text-align: center;
+}
+.pagination li a {
+    display: block;
+    cursor: pointer;
+}
+.pagination li a[disabled] {
+    $shadow: none !important;
+    @include box-shadow($shadow);
+    color: $light_gray;
+    cursor: initial;
+}
+.pagination li.current-page {
+    vertical-align: middle;
+    span {
+        float: none;
+        border: none;
+    }
+}
+.pagination {
+    margin-top: 0;
+    list-style-type: none;
+    width: 100%;
 }

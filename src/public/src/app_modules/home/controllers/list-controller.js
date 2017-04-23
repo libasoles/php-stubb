@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', '$cookies', 'cardsFactory', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', '$rootScope', '$cookies', 'cardsFactory', 'HomeContextService', ListController]);
     
-    function ListController($scope, $cookies, cardsFactory, HomeContextService){
+    function ListController($scope, $rootScope, $cookies, cardsFactory, HomeContextService){
                 
         $scope.translations.no_results = "No results";        
         
@@ -14,12 +14,16 @@
         /**
          * Get cards list
          */
-        $scope.load = function() {
+        $scope.load = function(params) {
             
             // get data from server
-            $scope.context.cards =cardsFactory
-                .query(function (response) {
+            cardsFactory
+                .query(params, function (response) {
                     // all neat
+                    $scope.context.cards = response.data; // cards list
+                    $scope.context.pages = response; // pages data
+                 
+                    $rootScope.$broadcast('cards-loaded', response);
                 }, function(err) {
                     console.log(err);
                 });  
@@ -28,11 +32,18 @@
         $scope.load(); // run at page load
         
         /**
-         * load cards
+         * Handle list order
          */
         $scope.$on('order-changed', function(evt, data) {
             $cookies.putObject('order', angular.fromJson(data));
-            $scope.load();
+            $scope.load(); // reload cards
+        });
+        
+        /**
+         * Handle pagination
+         */
+        $scope.$on('cards-page-changed', function(evt, params) {
+            $scope.load(params); // reload cards
         });
         
         /**

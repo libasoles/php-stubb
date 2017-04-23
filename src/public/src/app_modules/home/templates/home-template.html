@@ -22,13 +22,7 @@
                     <div class='panel-body no-results'>{{ translations.no_results}}</div>
                 </div>
             </div>
-            <ul class="pagination pull-right">
-                <li><a href="#" class="active">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
+            <paginate-cards></paginate-cards>
         </div>
     </div>
 
@@ -49,8 +43,10 @@
         </div>
         
         <stack-list-panel></stack-list-panel>
+      
+        <paginate-cards></paginate-cards>
         
-        <div class="panel panel-default tag-cloud" ng-controller="TagController" ang-if="context.tags">
+        <div class="panel panel-default tag-cloud" ng-controller="TagController" ng-if="context.tags">
             <div class="panel-heading">
                 <h4>{{ translations.home.tagCloud.title }}</h4>
             </div>

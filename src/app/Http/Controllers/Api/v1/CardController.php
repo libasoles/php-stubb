@@ -50,7 +50,6 @@ class CardController extends ApiBaseController
             if(!empty($order)) {
                 $query->orderBy($order->order, $order->direction);
             }
-            
          
             $data = $query->paginate(10);
             
