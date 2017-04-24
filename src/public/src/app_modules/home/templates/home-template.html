@@ -9,28 +9,7 @@
         <div id="cards-list" class="list" ng-controller="ListController">
             <div class="text-left">
 
-                <div class="form-group order-by">
-                    <form>
-                        <label>                    
-                            <select ng-model="orderCardsBy" class="form-control">
-                                <option value="updated_at">Modified Date</option>
-                                <option value="created_at">Created Date</option>
-                                <option value="name">Name</option>
-                            </select>
-                        </label> 
-
-                        <span class='v-separator'></span>
-
-                        <label>
-                            <span class="glyphicon glyphicon-arrow-up"></span>
-                            <input type="radio" ng-model="direction" name="direction" />
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="direction" name="direction" value="reverse" checked />
-                            <span class="glyphicon glyphicon-arrow-down"></span>
-                        </label>
-                    </form>
-                </div>
+                <order-by></order-by>
                 
                 <div ng-if="context.cards">
                     <div ng-repeat="card in context.filtered = (context.cards | filter: context.query)" 
@@ -43,43 +22,10 @@
                     <div class='panel-body no-results'>{{ translations.no_results}}</div>
                 </div>
             </div>
-            <ul class="pagination pull-right">
-                <li><a href="#" class="active">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
+            <paginate-cards></paginate-cards>
         </div>
     </div>
 
-    <div class="side-column col-md-4">
-
-        <div class="panel panel-default" ng-controller="SearchController">
-            <div class="panel-body">
-                <form>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                        <input type="text" class="form-control cf" name="filter" placeholder="{{ translations.quick_search }}" aria-describedby="filter" 
-                               ng-model="context.query" />
-                    </div>                                        
-                </form>
-            </div>
-        </div>
-        
-        <stack-list-panel></stack-list-panel>
-        
-        <div class="panel panel-default tag-cloud" ng-controller="TagController" ang-if="context.tags">
-            <div class="panel-heading">
-                <h4>{{ translations.home.tagCloud.title }}</h4>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled list-inline">                  
-                    <li ng-repeat="tag in context.tags"><button class="btn btn-xs btn-info cast-shadow" >{{ tag.name }}</button></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <div ng-include src="'src/app_modules/home/templates/home-sidebar.html'"></div>
+    
 </div>

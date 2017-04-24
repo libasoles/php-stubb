@@ -1,12 +1,4 @@
-// TODO: import from main css
-$green_1: #b4db34;
-$green_2: #86a826;
-$green_3: #719e40;
-
-$blue_1: #337ab7;
-$blue_2: #2e6da4;
-$light_blue_1: #46b8da;
-$light_blue_2: #269abc; 
+@import "common/css/style.scss";
 
 @mixin glyphicon-ring($size: 34px, $border: #8eb4bf) 
 {
@@ -32,10 +24,7 @@ $light_blue_2: #269abc;
         $tHeight: height .4s ease;
         
         border: none !important;
-        -webkit-box-shadow: $border;
-        -moz-box-shadow: $border;
-        -o-box-shadow: $border;
-        box-shadow: $border; 
+        @include box-shadow($border);
         
         height: $initialHeight;
         min-height: $initialHeight;
@@ -218,30 +207,34 @@ $light_blue_2: #269abc;
     /**
     * Sidebar
     */
-    
-    .list-group-item {
-        padding: 10px 0px;
+    .side-column {
+        
+        .list-group-item {
+            padding: 10px 0px;
+        }
     }
 }
 
 /**
 * Modals
 */
+#new-stack-modal textarea,
 #edit-card-modal textarea {
     margin: 0px;
     padding: 0px;
     border: none;
-    box-shadow: none;
+    @include box-shadow(none);
     height: 220px;
     min-height: 220px;
     max-height: 700px;
     
     &:hover {
         border: none;
-        box-shadow: none;
+        @include box-shadow(none);
     }
 }
 
+#new-stack-modal .modal-header input,
 #edit-card-modal .modal-header input {
     width: 100%;
     border: 1px solid #ddd;

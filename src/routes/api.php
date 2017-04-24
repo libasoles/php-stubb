@@ -40,13 +40,19 @@ Route::group([
         
         // Basic CRUD
         Route::resource('cards', 'CardController', ['except' => ['create', 'edit']]);
-        Route::resource('stacks', 'StackController', ['except' => ['create', 'edit']]);
+        Route::resource('stacks', 'StackController', ['except' => ['index', 'create', 'edit']]);
         Route::resource('tags', 'TagController', ['only' => ['index', 'show', 'destroy']]);
+               
+        /**
+         * User stacks
+         * @overrides resource method
+         */
+        Route::get('stacks', 'StackUserController@index');
         
         /**
          * ALl cards w/tags
          */
-        Route::get('cards-tags', "CardTagController@index");
+        Route::get('tags', "CardTagController@index");
         
         /**
          * Single card w/tags
@@ -78,11 +84,11 @@ Route::group([
          */
         Route::put('cards/{card_id}/stacks/{stack_id}', "CardStackController@update");
         Route::put('stacks/{stack_id}/cards/{card_id}', "CardStackController@update");
-        
-        /**
-         * User stacks
-         */
-        Route::get('users-stacks', 'StackUserController@index');
+    });
+    
+    // prevent looping
+    Route::get(Config::get('app.api_version'). '/' . Config::get('app.api_version'), function () {
+        return redirect()->to('/api');
     });
 
     // redirect to current api version

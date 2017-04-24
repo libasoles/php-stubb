@@ -26,6 +26,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-sanitize.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-resource.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-cookies.min.js"></script>
         <script src="src/node_modules/marked/lib/marked.js"></script>
         <script src="src/node_modules/angular-marked/dist/angular-marked.js"></script>
         <script src="src/node_modules/angular-modal-service/dst/angular-modal-service.min.js"></script>
@@ -52,7 +53,7 @@
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
-                                <ng-include src="'/src/app_modules/common/templates/session-template.html'"></ng-include>
+                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>
                                 <form id="logout-form" action="{{ route('logout')}}" method="POST" style="display: none;">{{ csrf_field()}}</form>
                             </li>
                             <li>

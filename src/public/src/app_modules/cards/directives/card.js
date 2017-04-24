@@ -26,7 +26,7 @@
                             }
 
                             // ajax call
-                            cardsFactory.update(card).then(function () {
+                            cardsFactory.update(card).$promise.then(function () {
 
                                 // emmit event
                                 $rootScope.$broadcast('pin-card', item);
@@ -45,7 +45,7 @@
 
                             // Just provide a template url, a controller and call 'showModal'.
                             ModalService.showModal({
-                                templateUrl: config.SRC_FOLDER + "home/modals/confirm.html",
+                                templateUrl: config.SRC_FOLDER + "common/templates/modals/confirm.html",
                                 controller: "YesNoController",
                                 inputs: {
                                     data: {
@@ -59,7 +59,7 @@
 
                                     if (result) {    
                                         // ajax call
-                                        cardsFactory.delete(item.id).then(function () {
+                                        cardsFactory.delete({id: item.id}).$promise.then(function () {
                                             
                                             // emmit event
                                             $rootScope.$broadcast('delete-card', item);                                            
@@ -80,8 +80,8 @@
                         $scope.edit = function (item) {
 
                             ModalService.showModal({
-                                templateUrl: config.SRC_FOLDER + "home/modals/edit.html",
-                                controller: "EditController",
+                                templateUrl: config.SRC_FOLDER + "cards/templates/modals/edit-card.html",
+                                controller: "EditCardController",
                                 inputs: {
                                     data: {
                                         card: item
@@ -100,7 +100,7 @@
                                         }
 
                                         // ajax call
-                                        cardsFactory.update(card).then(function () {
+                                        cardsFactory.update(card).$promise.then(function () {
                                             
                                             // emmit event
                                             $rootScope.$broadcast('update-card', item, card);     
@@ -122,7 +122,7 @@
 
                             // Just provide a template url, a controller and call 'showModal'.
                             ModalService.showModal({
-                                templateUrl: config.SRC_FOLDER + "home/modals/markdown.html",
+                                templateUrl: config.SRC_FOLDER + "home/templates/modals/markdown.html",
                                 controller: "MarkdownController",
                                 inputs: {
                                     data: {

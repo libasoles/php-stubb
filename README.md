@@ -80,3 +80,8 @@ Hint: configure a different port if neccesary and rerun docker.
 If you want to skip the registering process, use these credentials:
 `admin@stubb.net`
 `sysadmin`
+
+## Worth mentioning
+    - PHPUnit runs with a *SQlite* DB, so there are no mockups involved.
+    - OAuth2 token is provided by Laravel Passport
+    - Login process is based on _Blade_ just because. Once inside yes, it's a SPA.

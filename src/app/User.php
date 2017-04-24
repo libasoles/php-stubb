@@ -33,4 +33,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Stack');
     }
+
+    public function cards()
+    {
+        return $this->belongsToMany('App\Card');
+    }
 }

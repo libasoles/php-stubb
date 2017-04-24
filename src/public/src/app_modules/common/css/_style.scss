@@ -11,6 +11,8 @@ $blue_2: #2e6da4;
 $light_blue_1: #46b8da;
 $light_blue_2: #269abc;
 
+$light_gray: #777;
+
 body {
     font-family: $font_1;
     line-height: 1.8;
@@ -39,6 +41,13 @@ body {
     -o-transform: scale($scale);
 }
 
+@mixin box-shadow ($border: none) { 
+    -webkit-box-shadow: $border;
+    -moz-box-shadow: $border;
+    -o-box-shadow: $border;
+    box-shadow: $border;
+}
+
 header h1 {
     color: #719e40;
     letter-spacing: -3px;
@@ -63,6 +72,14 @@ header {
 .margin-bottom-md {margin-bottom: 15px;}
 .margin-bottom-lg {margin-bottom: 20px;}
 
+@mixin with-shadow {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);    
+}
+
+.with-shadow {
+    @include with-shadow;
+}
+
 .cast-shadow {
     $tBgColor: .3s;
     $tColor: .15s;
@@ -78,11 +95,11 @@ header {
 
 .cast-shadow:hover{
     $scale: 1.01;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     transform: scale($scale);
     -moz-transform: scale($scale);
     -webkit-transform: scale($scale);
     -o-transform: scale($scale);
+    @include with-shadow;
 }
 
 em, .hash {
@@ -112,23 +129,45 @@ textarea {
 }
 
 header {
-    .navbar-login
-    {
-        width: 305px;
-        padding: 10px;
-        padding-bottom: 0px;
-    }
+    
+    .session-dropdown {
+        h4 {
+            margin: 5px 0;
+        }
+        
+        .navbar-login
+        {
+            width: 305px;
+            padding: 10px;
+            padding-bottom: 0px;
+        }
 
-    .navbar-login-session
-    {
-        padding: 10px;
-        padding-bottom: 0px;
-        padding-top: 0px;
-    }
+        .navbar-login-session
+        {
+            padding: 10px;
+            padding-bottom: 0px;
+            padding-top: 0px;
 
-    .icon-size
-    {
-        font-size: 87px;
+
+        }
+        
+        button.dropdown-toggle {
+            border: none;
+            margin: 10px 0;
+            color: $light_gray;
+            
+            .glyphicon-user {
+                top: 0;
+            }
+            .glyphicon-chevron-down {
+                top: 2px;
+            }
+        }
+
+        .icon-size
+        {
+            font-size: 87px;
+        }
     }
 }
 
@@ -153,7 +192,7 @@ header {
 }
 .panel.no-border {
     border: none;
-    box-shadow: none;
+    @include box-shadow(none);
 }
 .panel.no-border > .panel-heading {
     border: 1px solid #dddddd;
@@ -179,25 +218,25 @@ span.highlight-text {
 /**
 * Modals 
 */
-.modal.ng-enter {
-  transition: opacity .5s ease-out;
-  opacity: 0;
-}
-.modal.ng-enter.ng-enter-active {
-  opacity: 1;
-}
-.modal.ng-leave {
-  transition: opacity .5s ease-out;
-  opacity: 1;
-}
-.modal.ng-leave.ng-leave-active {
-  opacity: 0;
-}
 .modal.fade .modal-dialog {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0); // IE9 only
         transform: translate(0, 0);
 }
+
+.fade-scale {
+  transform: scale(0.4);
+  opacity: 0;
+  -webkit-transition: all .25s linear;
+  -o-transition: all .25s linear;
+  transition: all .25s linear;
+}
+
+.fade-scale.in {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .modal {    
     .modal-dialog {
         width: 800px;
@@ -206,20 +245,52 @@ span.highlight-text {
 .modal-backdrop{
     background: #140d32;
 }
-.modal.markdown .modal-header {
-    h4 {
-        font-size: 38px;
+.modal.markdown {
+    
+    .modal-dialog {
+        width: 100%;
+        .modal-content {
+            background: url("/img/bg.jpg") repeat repeat;
+        }
     }
-    border-color: #b2cc3a;
+    .modal-header {
+        
+        max-width: 1024px;
+        margin: 0 auto;
+        border-color: #b2cc3a;
+        background: white; 
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        
+        h4 {
+            font-size: 38px;
+        }
+        
+        button {
+            font-size: 50px;
+        }
+    }
+    .modal-body {
+        
+        max-width: 1024px;
+        margin: 0 auto;
+        background: white; 
+        border: 1px solid #ddd;
+    }
+    .modal-footer {
+        
+        max-width: 1024px;
+        margin: 0 auto;
+    }
 }
 
 /**
 * Button Icons
 */
 .btn-icon {      
-    color: #888;
+    color: $light_gray;
     border: none;
-    box-shadow: none;
+    @include box-shadow(none);
     background: none;
     padding: 6px;
     
@@ -233,11 +304,43 @@ span.highlight-text {
 }
 .btn-icon:active, .btn-icon:focus, 
 .btn-icon:active:focus, .btn-icon.active:focus {
-    $border: none;
+    $border: none !important;
     outline: $border;
     border: $border;
-    -webkit-box-shadow: $border;
-    -moz-box-shadow: $border;
-    -o-box-shadow: $border;
-    box-shadow: $border;
+    @include box-shadow($border);
+}
+
+/**
+* Pagination
+*/
+.pagination {
+    display: table;
+    width: 100%;
+    list-style: none;
+}
+.pagination li {
+    display: table-cell;
+    text-align: center;
+}
+.pagination li a {
+    display: block;
+    cursor: pointer;
+}
+.pagination li a[disabled] {
+    $shadow: none !important;
+    @include box-shadow($shadow);
+    color: $light_gray;
+    cursor: initial;
+}
+.pagination li.current-page {
+    vertical-align: middle;
+    span {
+        float: none;
+        border: none;
+    }
+}
+.pagination {
+    margin-top: 0;
+    list-style-type: none;
+    width: 100%;
 }

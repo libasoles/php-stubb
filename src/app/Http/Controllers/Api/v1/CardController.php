@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Card;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Traits\LogHelper;
 use App\Tag;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +15,7 @@ use Illuminate\Validation\ValidationException;
 use function response;
 
 
-class CardController extends Controller
+class CardController extends ApiBaseController
 {
     use ValidatesRequests;
     use LogHelper;
@@ -24,6 +24,7 @@ class CardController extends Controller
 
     function __construct(Model $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
     
@@ -32,13 +33,26 @@ class CardController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = [];
         
         try {
-
-            $data = $this->repository->orderBy('sticky', 'desc')->get();           
+            
+            // get order
+            $order = json_decode($request->cookie('order'));
+           
+            // query 
+            $query = auth('api')->user()
+                ->cards()
+                ->orderBy('sticky', 'desc');
+            
+            if(!empty($order)) {
+                $query->orderBy($order->order, $order->direction);
+            }
+         
+            $data = $query->paginate(10);
+            
         } catch (\Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);

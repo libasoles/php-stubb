@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', 'config', 'cardsFactory', 'ModalService', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', '$rootScope', '$cookies', 'cardsFactory', 'HomeContextService', ListController]);
     
-    function ListController($scope, config, cardsFactory, ModalService, HomeContextService){
+    function ListController($scope, $rootScope, $cookies, cardsFactory, HomeContextService){
                 
         $scope.translations.no_results = "No results";        
         
@@ -14,25 +14,43 @@
         /**
          * Get cards list
          */
-        cardsFactory
-            .getAll()
-            .then(function (response) {
-
-                $scope.context.cards = angular.fromJson(response.data);
-
-                $scope.orderCardsBy = 'updated_at';
-
-                $scope.direction = 'reverse';
-            })
-            .catch(function (err) {
-                console.log(err); // TODO: Tratar el error
-            });  
-                
+        $scope.load = function(params) {
+            
+            // get data from server
+            cardsFactory
+                .query(params, function (response) {
+                    // all neat
+                    $scope.context.cards = response.data; // cards list
+                    $scope.context.pages = response; // pages data
+                 
+                    $rootScope.$broadcast('cards-loaded', response);
+                }, function(err) {
+                    console.log(err);
+                });  
+        };
+        
+        $scope.load(); // run at page load
+        
+        /**
+         * Handle list order
+         */
+        $scope.$on('order-changed', function(evt, data) {
+            $cookies.putObject('order', angular.fromJson(data));
+            $scope.load(); // reload cards
+        });
+        
+        /**
+         * Handle pagination
+         */
+        $scope.$on('cards-page-changed', function(evt, params) {
+            $scope.load(params); // reload cards
+        });
+        
         /**
          * Create card
          */
         $scope.$on('new-card', function(evt, item) {
-            $scope.context.cards.push(item);
+            $scope.context.cards.unshift(item);
         });
         
         /**
@@ -67,7 +85,7 @@
          */
         $scope.$on('update-card', function(evt, original, newCard) {
             let index = $scope.context.cards.indexOf(original);
-            angular.copy(newCard, $scope.context.cards[index]);
+            angular.extend($scope.context.cards[index], newCard);
         });
     }
 })();
