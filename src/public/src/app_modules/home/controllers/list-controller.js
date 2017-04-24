@@ -50,7 +50,7 @@
          * Create card
          */
         $scope.$on('new-card', function(evt, item) {
-            $scope.context.cards.push(item);
+            $scope.context.cards.unshift(item);
         });
         
         /**

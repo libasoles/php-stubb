@@ -27,9 +27,9 @@
                                 content: $scope.content
                             };
 
-                            cardsFactory.save(data).then(function (response) {
+                            cardsFactory.save(data).$promise.then(function (response) {
                                 data.class = 'highlighted';
-                                data.id = response.data.id;
+                                data.id = response.id;
                                 $rootScope.$broadcast('new-card', data);
                             }, function (response) {
                                 console.log(response);

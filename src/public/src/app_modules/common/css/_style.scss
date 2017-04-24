@@ -304,7 +304,7 @@ span.highlight-text {
 }
 .btn-icon:active, .btn-icon:focus, 
 .btn-icon:active:focus, .btn-icon.active:focus {
-    $border: none;
+    $border: none !important;
     outline: $border;
     border: $border;
     @include box-shadow($border);
