@@ -19,7 +19,9 @@
             <li ng-repeat="tag in card.tags">
                 <a href="{{ tag.id }}">#{{ tag.name}}</a>
             </li>
-            <li new-tag></li>
+            <li>
+                <new-tag data='card'></new-tag>
+            </li>
         </ul>        
     </div>
 </div>

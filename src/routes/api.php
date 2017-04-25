@@ -67,7 +67,7 @@ Route::group([
         Route::get('tags/{id}/cards', 'CardTagController@showCards');
         
         /**
-         * Create card tag
+         * Create tag and assign to card
          */
         Route::post('cards/{card_id}/tags', 'CardTagController@store');
 
