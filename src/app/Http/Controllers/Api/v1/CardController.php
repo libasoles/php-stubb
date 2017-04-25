@@ -69,6 +69,8 @@ class CardController extends ApiBaseController
      */
     public function show($id)
     {        
+        $this->authorize('ownership', $this->repository->findOrFail($id));
+        
         $data = [];
         
         try {
@@ -138,6 +140,8 @@ class CardController extends ApiBaseController
      */
     public function update(Request $request, int $id)
     {
+        $this->authorize('ownership', $this->repository->findOrFail($id));
+        
         try {
             
             // validation
@@ -173,6 +177,8 @@ class CardController extends ApiBaseController
      */
     public function destroy(int $id)
     {
+        $this->authorize('ownership', $this->repository->findOrFail($id));
+        
         try {
             
             $this->repository->destroy($id);

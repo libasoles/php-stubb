@@ -20,7 +20,7 @@ class CardTagControllerTest extends TestCase
     public function testCardTagsList()
     {
         
-        $response = $this->call('GET', $this->api.'/cards-tags');
+        $response = $this->call('GET', $this->api.'/cards/tags/all');
  
         $response->assertStatus(200);
         

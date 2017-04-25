@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
             $faker = Faker::create();
 
             // create one user
-            $user_id = DB::table('users')->insertGetId([
+            $admin_user_id = DB::table('users')->insertGetId([
                 'name'=> 'SysAdmin',
                 'email'=> 'admin@stubb.net',
                 'password'=> Hash::make('sysadmin'),
                 'avatar'=> 'profile-picture.png',
             ]);
 
-            $users_list = [$user_id];
+            $users_list = [];
             
             // create more users
             foreach (range(1, 5) as $index) {
@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
                 // assign stacks to random users                
                 $stack_users_keys = (array) array_rand( $users_list, random_int(1, count($users_list)) ); // pick some usres from stack       
                 $stack_users = array_map(function($x) use ($users_list) { return $users_list[$x]; }, $stack_users_keys);
+                array_push($stack_users, $admin_user_id); // admin must own everything for test purposes
                 $stack->users()->attach( $stack_users );
                 
                 // assign cards

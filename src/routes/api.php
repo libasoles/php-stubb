@@ -38,11 +38,13 @@ Route::group([
      */
     Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function($app) {
         
+        Route::pattern('id', '[0-9]+');
+        
         // Basic CRUD
         Route::resource('cards', 'CardController', ['except' => ['create', 'edit']]);
         Route::resource('stacks', 'StackController', ['except' => ['index', 'create', 'edit']]);
         Route::resource('tags', 'TagController', ['only' => ['index', 'show', 'destroy']]);
-               
+                       
         /**
          * User stacks
          * @overrides resource method
@@ -52,7 +54,7 @@ Route::group([
         /**
          * ALl cards w/tags
          */
-        Route::get('tags', "CardTagController@index");
+        Route::get('cards/tags', "CardTagController@index");
         
         /**
          * Single card w/tags
