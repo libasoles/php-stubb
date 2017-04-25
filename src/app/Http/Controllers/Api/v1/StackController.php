@@ -38,6 +38,8 @@ class StackController extends ApiBaseController
     {
         $data = [];
         
+        $this->authorize('ownership', $this->repository->findOrFail($id));
+        
         try {
 
             $lightweight = filter_input(INPUT_GET, 'lightweight', FILTER_VALIDATE_BOOLEAN);
@@ -116,6 +118,8 @@ class StackController extends ApiBaseController
      */
     public function update(Request $request, int $id)
     {
+        $this->authorize('ownership', $this->repository->findOrFail($id));
+        
         try {
 
             // validation
@@ -150,6 +154,8 @@ class StackController extends ApiBaseController
      */
     public function destroy(int $id)
     {
+        $this->authorize('ownership', $this->repository->findOrFail($id));
+        
         try {
 
            $this->repository->destroy($id);

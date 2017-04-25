@@ -23,8 +23,6 @@ class StackUserController extends ApiBaseController
         $data = [];
         
         try {
-
-            $user_id = $this->authenticatedUser()->id;
             
             $data = auth('api')->user()
                 ->stacks()->select(['id', 'name'])->withUsers()
