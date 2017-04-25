@@ -175,6 +175,28 @@
         height: 0;
     }
     
+    /**
+    * tags
+    */
+    .new-tag-widget {
+        display: inline-block;
+        
+        .new-tag-form {
+            width: 0;
+            overflow: hidden;
+            display: inline-block;
+            transition: width 0.3s;
+            height: 30px;
+            vertical-align: middle;
+        }
+        .new-tag-form.visible {
+            width: 280px;
+        }
+    }
+    
+    /**
+    * stacks
+    */
     .panel.stack-list{
         h4 .btn-icon {
             padding: 0;
@@ -242,3 +264,4 @@
     padding: 3px 15px;
     font-size: 20px;
 }
+
