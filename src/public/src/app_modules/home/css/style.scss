@@ -108,6 +108,18 @@
                     text-decoration: none;
                 }
             }
+            li.add-new-widget {
+                .ok .btn-save {
+                    color: $green_2;
+                    $scale: 1.2;
+                    @include scale($scale);
+                }
+                .error .btn-cancel {
+                    color: #cb6464;                    
+                    $scale: 1.2;
+                    @include scale($scale);
+                }
+            }
         }
     }
     

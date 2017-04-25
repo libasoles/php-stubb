@@ -1,6 +1,6 @@
 (function () {
-    angular.module('app.tags').directive('newTag', ['config', 'tagsFactory', 
-        function (config, tagsFactory) {
+    angular.module('app.tags').directive('newTag', ['config', 'tagsFactory', '$rootScope', '$animate',
+        function (config, tagsFactory, $rootScope, $animate) {
             
             return {
                 restrict: 'EA',
@@ -55,16 +55,44 @@
                         if(scope.tag.name) {
                             
                             tagsFactory.save({
-                                id: scope.card.id,
+                                card_id: scope.card.id,
                                 name: scope.tag.name
                             }, function(response) {
-                                
+                                scope.flashClass(element, 'ok');
+                                $rootScope.$broadcast('new-tag', { name: scope.tag.name });
+                            }, function(err) {
+                                scope.flashClass(element, 'error');
                             });
                             scope.tag.name = ''; // reset field
                         }
                     };
+                    
+                    /**
+                     * Key event (Enter)
+                     */
+                    element.bind("keydown keypress", function (event) {
+                        if(event.which === 13) {
+                            scope.addNew();
+                            event.preventDefault();
+                        }
+                    });
+                    
+                    /**
+                     * Adds and removes a class
+                     * 
+                     * @param string className
+                     * @returns void
+                     */
+                    scope.flashClass = function(element, className) {
+                       
+                        $animate.addClass(element, className)
+                            .then(function() {
+                                setTimeout(function() {
+                                    $animate.removeClass(element, className);
+                                }, 500);
+                        });
+                    }
                 },
-                
             };
         }
     ]);

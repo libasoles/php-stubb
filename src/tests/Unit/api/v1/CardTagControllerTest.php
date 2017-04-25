@@ -77,4 +77,19 @@ class CardTagControllerTest extends TestCase
         
         //$this->assertNotEmpty($data['cards_count'], 'Tag count must not be null');
     }
+    
+    public function testStoreCardTag()
+    {
+        $response = $this->post($this->api.'/cards/1/tags', [
+            'card_id' => 1,
+            'name' => 'working'
+        ]);
+        
+        $this->assertEquals(201, $response->status(), 'Response code must be 201 Created');
+        
+        $data = $response->decodeResponseJson();
+
+        // is not an empty result
+        $this->assertNotEmpty($data['id'], 'Response must have an id');
+    }
 }

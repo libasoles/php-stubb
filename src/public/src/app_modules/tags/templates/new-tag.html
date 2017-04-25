@@ -2,10 +2,10 @@
     <span ng-show="display" class="new-tag-form ng-hide" ng-class="visibility">    
         <input name="new-tag" type="text" placeholder="{{ translations.placeholder }}" ng-model="tag.name" />
 
-        <button class="btn btn-icon" ng-click="hide()">
+        <button class="btn btn-icon btn-cancel" ng-click="hide()">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <button class="btn btn-icon" ng-click="addNew()">
+        <button class="btn btn-icon btn-save" ng-click="addNew()">
             <span class="glyphicon glyphicon-ok"></span>
         </button>
     </span>

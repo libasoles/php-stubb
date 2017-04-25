@@ -1,8 +1,9 @@
 (function(){
     angular.module('app.tags').factory('tagsFactory', ['$resource', 'config', function ($resource, config) {
-        return $resource(config.api + '/tags/:id', { id: '@id' }, {
+        return $resource(config.api + '/tags/:id', { id: '@id', card_id: '@card_id' }, {
             save: {
-                url: config.api + '/cards/:id/tags'                
+                method: 'POST', 
+                url: config.api + '/cards/:card_id/tags'                
             },
         }); 
     }]);
