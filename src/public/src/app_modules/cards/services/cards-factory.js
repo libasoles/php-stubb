@@ -9,7 +9,7 @@
             }, 
             {
                 query: {
-                    method: 'GET',
+                    url: config.api + '/cards/tags/all',
                     isArray: false,
                     transformResponse: function (response) {
                         return angular.fromJson(response);

@@ -54,7 +54,7 @@ Route::group([
         /**
          * ALl cards w/tags
          */
-        Route::get('cards/tags', "CardTagController@index");
+        Route::get('cards/tags/all', "CardTagController@index");
         
         /**
          * Single card w/tags

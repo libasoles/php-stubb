@@ -26,7 +26,7 @@ class CardTagController extends ApiBaseController
         
         try {
 
-            $data = Card::with('tags')->orderBy('sticky', 'desc')->get();           
+            $data = Card::with('tags')->orderBy('sticky', 'desc')->paginate(10);           
         } catch (Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);

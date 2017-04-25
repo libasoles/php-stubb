@@ -12,7 +12,7 @@
                 <order-by></order-by>
                 
                 <div ng-if="context.cards">
-                    <div ng-repeat="card in context.filtered = (context.cards | filter: context.query)" 
+                    <div ng-repeat="card in context.cards" 
                         class="card {{ card.class }}" ng-class="{sticky: card.sticky}"> 
                         <div card data="card"></div>
                     </div>
