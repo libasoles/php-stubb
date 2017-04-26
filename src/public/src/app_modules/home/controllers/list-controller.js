@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', '$rootScope', '$cookies', 'cardsFactory', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', '$log', '$cookies', 'queryFactory', 'HomeContextService', ListController]);
     
-    function ListController($scope, $rootScope, $cookies, cardsFactory, HomeContextService){
+    function ListController($scope, $log, $cookies, queryFactory, HomeContextService){
                 
         $scope.translations.no_results = "No results";        
         
@@ -17,26 +17,26 @@
         $scope.load = function(params) {
             
             // get data from server
-            cardsFactory
-                .query(params, function (response) {
-                    // all neat
-                    $scope.context.cards = response.data; // cards list
-                    $scope.context.pages = response; // pages data
-                 
-                    $rootScope.$broadcast('cards-loaded', response);
+            queryFactory
+                .all(params).$promise.then(function (response) {
+                             
                 }, function(err) {
-                    console.log(err);
+                    $log.error(err);
                 });  
         };
         
         $scope.load(); // run at page load
         
+        $scope.$on('cards-loaded', function(evt, response) {
+            $scope.context.cards = response.data; // cards list
+            $scope.context.pages = response; // pages data   
+        });
+        
         /**
          * Handle list order
          */
-        $scope.$on('order-changed', function(evt, data) {
-            $cookies.putObject('order', angular.fromJson(data));
-            $scope.load(); // reload cards
+        $scope.$on('order-changed', function(evt, params) {   
+            $scope.load({order: params}); // reload cards
         });
         
         /**
@@ -86,6 +86,14 @@
         $scope.$on('update-card', function(evt, original, newCard) {
             let index = $scope.context.cards.indexOf(original);
             angular.extend($scope.context.cards[index], newCard);
+        });
+        
+        /**
+         * Filter by stack
+         */
+        $scope.$on('stack-selected', function(evt, params) {
+            
+            queryFactory.byStack(params);
         });
     }
 })();

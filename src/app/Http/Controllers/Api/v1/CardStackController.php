@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Card;
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Traits\LogHelper;
 use App\Stack;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use function response;
@@ -47,15 +47,17 @@ class CardStackController extends ApiBaseController
      * @param  int $id
      * @return Response
      */
-    public function showCards(int $id)
+    public function showCards(int $stack_id)
     {        
-        $this->authorize('ownership', Stack::findOrFail($id));
-        
         $data = [];
         
         try {
+            
+            $stack = Stack::findOrFail($stack_id);
 
-            $data = auth('api')->user()->stacks()->with('cards')->find($id);
+            $this->authorize('ownership', $stack);
+
+            $data = $stack->cards()->with('tags')->paginate( Config::get('results_per_page') );
     
         } catch (ModelNotFoundException $e) {
             return response()->json([ 'message' => 'Not found'], 404);

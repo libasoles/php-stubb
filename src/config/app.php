@@ -242,6 +242,9 @@ return [
     | Used by routes/api.php to redirect to current api version
     |
     */
-    'api_version' => 'v1'
+    'api_version' => 'v1',
+    
+    'results_per_page' => 10
+    
 
 ];

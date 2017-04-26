@@ -6,8 +6,8 @@
                 restrict: 'E',
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-list-panel.html',
                 transclude: true,              
-                controller: ['$scope', '$rootScope', 'stacksFactory', 'ModalService', 
-                    function($scope, $rootScope, stacksFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', 'stacksFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, stacksFactory, ModalService) {
                         
                         $scope.translations = {
                             home: {
@@ -57,6 +57,18 @@
                             }, function(err) {
                                 console.log(err);
                             });
+                        }
+                        
+                        /**
+                         * Filter by stack
+                         */
+                        $scope.filter = function($event, stack_id) {
+                            
+                            $event.preventDefault();
+                            $event.stopPropagation();
+                            
+                            // tell the world
+                            $rootScope.$broadcast('stack-selected', {stack_id: stack_id});
                         }
                 }]
             };

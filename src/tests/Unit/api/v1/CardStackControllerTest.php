@@ -49,7 +49,7 @@ class CardStackControllerTest extends TestCase
         // is not an empty result
         $this->assertNotEmpty($data, 'Item data must not be empty');
         
-        $this->assertNotEmpty($data['cards'], 'Cards list must not be empty');
+        $this->assertNotEmpty($data['data'], 'Cards list must not be empty');
         
         //$this->assertNotEmpty($data['cards_count'], 'Tag count must not be null');
     }

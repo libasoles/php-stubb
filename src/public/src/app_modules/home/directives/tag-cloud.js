@@ -16,6 +16,9 @@
                      */
                     $scope.$on('cards-loaded', function (evt, collection) {
 
+                        if(typeof(collection.data) === 'undefined')
+                            return;
+
                         // exclude card with no tags
                         let cards = collection.data.filter(function (card) {
                             return card.tags ? card.tags.length > 0 : false;
