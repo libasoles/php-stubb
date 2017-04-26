@@ -13,6 +13,11 @@
                     function ($scope, $rootScope, config, cardsFactory, ModalService) {
 
                         /**
+                         * Display only X tags
+                         */
+                        $scope.max_num_tags = 5;
+
+                        /**
                          * Pin Card (make it 'sticky')
                          * 
                          * @param Card item

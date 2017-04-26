@@ -16,7 +16,10 @@
     </div>
     <div class="panel-footer">
         <ul class="text-right">
-            <li ng-repeat="tag in card.tags">
+            <li ng-if="card.tags.length > max_num_tags">
+                <span>and <a href="#more-tags" ng-click="displayAllTags()" class="green">{{ card.tags.length - max_num_tags }} more</a></span>
+            </li>
+            <li ng-repeat="tag in card.tags | limitTo:max_num_tags">
                 <a href="{{ tag.id }}">#{{ tag.name}}</a>
             </li>
             <li class='add-new-widget'>

@@ -202,6 +202,9 @@ header {
 /**
 * Text highlighting
 */
+a.green {
+    color: $green_3 !important;
+}
 a.hashtag {
     color: $green_3;
     cursor: pointer;
