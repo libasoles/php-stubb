@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use function response;
@@ -51,7 +52,7 @@ class CardController extends ApiBaseController
                 $query->orderBy($order->order, $order->direction);
             }
          
-            $data = $query->paginate(10);
+            $data = $query->paginate(Config::get('results_per_page'));
             
         } catch (\Exception $exc) {
             $this->logException($exc);

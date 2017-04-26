@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use function response;
 
 class CardTagController extends ApiBaseController
@@ -28,7 +29,7 @@ class CardTagController extends ApiBaseController
         
         try {
 
-            $data = Card::with('tags')->orderBy('sticky', 'desc')->paginate(10);           
+            $data = Card::with('tags')->orderBy('sticky', 'desc')->paginate(Config::get('results_per_page'));           
         } catch (Exception $exc) {
             $this->logException($exc);
             return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
