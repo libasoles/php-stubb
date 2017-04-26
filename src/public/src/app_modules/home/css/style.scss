@@ -21,19 +21,15 @@
     textarea {
         $initialHeight: 115px;
         $border: none !important;
-        $tHeight: height .4s ease;
         
         border: none !important;
         @include box-shadow($border);
         
         height: $initialHeight;
         min-height: $initialHeight;
-        
-        -webkit-transition: $tHeight;
-        -moz-transition: $tHeight;
-        -ms-transition: $tHeight;
-        -o-transition: $tHeight;
-        transition: $tHeight;
+      
+        $transition: height .4s ease;
+        @include transition($transition);
         
         overflow: hidden;
     }
@@ -61,11 +57,8 @@
      * List 
      */
     .card {
-        $tTime: 0.4s;
-        -webkit-transition: $tTime;
-        -moz-transition: $tTime;
-        -o-transition: $tTime;
-        transition: $tTime;   
+        $transition: 0.4s;
+        @include transition($transition);
         
         position: relative;
     }
@@ -118,7 +111,7 @@
             li.tag.ng-leave {
                 opacity: 1;   
                 width: 100px;
-                scale: 1;
+                @include scale(1);
                 
             }
 
@@ -126,7 +119,7 @@
             li.tag.ng-enter {
                 opacity: 0;
                 width: 0;
-                scale: 0.1;
+                @include scale(0.1);
                 $transition: all 0.3s;
                 @include transition($transition);
             }
@@ -163,10 +156,8 @@
         padding: 0;
         
         $tTime: .5s;
-        -webkit-transition: opacity $tTime ease-out, visibility $tTime;
-        -moz-transition: opacity $tTime ease-out, visibility $tTime;
-        -o-transition: opacity $tTime ease-out, visibility $tTime;
-        transition: opacity $tTime ease-out, visibility $tTime;
+        $transition: opacity $tTime ease-out, visibility $tTime;
+        @include transition($transition);
     }
        
     .no-results {
@@ -219,7 +210,8 @@
             width: 0;
             overflow: hidden;
             display: inline-block;
-            transition: width 0.3s;
+            $transition: width 0.3s;
+            @include transition($transition);
             height: 30px;
             vertical-align: middle;
         }
