@@ -8,8 +8,12 @@
 
         <div id="cards-list" class="list" ng-controller="ListController">
             <div class="text-left">
-
-                <order-by></order-by>
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <order-by></order-by>
+                    </div>
+                </div>
                 
                 <div ng-if="context.cards">
                     <div ng-repeat="card in context.cards" 
