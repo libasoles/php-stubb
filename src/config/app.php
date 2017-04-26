@@ -183,6 +183,7 @@ return [
          */
         App\Providers\RepositoryServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\QueryServiceFactoryProvider::class,
     ],
 
     /*

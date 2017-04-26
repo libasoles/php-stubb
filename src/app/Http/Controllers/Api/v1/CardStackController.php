@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Card;
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Traits\LogHelper;
+use App\Services\QueryService;
 use App\Stack;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use function response;
 
 class CardStackController extends ApiBaseController
@@ -22,15 +23,16 @@ class CardStackController extends ApiBaseController
      * @param  int $id
      * @return Response
      */
-    public function showStacks(int $id)
+    public function showStacks(int $card_id)
     {        
-        $this->authorize('ownership', Stack::findOrFail($id));
+        $card = Card::findOrFail($card_id);
+        $this->authorize('ownership', $card);
         
         $data = [];
        
         try {
-
-            $data = auth('api')->user()->cards()->with('stacks')->findOrFail($id);
+         
+            $data = Card::with('stacks')->findOrFail($card_id);
         } catch (ModelNotFoundException $e) {
             return response()->json([ 'message' => 'Not found'], 404);
         } catch (Exception $exc) {
@@ -47,18 +49,13 @@ class CardStackController extends ApiBaseController
      * @param  int $id
      * @return Response
      */
-    public function showCards(int $stack_id)
+    public function showCards(Request $request, QueryService $query, int $stack_id)
     {        
         $data = [];
         
         try {
-            
-            $stack = Stack::findOrFail($stack_id);
-
-            $this->authorize('ownership', $stack);
-
-            $data = $stack->cards()->with('tags')->paginate( Config::get('results_per_page') );
     
+            $data = $query->searchByStack($stack_id);
         } catch (ModelNotFoundException $e) {
             return response()->json([ 'message' => 'Not found'], 404);
         } catch (Exception $exc) {

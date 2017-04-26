@@ -79,7 +79,7 @@ Route::group([
         /**
          * Cards stacks
          */
-        Route::get('cards/{id}/stacks', "CardStackController@showStacks");
+        Route::get('cards/{card_id}/stacks', "CardStackController@showStacks");
         
         /**
          * Assign card to stack
