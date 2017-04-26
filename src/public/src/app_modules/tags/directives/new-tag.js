@@ -54,14 +54,17 @@
                         
                         if(scope.tag.name) {
                             
-                            tagsFactory.save({
+                            let tag = {
                                 card_id: scope.card.id,
                                 name: scope.tag.name
-                            }, function(response) {
-                                scope.flashClass(element, 'ok');
-                                $rootScope.$broadcast('new-tag', { name: scope.tag.name });
+                            };
+                            
+                            tagsFactory.save(tag, function(response) {
+                                tag.id = response.id; // append tag id
+                                scope.flashClass(element, 'ok'); // ux 
+                                $rootScope.$broadcast('new-tag', tag);
                             }, function(err) {
-                                scope.flashClass(element, 'error');
+                                scope.flashClass(element, 'error'); // ux 
                             });
                             scope.tag.name = ''; // reset field
                         }
