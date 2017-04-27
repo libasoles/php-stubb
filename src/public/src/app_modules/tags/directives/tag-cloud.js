@@ -4,7 +4,7 @@
 
             return {
                 restrict: 'EA',
-                templateUrl: config.SRC_FOLDER + '/home/templates/tag-cloud.html',
+                templateUrl: config.SRC_FOLDER + '/tags/templates/tag-cloud.html',
                 controller: ['$scope', 'reduceByFilter', function ($scope, reduceByFilter) {
 
                     $scope.translations.home.tagCloud = {

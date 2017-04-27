@@ -4,7 +4,7 @@
             
             return {
                 restrict: 'EA',
-                templateUrl: config.SRC_FOLDER + '/common/templates/paginate-cards.html',
+                templateUrl: config.SRC_FOLDER + '/cards/templates/paginate-cards.html',
                 transclude: true,
                 scope: {
                     data: '='
