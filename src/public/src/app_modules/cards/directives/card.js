@@ -13,6 +13,11 @@
                     function ($scope, $rootScope, config, cardsFactory, ModalService) {
 
                         /**
+                         * Display only X tags
+                         */
+                        $scope.max_num_tags = 3;
+
+                        /**
                          * Pin Card (make it 'sticky')
                          * 
                          * @param Card item
@@ -133,7 +138,15 @@
                                 modal.element.modal();
                             });
                         };
-                    }]
-            };
-            }]);
+
+                        /**
+                         * On new tag added, push it to the list
+                         */
+                        $scope.$on('new-tag', function(evt, data) {
+                            // add tag as the last visible of X tags
+                            $scope.card.tags.splice($scope.max_num_tags-1, 0, data);
+                        });
+                }]
+        };
+    }]);
 })();

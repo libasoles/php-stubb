@@ -36,8 +36,8 @@ body {
 
 @mixin scale ($scale: 1.01) {
     transform: scale($scale);
-    -moz-transform: scale($scale);
     -webkit-transform: scale($scale);
+    -moz-transform: scale($scale);
     -o-transform: scale($scale);
 }
 
@@ -46,6 +46,14 @@ body {
     -moz-box-shadow: $border;
     -o-box-shadow: $border;
     box-shadow: $border;
+}
+
+@mixin transition($transition: 1s) {
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -ms-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
 }
 
 header h1 {
@@ -87,10 +95,8 @@ header {
     $tOpacity: .3s;
     $tScale: .1s;
     
-    -webkit-transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
-    -moz-transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
-    -o-transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
-    transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
+    $transition: background-color $tBgColor,color $tColor,box-shadow $tShadow,opacity $tOpacity,scale $tScale;
+    @include transition($transition);
 }
 
 .cast-shadow:hover{
@@ -202,6 +208,9 @@ header {
 /**
 * Text highlighting
 */
+a.green {
+    color: $green_3 !important;
+}
 a.hashtag {
     color: $green_3;
     cursor: pointer;
@@ -227,9 +236,8 @@ span.highlight-text {
 .fade-scale {
   transform: scale(0.4);
   opacity: 0;
-  -webkit-transition: all .25s linear;
-  -o-transition: all .25s linear;
-  transition: all .25s linear;
+  $transition: all .25s linear;
+  @include transition($transition);
 }
 
 .fade-scale.in {
@@ -337,6 +345,7 @@ span.highlight-text {
     span {
         float: none;
         border: none;
+        color: #999;
     }
 }
 .pagination {

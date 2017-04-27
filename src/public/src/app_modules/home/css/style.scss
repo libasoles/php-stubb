@@ -21,19 +21,15 @@
     textarea {
         $initialHeight: 115px;
         $border: none !important;
-        $tHeight: height .4s ease;
         
         border: none !important;
         @include box-shadow($border);
         
         height: $initialHeight;
         min-height: $initialHeight;
-        
-        -webkit-transition: $tHeight;
-        -moz-transition: $tHeight;
-        -ms-transition: $tHeight;
-        -o-transition: $tHeight;
-        transition: $tHeight;
+      
+        $transition: height .4s ease;
+        @include transition($transition);
         
         overflow: hidden;
     }
@@ -61,11 +57,8 @@
      * List 
      */
     .card {
-        $tTime: 0.4s;
-        -webkit-transition: $tTime;
-        -moz-transition: $tTime;
-        -o-transition: $tTime;
-        transition: $tTime;   
+        $transition: 0.4s;
+        @include transition($transition);
         
         position: relative;
     }
@@ -93,8 +86,14 @@
         .panel-footer {
             padding: 0;
             
-            ul {
-               margin: 0 30px; 
+            ul.tag-list {
+               margin: 0 28px;
+               padding-left: 0;
+               overflow: hidden;
+               white-space: nowrap;
+               span {
+                color: #777;
+               }
             }
             li {
                 list-style-type: none;
@@ -106,6 +105,37 @@
                 a:hover {
                     color: $blue_1;
                     text-decoration: none;
+                }
+            }
+            li.tag {
+               
+            }
+            li.tag.ng-enter.ng-enter-active,
+            li.tag.ng-leave {
+                opacity: 1;   
+                width: 100px;
+                @include scale(1);
+                
+            }
+
+            li.tag.ng-leave.ng-leave-active,
+            li.tag.ng-enter {
+                opacity: 0;
+                width: 0;
+                @include scale(0.1);
+                $transition: all 0.3s;
+                @include transition($transition);
+            }
+            li.add-new-widget {
+                .ok .btn-save {
+                    color: $green_2;
+                    $scale: 1.2;
+                    @include scale($scale);
+                }
+                .error .btn-cancel {
+                    color: #cb6464;                    
+                    $scale: 1.2;
+                    @include scale($scale);
                 }
             }
         }
@@ -129,10 +159,8 @@
         padding: 0;
         
         $tTime: .5s;
-        -webkit-transition: opacity $tTime ease-out, visibility $tTime;
-        -moz-transition: opacity $tTime ease-out, visibility $tTime;
-        -o-transition: opacity $tTime ease-out, visibility $tTime;
-        transition: opacity $tTime ease-out, visibility $tTime;
+        $transition: opacity $tTime ease-out, visibility $tTime;
+        @include transition($transition);
     }
        
     .no-results {
@@ -175,6 +203,28 @@
         height: 0;
     }
     
+    /**
+    * tags
+    */
+    .new-tag-widget {
+        display: inline-block;        
+        .new-tag-form {
+            width: 0;
+            overflow: hidden;
+            display: inline-block;
+            $transition: width 0.3s;
+            @include transition($transition);
+            height: 30px;
+            vertical-align: middle;
+        }
+        .new-tag-form.visible {
+            width: 248px;
+        }
+    }
+    
+    /**
+    * stacks
+    */
     .panel.stack-list{
         h4 .btn-icon {
             padding: 0;
@@ -242,3 +292,4 @@
     padding: 3px 15px;
     font-size: 20px;
 }
+

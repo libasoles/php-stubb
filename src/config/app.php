@@ -183,6 +183,7 @@ return [
          */
         App\Providers\RepositoryServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\QueryServiceFactoryProvider::class,
     ],
 
     /*
@@ -242,6 +243,9 @@ return [
     | Used by routes/api.php to redirect to current api version
     |
     */
-    'api_version' => 'v1'
+    'api_version' => 'v1',
+    
+    'results_per_page' => 10,    
+    'default_avatar' => 'profile-picture.png',   
 
 ];

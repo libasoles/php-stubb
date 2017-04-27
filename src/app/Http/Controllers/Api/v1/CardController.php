@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\v1;
 use App\Card;
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Traits\LogHelper;
+use App\Services\QueryService;
 use App\Tag;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use function response;
@@ -33,7 +35,7 @@ class CardController extends ApiBaseController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, QueryService $query)
     {
         $data = [];
         
@@ -41,17 +43,8 @@ class CardController extends ApiBaseController
             
             // get order
             $order = json_decode($request->cookie('order'));
-           
-            // query 
-            $query = auth('api')->user()
-                ->cards()
-                ->orderBy('sticky', 'desc');
-            
-            if(!empty($order)) {
-                $query->orderBy($order->order, $order->direction);
-            }
-         
-            $data = $query->paginate(10);
+   
+            $data = $query->search();
             
         } catch (\Exception $exc) {
             $this->logException($exc);

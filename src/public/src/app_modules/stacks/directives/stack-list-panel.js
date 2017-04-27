@@ -6,17 +6,9 @@
                 restrict: 'E',
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-list-panel.html',
                 transclude: true,              
-                controller: ['$scope', '$rootScope', 'stacksFactory', 'ModalService', 
-                    function($scope, $rootScope, stacksFactory, ModalService) {
-                        
-                        $scope.translations = {
-                            home: {
-                                stackList: {
-                                    title: "Stacks"
-                                }
-                            }    
-                        }
-
+                controller: ['$scope', '$rootScope', '$log', 'stacksFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, stacksFactory, ModalService) {
+                     
                         /**
                          * Get stack list
                          */
@@ -57,6 +49,18 @@
                             }, function(err) {
                                 console.log(err);
                             });
+                        }
+                        
+                        /**
+                         * Filter by stack
+                         */
+                        $scope.filter = function($event, stack_id) {
+                            
+                            $event.preventDefault();
+                            $event.stopPropagation();
+                            
+                            // tell the world
+                            $rootScope.$broadcast('stack-selected', {stack_id: stack_id});
                         }
                 }]
             };

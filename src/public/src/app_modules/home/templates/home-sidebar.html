@@ -1,7 +1,5 @@
 <div class="side-column col-md-4">
 
-    <paginate-cards></paginate-cards>
-
     <div class="panel panel-default" ng-controller="SearchController">
         <div class="panel-body">
             <form>
@@ -9,7 +7,7 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
-                    <input type="text" class="form-control cf" name="filter" placeholder="{{ translations.quick_search}}" aria-describedby="filter" 
+                    <input type="text" class="form-control cf" name="filter" translate-attr="{placeholder: 'translations.home.sidebar.searcher.quick_search' }" placeholder="" aria-describedby="filter" 
                            ng-model="context.query" />
                 </div>                                        
             </form>
@@ -18,14 +16,6 @@
 
     <stack-list-panel></stack-list-panel>
 
-    <div class="panel panel-default tag-cloud" ng-controller="TagController" ng-if="context.tags">
-        <div class="panel-heading">
-            <h4>{{ translations.home.tagCloud.title}}</h4>
-        </div>
-        <div class="panel-body">
-            <ul class="list-unstyled list-inline">                  
-                <li ng-repeat="tag in context.tags"><button class="btn btn-xs btn-info cast-shadow" >{{ tag.name}}</button></li>
-            </ul>
-        </div>
-    </div>
+    <tag-cloud></tag-cloud>
+    
 </div>

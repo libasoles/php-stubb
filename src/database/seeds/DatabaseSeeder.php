@@ -1,11 +1,14 @@
 <?php
 
+use App\Card;
+use App\Stack;
+use App\Tag;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use App\Card;
-use App\Tag;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +29,7 @@ class DatabaseSeeder extends Seeder
                 'name'=> 'SysAdmin',
                 'email'=> 'admin@stubb.net',
                 'password'=> Hash::make('sysadmin'),
-                'avatar'=> 'profile-picture.png',
+                'avatar'=> Config::get('app.default_avatar'),
             ]);
 
             $users_list = [];
@@ -37,7 +40,7 @@ class DatabaseSeeder extends Seeder
                     'name'=> $faker->name(),
                     'email'=> $faker->email(),
                     'password'=> Hash::make( $faker->password() ),
-                    'avatar'=> 'profile-picture.png',
+                    'avatar'=> Config::get('app.default_avatar'),
                 ]);
             }
 
@@ -45,7 +48,7 @@ class DatabaseSeeder extends Seeder
             foreach (range(1, 4) as $index) {
 
                 // create stack
-                $stack = App\Stack::create([
+                $stack = Stack::create([
                     'name' => $faker->sentence($nbWords = 2, $variableNbWords = true),
                     'description' => $faker->text($maxNbChars = 200),
                     'enabled' => 1,
@@ -95,7 +98,7 @@ class DatabaseSeeder extends Seeder
             }  
             
         } catch (Exception $ex) {
-            \Illuminate\Support\Facades\Log::info($ex);
+            Log::info($ex);
             echo $ex->getMessage();
         }
     }

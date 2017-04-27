@@ -26,6 +26,7 @@ class CardControllerTest extends TestCase
         $response = $this->call('GET', $this->api.'/cards');
  
         $response->assertStatus(200);
+        
         // is not an empty result
         $this->assertNotEmpty($response, 'Data list must not be empty');
         

@@ -28,10 +28,8 @@ class CardTagControllerTest extends TestCase
         
         // is not an empty result
         $this->assertNotEmpty($data, 'Data list must not be empty');
-                
-        $this->assertNotEmpty($data[0]['tags'], 'Tag list must not be empty');
-        
-        //$this->assertNotEmpty($data[0]['tag_count'], 'Tag count must not be null');
+               
+        $this->assertNotEmpty($data['data'][0]['tags'], 'Tag list must not be empty');
         
         $response->assertJsonFragment(["id"=> 1]);
     }
@@ -53,8 +51,6 @@ class CardTagControllerTest extends TestCase
         $this->assertNotEmpty($data, 'Item data must not be empty');
         
         $this->assertNotEmpty($data['tags'], 'Tag list must not be empty');
-        
-        //$this->assertNotEmpty($data['tag_count'], 'Tag count must not be null');
     }
     
     /**
@@ -74,7 +70,20 @@ class CardTagControllerTest extends TestCase
         $this->assertNotEmpty($data, 'Item data must not be empty');
         
         $this->assertNotEmpty($data['cards'], 'Cards list must not be empty');
+    }
+    
+    public function testStoreCardTag()
+    {
+        $response = $this->post($this->api.'/cards/1/tags', [
+            'card_id' => 1,
+            'name' => 'working'
+        ]);
         
-        //$this->assertNotEmpty($data['cards_count'], 'Tag count must not be null');
+        $this->assertEquals(201, $response->status(), 'Response code must be 201 Created');
+        
+        $data = $response->decodeResponseJson();
+
+        // is not an empty result
+        $this->assertNotEmpty($data['id'], 'Response must have an id');
     }
 }

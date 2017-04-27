@@ -18,7 +18,7 @@
                             <h4 class="text-left"><strong>{{ user.name }}</strong></h4>
                             <p class="text-left small">{{ user.email }}</p>
                             <p class="text-left">
-                                <a href="#" class="btn btn-default btn-block btn-sm">{{ translations.update_info }}</a>
+                                <a href="#" class="btn btn-default btn-block btn-sm" translate="translations.home.header.session.update_info"></a>
                             </p>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                 <div class="navbar-login navbar-login-session">
                     <div class="row">
                         <div class="col-lg-12 text-right">
-                            <a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ translations.logout }} </a>
+                            <a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" translate="translations.home.header.session.logout"></a>
                         </div>
                     </div>
                 </div>

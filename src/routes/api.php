@@ -54,7 +54,7 @@ Route::group([
         /**
          * ALl cards w/tags
          */
-        Route::get('cards/tags', "CardTagController@index");
+        Route::get('cards/tags/all', "CardTagController@index");
         
         /**
          * Single card w/tags
@@ -67,19 +67,19 @@ Route::group([
         Route::get('tags/{id}/cards', 'CardTagController@showCards');
         
         /**
-         * Create card tag
+         * Create tag and assign to card
          */
         Route::post('cards/{card_id}/tags', 'CardTagController@store');
 
         /**
          * Stack cards
          */
-        Route::get('stacks/{id}/cards', "CardStackController@showCards");
+        Route::get('stacks/{stack_id}/cards', "CardStackController@showCards");
         
         /**
          * Cards stacks
          */
-        Route::get('cards/{id}/stacks', "CardStackController@showStacks");
+        Route::get('cards/{card_id}/stacks', "CardStackController@showStacks");
         
         /**
          * Assign card to stack
