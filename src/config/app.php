@@ -245,7 +245,7 @@ return [
     */
     'api_version' => 'v1',
     
-    'results_per_page' => 10
-    
+    'results_per_page' => 10,    
+    'default_avatar' => 'profile-picture.png',   
 
 ];
