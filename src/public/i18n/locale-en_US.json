@@ -35,11 +35,21 @@
                 }
             },
             "modals": {
-                
+                "new_stack": {
+                    "placeholders": {
+                        "name": "Stack title...",
+                        "description": "Optional description..."
+                    }
+                }
             },
             "buttons": {
                 "save": "Save",
                 "cancel": "Cancel",
+                "submit": "Submit",
+                "delete": "Delete",
+                "pin": "Pin",
+                "edit": "Edit",
+                "as_html": "View as Rich Text",
                 "new_tag": "New Tag"
             }
         }

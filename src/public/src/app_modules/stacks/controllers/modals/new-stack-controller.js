@@ -6,11 +6,7 @@
        
         $scope.form = {
             name: '',
-            description: '',
-            placeholder: {
-                name: 'Stack title...',
-                description: 'Optional description...',
-            }
+            description: ''
         };
       
         $scope.close = function (result) {
