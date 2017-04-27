@@ -36,6 +36,11 @@
             },
             "modals": {
                 
+            },
+            "buttons": {
+                "save": "Save",
+                "cancel": "Cancel",
+                "new_tag": "New Tag"
             }
         }
     }

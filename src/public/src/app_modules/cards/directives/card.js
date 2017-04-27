@@ -144,7 +144,13 @@
                          */
                         $scope.$on('new-tag', function(evt, data) {
                             // add tag as the last visible of X tags
-                            $scope.card.tags.splice($scope.max_num_tags-1, 0, data);
+                            if(typeof($scope.card.tags) !== 'undefined'){
+                                // add tag to the list
+                                $scope.card.tags.splice($scope.max_num_tags-1, 0, data);
+                            } else {
+                                // create the list
+                                $scope.card.tags = [data];
+                            }
                         });
                 }]
         };
