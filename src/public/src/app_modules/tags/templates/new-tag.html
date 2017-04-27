@@ -1,6 +1,6 @@
 <div class='new-tag-widget'>    
     <span ng-show="display" class="new-tag-form ng-hide" ng-class="visibility">    
-        <input name="new-tag" type="text" placeholder="{{ translations.placeholder }}" ng-model="tag.name" />
+        <input name="new-tag" type="text" translate-attr="{ placeholder: 'translations.home.content.cards.tags.placeholder' }" placeholder="" ng-model="tag.name" />
 
         <button class="btn btn-icon btn-cancel" ng-click="hide()">
             <span class="glyphicon glyphicon-remove"></span>

@@ -3,8 +3,6 @@
     angular.module('app.home').controller('ListController', ['$scope', '$log', '$cookies', 'queryFactory', 'HomeContextService', ListController]);
     
     function ListController($scope, $log, $cookies, queryFactory, HomeContextService){
-                
-        $scope.translations.no_results = "No results";        
         
         /**
          * Way to keep siblings connected and sharing scope

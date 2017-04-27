@@ -7,10 +7,6 @@
                 templateUrl: config.SRC_FOLDER + '/tags/templates/tag-cloud.html',
                 controller: ['$scope', 'reduceByFilter', function ($scope, reduceByFilter) {
 
-                    $scope.translations.home.tagCloud = {
-                        title: "In this page"
-                    };
-
                     /**
                      * Keep track of card list changes
                      */

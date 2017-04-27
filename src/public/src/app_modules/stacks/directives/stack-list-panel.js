@@ -8,15 +8,7 @@
                 transclude: true,              
                 controller: ['$scope', '$rootScope', '$log', 'stacksFactory', 'ModalService', 
                     function($scope, $rootScope, $log, stacksFactory, ModalService) {
-                        
-                        $scope.translations = {
-                            home: {
-                                stackList: {
-                                    title: "Stacks"
-                                }
-                            }    
-                        }
-
+                     
                         /**
                          * Get stack list
                          */

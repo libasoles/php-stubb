@@ -11,9 +11,6 @@
                 },
                 link: function(scope, element, attrs) {
                   
-                    scope.translations = {};
-                    scope.translations.placeholder = "Name it...";
-                    
                     // archetype
                     scope.tag = {
                         name: ''
