@@ -10,7 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
         <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
@@ -56,8 +55,7 @@
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
-                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>
-                                <form id="logout-form" action="{{ route('logout')}}" method="POST" style="display: none;">{{ csrf_field()}}</form>
+                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>                                
                             </li>
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
