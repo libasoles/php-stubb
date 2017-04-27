@@ -1,0 +1,19 @@
+{
+    "translations": {
+        "home": {
+            "header": {
+                "subtitle": "Simply hash your notes and navigate them"
+            },
+            "content": {
+
+            },
+            "sidebar": {
+                "panels": {
+                    "stacks": {
+                        "title": "Stacks"
+                    }
+                }
+            }
+        }
+    }
+}

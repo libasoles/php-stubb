@@ -30,8 +30,11 @@
         <script src="src/node_modules/marked/lib/marked.js"></script>
         <script src="src/node_modules/angular-marked/dist/angular-marked.js"></script>
         <script src="src/node_modules/angular-modal-service/dst/angular-modal-service.min.js"></script>
+        <script src="src/node_modules/angular-translate/dist/angular-translate.min.js"></script>
+        <script src="src/node_modules/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+        <script src="src/node_modules/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
         <script src="src/app.js"></script>
-        
+      
         <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token()
@@ -45,9 +48,9 @@
 
                 <div class="col-md-8 text-left">
                     <h1 class="col-md-12"><img src="img/logo.png" alt="logo" /> Stubb.</h1>
-                    <div class="col-md-1"></div><div class="col-md-11" ng-bind="translations.subtitle"></div>
+                    <div class="col-md-1"></div><div class="col-md-11" translate="translations.home.header.subtitle"></div>
                 </div>
-
+                
                 <div class="col-md-4 text-right profile-area">
 
                     <div class="navbar navbar-default pull-right" role="navigation">
