@@ -5,9 +5,12 @@
             return {
                 restrict: 'E',
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-list-panel.html',
-                transclude: true,              
-                controller: ['$scope', '$rootScope', '$log', 'stacksFactory', 'ModalService', 
-                    function($scope, $rootScope, $log, stacksFactory, ModalService) {
+                transclude: true,       
+                link: function(scope, element, attrs) {
+                    scope.img_folder = config.PROFILE_IMG_FOLDER;
+                },
+                controller: ['$scope', '$rootScope', 'config', 'stacksFactory', 'ModalService', 
+                    function($scope, $rootScope, config, stacksFactory, ModalService) {
                      
                         /**
                          * Get stack list

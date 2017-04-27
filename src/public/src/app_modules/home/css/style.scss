@@ -57,9 +57,7 @@
      * List 
      */
     .card {
-        $transition: 0.4s;
-        @include transition($transition);
-        
+        min-height: 255px;
         position: relative;
     }
     
@@ -67,7 +65,8 @@
         border-left: 4px solid $green_1;
         
         .panel-body {
-       
+            min-height: 220px !important;
+            
             .card-content{
                 white-space: pre-line;
             }
@@ -122,9 +121,9 @@
             li.tag.ng-enter {
                 opacity: 0;
                 width: 0;
-                @include scale(0.1);
                 $transition: all 0.3s;
                 @include transition($transition);
+                @include scale(0.1);
             }
             li.add-new-widget {
                 .ok .btn-save {
@@ -158,17 +157,10 @@
         margin-top: 10px;
         padding: 0;
         
-        $tTime: .5s;
-        $transition: opacity $tTime ease-out, visibility $tTime;
+        $transition: opacity .5s ease-out, visibility .5s;
         @include transition($transition);
     }
-       
-    .no-results {
-        background: #5bc0de;
-        border-color: #5bc0de;
-        color: white;
-    }
-    
+  
     .card.highlighted .panel,
     .card.sticky {
         
@@ -194,13 +186,23 @@
     .card.ng-enter.ng-enter-active,
     .card.ng-leave {
         opacity: 1;   
-        height: 100px;
+        @include scale(1);
+        $transition: transform .4s, opacity .7s ease-out;
+        @include transition($transition);
     }
 
     .card.ng-leave.ng-leave-active,
     .card.ng-enter {
         opacity: 0;
-        height: 0;
+        @include scale(.93);
+    }
+         
+    .no-results.ng-enter.ng-enter-active,
+    .no-results.ng-leave  {
+        @include transition(2s);
+        background: #5bc0de;
+        border-color: #5bc0de;
+        color: white;
     }
     
     /**

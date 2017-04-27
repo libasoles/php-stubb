@@ -8,6 +8,9 @@
                 scope: {
                     data: "="
                 },
+                link: function(scope, elements, attrs) {
+                    scope.img_folder = config.PROFILE_IMG_FOLDER;
+                },
                 controller: ['$scope', function ($scope) {
                         
                     $scope.user = $scope.data;
