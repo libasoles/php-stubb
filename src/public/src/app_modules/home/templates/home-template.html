@@ -15,6 +15,15 @@
                     </div>
                 </div>
                 
+                <div ng-if="true" class='panel panel-default active-tags animated' ng-class="{zoomInDown: true}">
+                    <div class='panel-body text-right'>
+                        <li ng-repeat="tag in tag_filters" class="btn btn-xs btn-info cast-shadow">
+                            <span>{{ tag.name }}</span>
+                            <button class="btn btn-xs glyphicon glyphicon-remove btn-icon"></button>
+                        </li>
+                    </div>
+                </div>
+                
                 <div ng-if="context.stack.description" class='panel panel-default stack-description animated' ng-class="{flipInX: context.stack.description}">
                     <div class='panel-body'>{{ context.stack.description }}</div>
                 </div>

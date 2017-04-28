@@ -260,6 +260,34 @@
             width: 248px;
         }
     }
+    .active-tags {
+        border: none;
+        box-shadow: none;
+        
+        .panel-body {
+            padding: 0;
+            
+            li {
+                margin: 2px 5px 2px 0;
+                vertical-align: middle;
+                cursor: default;
+
+                span {
+                    vertical-align: middle;
+                }
+                .btn-icon {
+                    vertical-align: middle;
+                    padding: 0;
+                    top: 0;
+                    
+                    &:hover {
+                        color: #ddd;
+                    }
+                }
+            }
+        }
+    }
+    
     
     /**
     * stacks
