@@ -4,9 +4,13 @@
 
             return {
                 restrict: 'EA',
+                scope: true,
+                replace: true,     
                 templateUrl: config.SRC_FOLDER + '/tags/templates/tag-cloud.html',
                 controller: ['$scope', '$cookies', '$rootScope', 'reduceByFilter', function ($scope, $cookies, $rootScope, reduceByFilter) {
 
+                    $scope.events = {};
+                
                     /**
                      * Keep track of card list changes
                      */
@@ -31,7 +35,7 @@
                         $scope.tags = reduceByFilter(merged, 'id');
                     });
                     
-                    $scope.filter = function(tag) {
+                    $scope.events.filter = function(tag) {
                         
                         let current_cookies = $cookies.get('tags');
                                  

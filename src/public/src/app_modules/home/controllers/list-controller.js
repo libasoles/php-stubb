@@ -128,7 +128,6 @@
         // add one more
         $scope.$on('tag-filter-added', function(evt, tag) {
             $scope.tag_filters.unshift(tag);
-            console.log($scope.tag_filters);
         });
         
         // Draw tag filters on page load

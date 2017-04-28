@@ -29,9 +29,9 @@ class QueryService
             ->orderBy('sticky', 'desc');
 
         // apply order
-        if ($this->request->cookie('order')) {
+        if ($this->request->get('order')) {
 
-            $order = json_decode($this->request->cookie('order'));
+            $order = json_decode($this->request->get('order'));
             $query->orderBy($order->order, $order->direction);
         }
 
@@ -44,7 +44,7 @@ class QueryService
     public function search()
     {
         // apply order
-        if ($this->request->cookie('stack') !== null) {
+        if ($this->request->get('stack') !== null) {
 
             return $this->searchByStack();
         } else {
@@ -57,8 +57,8 @@ class QueryService
     public function searchByStack($stack_id = null)
     {           
         // read cookie
-        $stack = json_decode($this->request->cookie('stack'));
-        $stack_id = $stack_id ?? $stack->id; // from URL or COOKIE
+        $stack = json_decode($this->request->get('stack'));
+        $stack_id = $stack_id ?? $stack; // from URL or COOKIE
         $stack = Stack::findOrFail($stack_id);
 
         // current user must by the owner of the stack

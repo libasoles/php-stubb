@@ -4,8 +4,9 @@
             
             return {
                 restrict: 'E',
+                scope: {},
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-list-panel.html',
-                transclude: true,       
+                replace: true,       
                 link: function(scope, element, attrs) {
                     scope.img_folder = config.PROFILE_IMG_FOLDER;
                     
@@ -13,6 +14,8 @@
                 },
                 controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'ModalService', 
                     function($scope, $rootScope, $log, $cookies, config, stacksFactory, ModalService) {
+                     
+                        $scope.events = {};
                      
                         /**
                          * Get stack list
@@ -22,7 +25,7 @@
                         /**
                          * Create new stack
                          */
-                        $scope.addNew = function() {
+                        $scope.events.addNew = function() {
                             ModalService.showModal({
                                 templateUrl: config.SRC_FOLDER + "stacks/templates/modals/new-stack.html",
                                 controller: "NewStackController"
@@ -59,15 +62,15 @@
                         /**
                          * Filter by stack
                          */
-                        $scope.filter = function($event, stack) {
-                            
+                        $scope.events.filter = function($event, stack) {
+                           
                             $event.preventDefault();
                             $event.stopPropagation();
                             
-                            let li = $($event.currentTarget);
-                            
-                            li.closest('ul').find('.list-group-item').removeClass('selected');
-                            li.parent().addClass('selected');
+                            let link = $($event.currentTarget);
+                       
+                            link.closest('ul').find('.list-group-item').removeClass('selected');
+                            link.parent().addClass('selected');
                                                         
                             // persist filter
                             $cookies.putObject('stack', {
