@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use \DavidBadura\FakerMarkdownGenerator\FakerProvider;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +24,8 @@ class DatabaseSeeder extends Seeder
         try {
 
             $faker = Faker::create();
-
+            $faker->addProvider(new FakerProvider($faker));
+            
             // create one user
             $admin_user_id = DB::table('users')->insertGetId([
                 'name'=> 'SysAdmin',
@@ -65,7 +67,7 @@ class DatabaseSeeder extends Seeder
                 // assign cards
                 foreach (range(1, 7) as $index) {
 
-                    $cardContent = $faker->text($maxNbChars = 200);
+                    $cardContent = (rand(1, 100) > 40) ? $faker->markdown($maxNbChars = 1600) : $faker->text($maxNbChars = 1200);
 
                     $card = Card::create([
                             'name' => $faker->sentence($nbWords = 5, $variableNbWords = true),
@@ -81,10 +83,13 @@ class DatabaseSeeder extends Seeder
                     $card->users()->attach($stack_users);
 
                     // assign random tags (belonging to card content)
-                    $tags = explode(' ', str_replace('.', '', $cardContent));
+                    $tags = explode(' ', str_replace('.', '', $cardContent)); // separate text in chunks
                     $indices = array_rand($tags, 3); // create three random tags
 
                     foreach ($indices as $index) {
+                        
+                        if(!ctype_alnum(substr($tags[$index], 1)))
+                            continue; // skip markdown titles
 
                         $tag = Tag::firstOrCreate([
                             'name' => $tags[$index]
@@ -92,6 +97,10 @@ class DatabaseSeeder extends Seeder
 
                         if(!$tag->cards->contains($card->id)) {      
                             $tag->cards()->attach($card->id);
+                            
+                            // replace text in content so to convert text to tags
+                            $card->content = preg_replace('/'.$tags[$index].'/', '#'.$tags[$index], $card->content, 1);
+                            $card->save();
                         }                    
                     }
                 }
