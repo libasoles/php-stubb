@@ -195,6 +195,8 @@
     .card.ng-enter {
         opacity: 0;
         @include scale(.93);
+        $transition: transform .4s, opacity .7s ease-out;
+        @include transition($transition);
     }
          
     .no-results {
