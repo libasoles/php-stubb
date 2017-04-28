@@ -5,7 +5,7 @@
             return {
                 restrict: 'EA',
                 templateUrl: config.SRC_FOLDER + '/tags/templates/tag-cloud.html',
-                controller: ['$scope', 'reduceByFilter', function ($scope, reduceByFilter) {
+                controller: ['$scope', '$cookies', '$rootScope', 'reduceByFilter', function ($scope, $cookies, $rootScope, reduceByFilter) {
 
                     /**
                      * Keep track of card list changes
@@ -30,6 +30,26 @@
                         // eliminate duplicates and serve array to view
                         $scope.tags = reduceByFilter(merged, 'id');
                     });
+                    
+                    $scope.filter = function(tag) {
+                        
+                        let current_cookies = $cookies.get('tags');
+                                 
+                        if( typeof(current_cookies) === 'undefined') {
+                            // first one
+                            current_cookies = [tag];
+                        } else {
+                            // avoid duplicates
+                            current_cookies = angular.fromJson(current_cookies);
+                            if( current_cookies.map(function(e) { return e.id; }).indexOf(tag.id) === -1 ) {
+                                current_cookies.push(tag);
+                                $rootScope.$broadcast('tag-filter-added', tag);
+                            }
+                        }
+                        
+                        // add tag to current tags list
+                        $cookies.putObject('tags', current_cookies);
+                    }
                 }]
             };
         }

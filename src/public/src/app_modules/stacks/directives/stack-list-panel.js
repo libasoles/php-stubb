@@ -1,6 +1,6 @@
 (function(){
     
-    angular.module('app.stacks').directive('stackListPanel', ['config', '$rootScope', '$cookieStore', function(config, $rootScope, $cookieStore){
+    angular.module('app.stacks').directive('stackListPanel', ['config', '$cookies', function(config, $cookies){
             
             return {
                 restrict: 'E',
@@ -9,7 +9,7 @@
                 link: function(scope, element, attrs) {
                     scope.img_folder = config.PROFILE_IMG_FOLDER;
                     
-                    scope.current_stack = $cookieStore.get("stack");                
+                    scope.current_stack = $cookies.get("stack");                
                 },
                 controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'ModalService', 
                     function($scope, $rootScope, $log, $cookies, config, stacksFactory, ModalService) {

@@ -15,11 +15,11 @@
                     </div>
                 </div>
                 
-                <div ng-if="true" class='panel panel-default active-tags animated' ng-class="{zoomInDown: true}">
+                <div ng-if="true" class='panel panel-default active-tags animated' ng-class="{zoomInUp: true}">
                     <div class='panel-body text-right'>
-                        <li ng-repeat="tag in tag_filters" class="btn btn-xs btn-info cast-shadow">
+                        <li ng-repeat="tag in tag_filters" class="btn btn-xs btn-info cast-shadow animated flipInX">
                             <span>{{ tag.name }}</span>
-                            <button class="btn btn-xs glyphicon glyphicon-remove btn-icon"></button>
+                            <button class="btn btn-xs glyphicon glyphicon-remove btn-icon" ng-click="removeTagFilter($event, $index, tag)"></button>
                         </li>
                     </div>
                 </div>

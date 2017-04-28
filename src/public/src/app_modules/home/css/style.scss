@@ -271,7 +271,7 @@
                 margin: 2px 5px 2px 0;
                 vertical-align: middle;
                 cursor: default;
-
+                
                 span {
                     vertical-align: middle;
                 }
@@ -284,6 +284,11 @@
                         color: #ddd;
                     }
                 }
+            }
+            
+            li.ng-enter.ng-enter-active,
+            li.ng-leave  {
+                @include transition(0.1s);
             }
         }
     }
