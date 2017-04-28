@@ -1,6 +1,6 @@
 (function(){
     
-    angular.module('app.stacks').directive('stackListPanel', ['config', function(config){
+    angular.module('app.stacks').directive('stackListPanel', ['config', '$cookieStore', function(config, $cookieStore){
             
             return {
                 restrict: 'E',
@@ -8,9 +8,11 @@
                 transclude: true,       
                 link: function(scope, element, attrs) {
                     scope.img_folder = config.PROFILE_IMG_FOLDER;
+                    
+                    scope.current_stack = $cookieStore.get("stack_id");
                 },
-                controller: ['$scope', '$rootScope', 'config', 'stacksFactory', 'ModalService', 
-                    function($scope, $rootScope, config, stacksFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', 'config', 'stacksFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, config, stacksFactory, ModalService) {
                      
                         /**
                          * Get stack list
@@ -50,7 +52,7 @@
                                     }
                                 });
                             }, function(err) {
-                                console.log(err);
+                                $log.error(err);
                             });
                         }
                         
@@ -61,6 +63,11 @@
                             
                             $event.preventDefault();
                             $event.stopPropagation();
+                            
+                            let li = $($event.currentTarget);
+                            
+                            li.closest('ul').find('.list-group-item').removeClass('selected');
+                            li.parent().addClass('selected');
                             
                             // tell the world
                             $rootScope.$broadcast('stack-selected', {stack_id: stack_id});

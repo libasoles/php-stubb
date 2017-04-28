@@ -22,11 +22,13 @@
                     </div>
                 </div>
 
-                <div ng-if="!context.cards.length" class='panel panel-default'>
-                    <div class='panel-body no-results' translate="translations.home.content.no_results"></div>
+                <div ng-if="!context.cards.length" class='panel panel-default no-results'>
+                    <div class='panel-body' translate="translations.home.content.no_results"></div>
                 </div>
             </div>
-            <paginate-cards></paginate-cards>
+            
+            <paginate-cards ng-if="context.cards.length"></paginate-cards>
+            
         </div>
     </div>
 

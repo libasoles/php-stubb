@@ -9,7 +9,7 @@
                 },
                 replace: true,
                 templateUrl: config.SRC_FOLDER + 'cards/templates/new-form.html',
-                controller: ['$scope', '$rootScope', 'cardsFactory', function ($scope, $rootScope, cardsFactory) {
+                controller: ['$scope', '$rootScope', '$log', 'cardsFactory', function ($scope, $rootScope, $log, cardsFactory) {
 
                     /**
                      * Submit form
@@ -29,7 +29,7 @@
                                 data.id = response.id;
                                 $rootScope.$broadcast('new-card', data);
                             }, function (response) {
-                                console.log(response);
+                                $log.error(response);
                             })
 
                             $scope.content = '';

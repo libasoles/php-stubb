@@ -9,8 +9,8 @@
                 scope: {
                     card: "=data"
                 },
-                controller: ['$scope', '$rootScope', 'config', 'cardsFactory', 'ModalService',
-                    function ($scope, $rootScope, config, cardsFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', 'config', 'cardsFactory', 'ModalService',
+                    function ($scope, $rootScope, $log, config, cardsFactory, ModalService) {
 
                         /**
                          * Display only X tags
@@ -36,7 +36,7 @@
                                 // emmit event
                                 $rootScope.$broadcast('pin-card', item);
                             }, function (err) {
-                                console.log(err);
+                                $log.error(err);
                             });
                         };
 
@@ -69,7 +69,7 @@
                                             // emmit event
                                             $rootScope.$broadcast('delete-card', item);                                            
                                         }, function (err) {
-                                            console.log(err);
+                                            $log.error(err);
                                         });
                                     }
                                 });
@@ -110,7 +110,7 @@
                                             // emmit event
                                             $rootScope.$broadcast('update-card', item, card);     
                                         }, function (err) {
-                                            console.log(err);
+                                            $log.error(err);
                                         });
                                     }
                                 });
