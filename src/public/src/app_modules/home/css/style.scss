@@ -197,12 +197,25 @@
         @include scale(.93);
     }
          
-    .no-results.ng-enter.ng-enter-active,
-    .no-results.ng-leave  {
-        @include transition(2s);
+    .no-results {
         background: #5bc0de;
         border-color: #5bc0de;
         color: white;
+        
+    }
+    
+    .no-results.ng-enter.ng-enter-active,
+    .no-results.ng-leave  {
+        opacity: 1;
+        @include scale(1);
+    }
+    
+    .no-results.ng-leave.ng-leave-active,
+    .no-results.ng-enter {
+        $transition: transform 1.4s, opacity 2s ease-out;
+        @include transition($transition);
+        @include scale(.8);
+        opacity: 0;
     }
     
     /**
@@ -231,27 +244,47 @@
         h4 .btn-icon {
             padding: 0;
         }
-        .list-group-item {
+        .list-group-item {            
             height: 40px;
             line-height: 20px;
-        }
-        a {
-            height: 20px;
-            line-height: 20px;
-            overflow: hidden;
-            white-space: nowrap;
-            display: inline-block;
-            text-overflow: ellipsis;
-        }
-        ul.participants {
-            li {
-                list-style-type: none;
-                float: right;
-                margin: 2px;
-                font-size: 10px;
-                img {
-                    width: 16px;
+            @include scale(1);
+            
+            a {
+                height: 20px;
+                line-height: 20px;
+                overflow: hidden;
+                white-space: nowrap;
+                display: inline-block;
+                text-overflow: ellipsis;
+                
+                $transition: all .7s ease;
+                @include transition($transition);
+            }
+            ul.participants {
+                li {
+                    list-style-type: none;
+                    float: right;
+                    margin: 2px;
+                    font-size: 10px;
+                    img {
+                        width: 16px;
+                    }
                 }
+            }
+        }
+        .list-group-item.selected {
+           
+            $bg_start: #5bc0de;
+            $bg_stop: #79d3ee;
+            background: $bg_start;
+            background: -webkit-linear-gradient(left, $bg_start, $bg_stop);
+            background: -moz-linear-gradient(left, $bg_start, $bg_stop);
+            background: -o-linear-gradient(left, $bg_start, $bg_stop);
+            background: linear-gradient(left, $bg_start, $bg_stop);
+            
+            a {
+                font-weight: bold;
+                color: #fff;
             }
         }
     }
