@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', '$log', '$cookies', 'queryFactory', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', '$log', '$cookieStore', '$element', 'queryFactory', 'HomeContextService', ListController]);
     
-    function ListController($scope, $log, $cookies, queryFactory, HomeContextService){
+    function ListController($scope, $log, $cookieStore, $element, queryFactory, HomeContextService){
         
         /**
          * Way to keep siblings connected and sharing scope
@@ -89,9 +89,29 @@
         /**
          * Filter by stack
          */
-        $scope.$on('stack-selected', function(evt, params) {
+        $scope.$on('stack-selected', function(evt, stack) {
             
-            queryFactory.byStack(params);
+            // query results
+            queryFactory.byStack({stack_id: stack.id});
+          
+            // provide info to view
+            $scope.context.stack = stack;
+            
+            // refresh animation (when element already visible)
+            $element.find('.stack-description').addClass('flipInX');
+        });    
+        
+        /**
+         * Clear stack description animation class when finished
+         */
+        $element.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', '.stack-description', function() {
+            $(this).removeClass("flipInX");
         });
+        
+        if($cookieStore.get("stack")) {
+            
+            // provide info to view
+            $scope.context.stack = $cookieStore.get("stack");
+        }
     }
 })();

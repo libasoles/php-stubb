@@ -4,8 +4,8 @@
     </div>
     <div class="panel-body no-padding">
         <ul class="list-group">
-            <li class="list-group-item " ng-if="stacks" ng-repeat="stack in stacks" ng-class="{selected: stack.id == current_stack}">
-                <a href="{{ stack.id }}" ng-click="filter($event, stack.id)" class="col-md-6" title="{{ stack.name }}">
+            <li class="list-group-item " ng-if="stacks" ng-repeat="stack in stacks" ng-class="{selected: stack.id == current_stack.id}">
+                <a href="{{ stack.id }}" ng-click="filter($event, stack)" class="col-md-6 trigger" title="{{ stack.name }}">
                     <span class="name">{{ stack.name }}</span>
                 </a>
                 <ul class="participants col-md-6 text-right">

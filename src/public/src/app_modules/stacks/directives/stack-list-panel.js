@@ -1,6 +1,6 @@
 (function(){
     
-    angular.module('app.stacks').directive('stackListPanel', ['config', '$cookieStore', function(config, $cookieStore){
+    angular.module('app.stacks').directive('stackListPanel', ['config', '$rootScope', '$cookieStore', function(config, $rootScope, $cookieStore){
             
             return {
                 restrict: 'E',
@@ -9,10 +9,10 @@
                 link: function(scope, element, attrs) {
                     scope.img_folder = config.PROFILE_IMG_FOLDER;
                     
-                    scope.current_stack = $cookieStore.get("stack_id");
+                    scope.current_stack = $cookieStore.get("stack");                
                 },
-                controller: ['$scope', '$rootScope', '$log', 'config', 'stacksFactory', 'ModalService', 
-                    function($scope, $rootScope, $log, config, stacksFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, $cookies, config, stacksFactory, ModalService) {
                      
                         /**
                          * Get stack list
@@ -59,7 +59,7 @@
                         /**
                          * Filter by stack
                          */
-                        $scope.filter = function($event, stack_id) {
+                        $scope.filter = function($event, stack) {
                             
                             $event.preventDefault();
                             $event.stopPropagation();
@@ -68,9 +68,16 @@
                             
                             li.closest('ul').find('.list-group-item').removeClass('selected');
                             li.parent().addClass('selected');
+                                                        
+                            // persist filter
+                            $cookies.putObject('stack', {
+                                id: stack.id,
+                                name: stack.name,
+                                description: stack.description
+                            });
                             
                             // tell the world
-                            $rootScope.$broadcast('stack-selected', {stack_id: stack_id});
+                            $rootScope.$broadcast('stack-selected', stack);
                         }
                 }]
             };

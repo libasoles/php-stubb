@@ -15,6 +15,10 @@
                     </div>
                 </div>
                 
+                <div ng-if="context.stack.description" class='panel panel-default stack-description animated' ng-class="{flipInX: context.stack.description}">
+                    <div class='panel-body'>{{ context.stack.description }}</div>
+                </div>
+                
                 <div ng-if="context.cards">
                     <div ng-repeat="card in context.cards" 
                         class="card {{ card.class }}" ng-class="{sticky: card.sticky}"> 
@@ -22,7 +26,7 @@
                     </div>
                 </div>
 
-                <div ng-if="!context.cards.length" class='panel panel-default no-results'>
+                <div ng-if="!context.cards.length" class='panel panel-default no-results animated' ng-class="{bounceInUp: !context.cards.length}">
                     <div class='panel-body' translate="translations.home.content.no_results"></div>
                 </div>
             </div>

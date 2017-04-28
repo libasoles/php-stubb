@@ -44,7 +44,7 @@ class QueryService
     public function search()
     {
         // apply order
-        if ($this->request->cookie('stack_id')) {
+        if ($this->request->cookie('stack') !== null) {
 
             return $this->searchByStack();
         } else {
@@ -57,7 +57,8 @@ class QueryService
     public function searchByStack($stack_id = null)
     {           
         // read cookie
-        $stack_id = $stack_id ?? $this->request->cookie('stack_id');
+        $stack = json_decode($this->request->cookie('stack'));
+        $stack_id = $stack_id ?? $stack->id; // from URL or COOKIE
         $stack = Stack::findOrFail($stack_id);
 
         // current user must by the owner of the stack

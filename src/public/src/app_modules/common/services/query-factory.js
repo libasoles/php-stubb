@@ -45,9 +45,6 @@
          */
         factory.byStack = function (params) {
                   
-            // persist filter
-            $cookies.putObject('stack_id', params.stack_id); 
-                
             return stacksFactory.filter(params, function(response) {
                 
                 broadcast(response); // tell the world
