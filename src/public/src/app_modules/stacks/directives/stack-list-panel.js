@@ -11,8 +11,8 @@
                     
                     scope.current_stack = $cookieStore.get("stack_id");
                 },
-                controller: ['$scope', '$rootScope', 'config', 'stacksFactory', 'ModalService', 
-                    function($scope, $rootScope, config, stacksFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', 'config', 'stacksFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, config, stacksFactory, ModalService) {
                      
                         /**
                          * Get stack list
@@ -52,7 +52,7 @@
                                     }
                                 });
                             }, function(err) {
-                                console.log(err);
+                                $log.error(err);
                             });
                         }
                         
