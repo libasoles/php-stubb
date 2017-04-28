@@ -83,10 +83,13 @@ class DatabaseSeeder extends Seeder
                     $card->users()->attach($stack_users);
 
                     // assign random tags (belonging to card content)
-                    $tags = explode(' ', str_replace('.', '', $cardContent));
+                    $tags = explode(' ', str_replace('.', '', $cardContent)); // separate text in chunks
                     $indices = array_rand($tags, 3); // create three random tags
 
                     foreach ($indices as $index) {
+                        
+                        if(!ctype_alnum(substr($tags[$index], 1)))
+                            continue; // skip markdown titles
 
                         $tag = Tag::firstOrCreate([
                             'name' => $tags[$index]
@@ -94,6 +97,10 @@ class DatabaseSeeder extends Seeder
 
                         if(!$tag->cards->contains($card->id)) {      
                             $tag->cards()->attach($card->id);
+                            
+                            // replace text in content so to convert text to tags
+                            $card->content = preg_replace('/'.$tags[$index].'/', '#'.$tags[$index], $card->content, 1);
+                            $card->save();
                         }                    
                     }
                 }
