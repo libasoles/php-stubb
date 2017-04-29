@@ -10,7 +10,7 @@
                        
                     $scope.events = {};
                        
-                    let order = angular.fromJson($cookies.get('order'));
+                    let order = $cookies.getObject('order');
                        
                     // initial position
                     $scope.order = !angular.isUndefined(order.order) ? order.order : 'updated_at';

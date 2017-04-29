@@ -28,12 +28,21 @@ class QueryService
         $query = $this->model->cards()->with('tags')
             ->orderBy('sticky', 'desc');
 
+        // filter by tags
+        if ($this->request->get('tags') != null) {
+            
+            $tags = (array) $this->request->get('tags');
+            $query->whereHas('tags', function ($query) use ($tags) {
+                $query->whereIn('id', $tags);
+            });
+        }
+        
         // apply order
         if ($this->request->get('order') != null) {
 
             $order = json_decode($this->request->get('order'));
             $query->orderBy($order->order, $order->direction);
-        }
+        }        
 
         // retrieve results with pagination
         $data = $query->paginate(Config::get('app.results_per_page'));

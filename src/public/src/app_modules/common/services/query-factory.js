@@ -2,7 +2,7 @@
     
      angular.module('app').factory('queryFactory', ['$log', '$cookies', '$rootScope', 'cardsFactory', 'stacksFactory', 'tagsFactory', queryFactory]);
     
-    function queryFactory($log, $cookies, $rootScope, cardsFactory, stacksFactory) {
+    function queryFactory($log, $cookies, $rootScope, cardsFactory, stacksFactory, tagsFactory) {
         
         var factory = {};
         
@@ -71,16 +71,16 @@
                 params = {};
             }
             
-            if(filters.includes('tags') && typeof($cookies.get('tags')) !== 'undefined') {
-                params.tags = angular.fromJson($cookies.get('tags')).map(function(x){ return x.id; });
+            if(filters.includes('tags') && typeof($cookies.get('tags[]')) !== 'undefined') {
+                params['tags[]'] = $cookies.getObject('tags[]').map(function(x){ return x.id; });
             }
             if(filters.includes('stack') && typeof($cookies.get('stack')) !== 'undefined') {
                 params.stack = angular.fromJson($cookies.get('stack')).id;
             }
             if(filters.includes('order') && typeof($cookies.get('order')) !== 'undefined') {
-                params.order = angular.fromJson($cookies.get('order'));                
+                params.order = $cookies.getObject('order');                
             }
-            
+          
             return params;
         }
               

@@ -37,7 +37,7 @@
                     
                     $scope.events.filter = function(tag) {
                         
-                        let current_cookies = $cookies.get('tags');
+                        let current_cookies = $cookies.get('tags[]');
                                  
                         if( typeof(current_cookies) === 'undefined') {
                             // first one
@@ -47,12 +47,14 @@
                             current_cookies = angular.fromJson(current_cookies);
                             if( current_cookies.map(function(e) { return e.id; }).indexOf(tag.id) === -1 ) {
                                 current_cookies.push(tag);
-                                $rootScope.$broadcast('tag-filter-added', tag);
                             }
                         }
                         
                         // add tag to current tags list
-                        $cookies.putObject('tags', current_cookies);
+                        $cookies.putObject('tags[]', current_cookies);
+                        
+                        // someone else will make the query
+                        $rootScope.$broadcast('tag-filter-added', tag);
                     }
                 }]
             };

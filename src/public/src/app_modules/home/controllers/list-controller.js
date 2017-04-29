@@ -119,7 +119,7 @@
          */
         $scope.printCurrentTags = function() {
             
-            let current_cookies = $cookies.get('tags');
+            let current_cookies = $cookies.get('tags[]');
             if( typeof(current_cookies) !== 'undefined' ) {
                 $scope.tag_filters = angular.fromJson(current_cookies);
             }
@@ -127,6 +127,9 @@
         
         // add one more
         $scope.$on('tag-filter-added', function(evt, tag) {
+            
+            queryFactory.byTags();
+            
             $scope.tag_filters.unshift(tag);
         });
         
@@ -136,14 +139,17 @@
         $scope.removeTagFilter = function(event, index, tag) {
             
             // remove from view
-            $(event.currentTarget).closest('li').removeClass('animated pulse'); // no end animation
+            $(event.currentTarget).closest('li').removeClass('animated'); // no hide animation
             $scope.tag_filters.splice(index, 1);
             
             // remove tag from cookies
-            let current_cookies = angular.fromJson($cookies.get('tags'));
+            let current_cookies = angular.fromJson($cookies.get('tags[]'));
             let cookie_index = $.inArray( tag, current_cookies );
             current_cookies.splice(cookie_index, 1);
-            $cookies.putObject('tags', current_cookies);
+            $cookies.putObject('tags[]', current_cookies);
+            
+            // query
+            queryFactory.byTags();
         }       
     }
 })();
