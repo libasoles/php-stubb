@@ -5,6 +5,10 @@
                 method: 'POST', 
                 url: config.api + '/cards/:card_id/tags'                
             },
+            filter: {
+              url: config.api + '/cards/tags/all', 
+              method: 'GET' 
+            }
         }); 
     }]);
 })();

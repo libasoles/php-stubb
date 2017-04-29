@@ -126,12 +126,12 @@
                 @include scale(0.1);
             }
             li.add-new-widget {
-                .ok .btn-save {
+                .ok .btn-save span{
                     color: $green_2;
                     $scale: 1.2;
                     @include scale($scale);
                 }
-                .error .btn-cancel {
+                .error .btn-cancel span{
                     color: #cb6464;                    
                     $scale: 1.2;
                     @include scale($scale);
@@ -202,22 +202,44 @@
     .no-results {
         background: #5bc0de;
         border-color: #5bc0de;
-        color: white;
-        
+        color: white;     
+        animation-delay: 1s;
     }
     
     .no-results.ng-enter.ng-enter-active,
     .no-results.ng-leave  {
         opacity: 1;
         @include scale(1);
+        $transition: transform 1.4s, opacity 2s ease-out;
+        @include transition($transition);
     }
     
     .no-results.ng-leave.ng-leave-active,
     .no-results.ng-enter {
-        $transition: transform 1.4s, opacity 2s ease-out;
-        @include transition($transition);
         @include scale(.8);
         opacity: 0;
+        @include transition(0s);
+    }
+    
+    .stack-description {
+        background: #5bc0de;
+        border-color: #5bc0de;
+        color: white;
+        animation-delay: 0s;
+    }
+    
+    .stack-description.ng-enter.ng-enter-active,
+    .stack-description.ng-leave  {
+        opacity: 1;
+        display: block;
+        @include transition(0s);
+    }
+    
+    .stack-description.ng-enter.ng-enter-active,
+    .stack-description.ng-leave  {
+        opacity: 0;
+        display: none;
+        @include transition(0s);
     }
     
     /**
@@ -238,6 +260,39 @@
             width: 248px;
         }
     }
+    .active-tags {
+        border: none;
+        box-shadow: none;
+        
+        .panel-body {
+            padding: 0;
+            
+            li {
+                margin: 2px 5px 2px 0;
+                vertical-align: middle;
+                cursor: default;
+                
+                span {
+                    vertical-align: middle;
+                }
+                .btn-icon {
+                    vertical-align: middle;
+                    padding: 0;
+                    top: 0;
+                    
+                    &:hover {
+                        color: #ddd;
+                    }
+                }
+            }
+            
+            li.ng-enter.ng-enter-active,
+            li.ng-leave  {
+                @include transition(0.1s);
+            }
+        }
+    }
+    
     
     /**
     * stacks

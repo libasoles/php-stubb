@@ -5,24 +5,28 @@
             return {
                 restrict: 'EA',
                 templateUrl: config.SRC_FOLDER + '/cards/templates/paginate-cards.html',
-                transclude: true,
+                replace: true,
                 scope: {
                     data: '='
                 },
                 controller: ['$scope', '$rootScope', function ($scope, $rootScope) {
                   
+                    $scope.context = {};
+                    $scope.events = {};
+                  
                     /**
                      * Draw widget when data is available
                      */
                     $scope.$on('cards-loaded', function(evt, data) {
-                        $scope.pages = data;
+                        $scope.context.pages = data; 
+                        $scope.context.display = data.data.length && (data.prev_page_url !== null || data.next_page_url !== null);
                     })
                   
                     /**
                      * Broadcast changes
                      * @returns void
                      */
-                    $scope.navigate = function ($event) {
+                    $scope.events.navigate = function ($event) {
                         
                         $event.preventDefault();
                         $event.stopPropagation()

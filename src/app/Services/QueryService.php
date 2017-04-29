@@ -28,12 +28,21 @@ class QueryService
         $query = $this->model->cards()->with('tags')
             ->orderBy('sticky', 'desc');
 
-        // apply order
-        if ($this->request->cookie('order')) {
-
-            $order = json_decode($this->request->cookie('order'));
-            $query->orderBy($order->order, $order->direction);
+        // filter by tags
+        if ($this->request->get('tags') != null) {
+            
+            $tags = (array) $this->request->get('tags');
+            $query->whereHas('tags', function ($query) use ($tags) {
+                $query->whereIn('id', $tags);
+            });
         }
+        
+        // apply order
+        if ($this->request->get('order') != null) {
+
+            $order = json_decode($this->request->get('order'));
+            $query->orderBy($order->order, $order->direction);
+        }        
 
         // retrieve results with pagination
         $data = $query->paginate(Config::get('app.results_per_page'));
@@ -44,7 +53,7 @@ class QueryService
     public function search()
     {
         // apply order
-        if ($this->request->cookie('stack_id')) {
+        if ($this->request->get('stack') !== null) {
 
             return $this->searchByStack();
         } else {
@@ -57,7 +66,8 @@ class QueryService
     public function searchByStack($stack_id = null)
     {           
         // read cookie
-        $stack_id = $stack_id ?? $this->request->cookie('stack_id');
+        $stack = json_decode($this->request->get('stack'));
+        $stack_id = $stack_id ?? $stack; // from URL or COOKIE
         $stack = Stack::findOrFail($stack_id);
 
         // current user must by the owner of the stack

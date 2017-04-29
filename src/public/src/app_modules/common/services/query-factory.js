@@ -1,8 +1,8 @@
 (function () {
     
-     angular.module('app').factory('queryFactory', ['$log', '$cookies', '$rootScope', 'cardsFactory', 'stacksFactory', queryFactory]);
+     angular.module('app').factory('queryFactory', ['$log', '$cookies', '$rootScope', 'cardsFactory', 'stacksFactory', 'tagsFactory', queryFactory]);
     
-    function queryFactory($log, $cookies, $rootScope, cardsFactory, stacksFactory) {
+    function queryFactory($log, $cookies, $rootScope, cardsFactory, stacksFactory, tagsFactory) {
         
         var factory = {};
         
@@ -15,17 +15,8 @@
          */
         factory.all = function (params) {
             
-            // persist params (but page number)
-            if(typeof(params) !== 'undefined') {
-
-                if(typeof(params.order) !== 'undefined') {
-
-                    $cookies.putObject('order', angular.fromJson(params.order));   
-
-                    params = params.order; // unwrap data                            
-                }
-            }
-            
+            params = getFilters(params, ['order', 'stack', 'tags']);
+                        
             // query
             return cardsFactory
                 .query(params, function (response) {
@@ -37,7 +28,7 @@
         };
         
         /**
-         * get card by stack
+         * get cards using stack filters
          * 
          * @param json params
          * @returns stacksFactory
@@ -45,9 +36,8 @@
          */
         factory.byStack = function (params) {
                   
-            // persist filter
-            $cookies.putObject('stack_id', params.stack_id); 
-                
+            params = getFilters(params, ['order', 'stack', 'tags']);
+                            
             return stacksFactory.filter(params, function(response) {
                 
                 broadcast(response); // tell the world
@@ -56,6 +46,44 @@
             });
         }
         
+        /**
+         * get cards using current filters
+         * 
+         * @param json params
+         * @returns stacksFactory
+         * @broadcast cards list
+         */
+        factory.byTags = function (params) {
+                  
+            params = getFilters(params, ['order', 'stack', 'tags']);
+                  
+            return tagsFactory.filter(params, function(response) {
+                
+                broadcast(response); // tell the world
+            }, function(err) {
+                $log.error(err);
+            });
+        }
+              
+        function getFilters(params, filters) {
+            
+            if(typeof(params) === 'undefined') {
+                params = {};
+            }
+            
+            if(filters.includes('tags') && typeof($cookies.get('tags[]')) !== 'undefined') {
+                params['tags[]'] = $cookies.getObject('tags[]').map(function(x){ return x.id; });
+            }
+            if(filters.includes('stack') && typeof($cookies.get('stack')) !== 'undefined') {
+                params.stack = $cookies.getObject('stack').id;
+            }
+            if(filters.includes('order') && typeof($cookies.get('order')) !== 'undefined') {
+                params.order = $cookies.getObject('order');                
+            }
+          
+            return params;
+        }
+              
         /**
          * Tell everybody we have a renovated list
          */

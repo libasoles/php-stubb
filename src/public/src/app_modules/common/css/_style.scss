@@ -251,7 +251,7 @@ span.highlight-text {
     }
 }
 .modal-backdrop{
-    background: #140d32;
+    background: #140d32; 
 }
 .modal.markdown {
     
@@ -302,6 +302,9 @@ span.highlight-text {
     background: none;
     padding: 6px;
     
+    &:active {
+        background: none !important;
+    }
     &:hover {       
         background: none;
         

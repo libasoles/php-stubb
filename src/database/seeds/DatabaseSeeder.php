@@ -91,9 +91,9 @@ class DatabaseSeeder extends Seeder
                         if(!ctype_alnum(substr($tags[$index], 1)))
                             continue; // skip markdown titles
 
-                        $tag = Tag::firstOrCreate([
-                            'name' => $tags[$index]
-                        ]);
+                        $tag = Tag::firstOrCreate(
+                            [ 'key' => str_slug($tags[$index]) ], 
+                            [ 'name' => $tags[$index] ]);
 
                         if(!$tag->cards->contains($card->id)) {      
                             $tag->cards()->attach($card->id);

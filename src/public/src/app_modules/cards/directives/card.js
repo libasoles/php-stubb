@@ -5,12 +5,14 @@
             return {
                 templateUrl: config.SRC_FOLDER + 'cards/templates/card.html',
                 restrict: 'A',
-                transclude: true,
+                replace: true,
                 scope: {
                     card: "=data"
                 },
                 controller: ['$scope', '$rootScope', '$log', 'config', 'cardsFactory', 'ModalService',
                     function ($scope, $rootScope, $log, config, cardsFactory, ModalService) {
+
+                        $scope.events = {};
 
                         /**
                          * Display only X tags
@@ -23,7 +25,7 @@
                          * @param Card item
                          * @returns void
                          */
-                        $scope.pinCard = function (item) {
+                        $scope.events.pinCard = function (item) {
 
                             let card = {
                                 id: item.id,
@@ -46,7 +48,7 @@
                          * @param Card item
                          * @returns void
                          */
-                        $scope.delete = function (item) {
+                        $scope.events.delete = function (item) {
 
                             // Just provide a template url, a controller and call 'showModal'.
                             ModalService.showModal({
@@ -82,7 +84,7 @@
                          * @param Card item
                          * @returns void
                          */
-                        $scope.edit = function (item) {
+                        $scope.events.edit = function (item) {
 
                             ModalService.showModal({
                                 templateUrl: config.SRC_FOLDER + "cards/templates/modals/edit-card.html",
@@ -123,7 +125,7 @@
                          * @param Card item
                          * @returns void
                          */
-                        $scope.viewAsMarkdownModal = function (item) {
+                        $scope.events.viewAsMarkdownModal = function (item) {
 
                             // Just provide a template url, a controller and call 'showModal'.
                             ModalService.showModal({
@@ -138,20 +140,6 @@
                                 modal.element.modal();
                             });
                         };
-
-                        /**
-                         * On new tag added, push it to the list
-                         */
-                        $scope.$on('new-tag', function(evt, data) {
-                            // add tag as the last visible of X tags
-                            if(typeof($scope.card.tags) !== 'undefined'){
-                                // add tag to the list
-                                $scope.card.tags.splice($scope.max_num_tags-1, 0, data);
-                            } else {
-                                // create the list
-                                $scope.card.tags = [data];
-                            }
-                        });
                 }]
         };
     }]);

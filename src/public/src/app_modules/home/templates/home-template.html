@@ -15,6 +15,10 @@
                     </div>
                 </div>
                 
+                <current-tags></current-tags>
+                
+                <stack-description></stack-description>
+                
                 <div ng-if="context.cards">
                     <div ng-repeat="card in context.cards" 
                         class="card {{ card.class }}" ng-class="{sticky: card.sticky}"> 
@@ -22,12 +26,12 @@
                     </div>
                 </div>
 
-                <div ng-if="!context.cards.length" class='panel panel-default no-results'>
+                <div ng-if="!context.cards.length" class='panel panel-default no-results animated' ng-class="{bounceInUp: !context.cards.length}">
                     <div class='panel-body' translate="translations.home.content.no_results"></div>
                 </div>
             </div>
             
-            <paginate-cards ng-if="context.cards.length"></paginate-cards>
+            <paginate-cards></paginate-cards>
             
         </div>
     </div>

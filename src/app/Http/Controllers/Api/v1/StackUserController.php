@@ -25,7 +25,7 @@ class StackUserController extends ApiBaseController
         try {
             
             $data = auth('api')->user()
-                ->stacks()->select(['id', 'name'])->withUsers()
+                ->stacks()->select(['id', 'name', 'description'])->withUsers()
                 ->get();
             
         } catch (Exception $exc) {

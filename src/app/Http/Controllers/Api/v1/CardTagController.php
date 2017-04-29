@@ -102,10 +102,10 @@ class CardTagController extends ApiBaseController
                 'name' => 'required|max:60'
             ]);
             
-            $tag = new Tag;
-            $tag->name = $request->input('name');
-            $tag->save();
-            
+            $tag = Tag::firstOrCreate(
+                ['key' => str_slug($request->input('name'))],
+                ['name' => $request->input('name')]);
+                     
             $card->tags()->attach($tag->id);
             
         } catch (Exception $exc) {
