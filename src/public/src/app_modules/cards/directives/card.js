@@ -5,7 +5,7 @@
             return {
                 templateUrl: config.SRC_FOLDER + 'cards/templates/card.html',
                 restrict: 'A',
-                transclude: true,
+                replace: true,
                 scope: {
                     card: "=data"
                 },

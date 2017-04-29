@@ -4,7 +4,7 @@
             
             return {
                 restrict: 'E',
-                scope: {},
+                scope: true,
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-list-panel.html',
                 replace: true,       
                 link: function(scope, element, attrs) {
@@ -50,7 +50,7 @@
                                             // add to stack
                                             $scope.stacks.unshift(stack);
                                         }, function(err) {
-
+                                            $log.error(err);
                                         });
                                     }
                                 });
