@@ -126,12 +126,12 @@
                 @include scale(0.1);
             }
             li.add-new-widget {
-                .ok .btn-save {
+                .ok .btn-save span{
                     color: $green_2;
                     $scale: 1.2;
                     @include scale($scale);
                 }
-                .error .btn-cancel {
+                .error .btn-cancel span{
                     color: #cb6464;                    
                     $scale: 1.2;
                     @include scale($scale);

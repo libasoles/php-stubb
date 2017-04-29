@@ -10,7 +10,7 @@
                 link: function(scope, element, attrs) {
                     scope.img_folder = config.PROFILE_IMG_FOLDER;
                     
-                    scope.current_stack = $cookies.get("stack");                
+                    scope.current_stack = angular.fromJson($cookies.get("stack"));                
                 },
                 controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'ModalService', 
                     function($scope, $rootScope, $log, $cookies, config, stacksFactory, ModalService) {

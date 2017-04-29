@@ -11,11 +11,13 @@
                 templateUrl: config.SRC_FOLDER + 'cards/templates/new-form.html',
                 controller: ['$scope', '$rootScope', '$log', 'cardsFactory', function ($scope, $rootScope, $log, cardsFactory) {
 
+                    $scope.events = {};
+
                     /**
                      * Submit form
                      * @returns void
                      */
-                    $scope.createCard = function () {
+                    $scope.events.createCard = function () {
 
                         if ($scope.content) {
 

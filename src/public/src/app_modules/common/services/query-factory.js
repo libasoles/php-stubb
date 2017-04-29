@@ -16,18 +16,7 @@
         factory.all = function (params) {
             
             params = getFilters(params, ['order', 'stack', 'tags']);
-            
-            // persist params (but page number)
-            if(typeof(params) !== 'undefined') {
-
-                if(typeof(params.order) !== 'undefined') {
-
-                    $cookies.putObject('order', angular.fromJson(params.order));   
-
-                    params = params.order; // unwrap data                            
-                }
-            }
-            
+                        
             // query
             return cardsFactory
                 .query(params, function (response) {
@@ -47,7 +36,7 @@
          */
         factory.byStack = function (params) {
                   
-            params = getFilters(params, ['order', 'stack']);
+            params = getFilters(params, ['order', 'stack', 'tags']);
                             
             return stacksFactory.filter(params, function(response) {
                 

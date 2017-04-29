@@ -29,7 +29,7 @@ class QueryService
             ->orderBy('sticky', 'desc');
 
         // apply order
-        if ($this->request->get('order')) {
+        if ($this->request->get('order') != null) {
 
             $order = json_decode($this->request->get('order'));
             $query->orderBy($order->order, $order->direction);

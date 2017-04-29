@@ -11,6 +11,8 @@
                 },
                 link: function(scope, element, attrs) {
                   
+                    scope.events = {};
+                  
                     // archetype
                     scope.tag = {
                         name: ''
@@ -24,7 +26,7 @@
                     /**
                      * Hide widget
                      */
-                    scope.show = function() { 
+                    scope.events.show = function() { 
                         scope.display = true;
                         scope.visibility = 'visible'; // css class
                         setTimeout(function() {
@@ -35,7 +37,7 @@
                     /**
                      * Hide widget
                      */
-                    scope.hide = function() {
+                    scope.events.hide = function() {
                         scope.display = false;
                         scope.visibility = ''; // css class
                         scope.tag.name = ''; // reset field
@@ -47,7 +49,7 @@
                      * @returns void
                      * @broadcasts event
                      */
-                    scope.addNew = function () {
+                    scope.events.addNew = function () {
                         
                         if(scope.tag.name) {
                             
@@ -58,10 +60,19 @@
                             
                             tagsFactory.save(tag, function(response) {
                                 tag.id = response.id; // append tag id
-                                scope.flashClass(element, 'ok'); // ux 
-                                $rootScope.$broadcast('new-tag', tag);
+                                scope.events.flashClass(element, 'ok'); // ux 
+                                
+                                // add tag as the last visible of X tags
+                                if(typeof(scope.card.tags) !== 'undefined'){
+                                    // add tag to the list
+                                    scope.card.tags.splice(scope.max_num_tags-1, 0, tag);
+                                } else {
+                                    // create the list
+                                    scope.card.tags = [tag];
+                                }
+                                
                             }, function(err) {
-                                scope.flashClass(element, 'error'); // ux 
+                                scope.events.flashClass(element, 'error'); // ux 
                             });
                             scope.tag.name = ''; // reset field
                         }
@@ -72,7 +83,7 @@
                      */
                     element.bind("keydown keypress", function (event) {
                         if(event.which === 13) {
-                            scope.addNew();
+                            scope.events.addNew();
                             event.preventDefault();
                         }
                     });
@@ -83,7 +94,7 @@
                      * @param string className
                      * @returns void
                      */
-                    scope.flashClass = function(element, className) {
+                    scope.events.flashClass = function(element, className) {
                        
                         $animate.addClass(element, className)
                             .then(function() {

@@ -1,7 +1,7 @@
 <div class="form-group order-by">
     <form>
         <label>                    
-            <select ng-model="order" class="form-control" ng-change="update()">
+            <select ng-model="order" class="form-control" ng-change="events.update()">
                 <option value="updated_at" translate="translations.home.content.filters.date_modified"></option>
                 <option value="created_at" translate="translations.home.content.filters.date_created"></option>
                 <option value="name" translate="translations.home.content.filters.name"></option>
@@ -12,10 +12,10 @@
 
         <label>
             <span class="glyphicon glyphicon-arrow-up"></span>
-            <input type="radio" ng-model="direction" name="direction" value="asc" ng-change="update()" />
+            <input type="radio" ng-model="direction" name="direction" value="asc" ng-change="events.update()" />
         </label>
         <label>
-            <input type="radio" ng-model="direction" name="direction" value="desc" checked ng-change="update()" />
+            <input type="radio" ng-model="direction" name="direction" value="desc" checked ng-change="events.update()" />
             <span class="glyphicon glyphicon-arrow-down"></span>
         </label>
     </form>

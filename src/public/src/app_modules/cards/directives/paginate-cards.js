@@ -11,18 +11,21 @@
                 },
                 controller: ['$scope', '$rootScope', function ($scope, $rootScope) {
                   
+                    $scope.events = {};
+                  
                     /**
                      * Draw widget when data is available
                      */
                     $scope.$on('cards-loaded', function(evt, data) {
-                        $scope.pages = data;
+                        $scope.pages = data; 
+                        $scope.display = data.data.length && (data.prev_page_url || data.next_page_url);
                     })
                   
                     /**
                      * Broadcast changes
                      * @returns void
                      */
-                    $scope.navigate = function ($event) {
+                    $scope.events.navigate = function ($event) {
                         
                         $event.preventDefault();
                         $event.stopPropagation()

@@ -302,6 +302,9 @@ span.highlight-text {
     background: none;
     padding: 6px;
     
+    &:active {
+        background: none !important;
+    }
     &:hover {       
         background: none;
         
