@@ -75,7 +75,7 @@
                 params['tags[]'] = $cookies.getObject('tags[]').map(function(x){ return x.id; });
             }
             if(filters.includes('stack') && typeof($cookies.get('stack')) !== 'undefined') {
-                params.stack = angular.fromJson($cookies.get('stack')).id;
+                params.stack = $cookies.getObject('stack').id;
             }
             if(filters.includes('order') && typeof($cookies.get('order')) !== 'undefined') {
                 params.order = $cookies.getObject('order');                

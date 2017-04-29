@@ -13,8 +13,8 @@
                     let order = $cookies.getObject('order');
                        
                     // initial position
-                    $scope.order = !angular.isUndefined(order.order) ? order.order : 'updated_at';
-                    $scope.direction = !angular.isUndefined(order.direction) ? order.direction : 'desc';
+                    $scope.order = order && !angular.isUndefined(order.order) ? order.order : 'updated_at';
+                    $scope.direction = order && !angular.isUndefined(order.direction) ? order.direction : 'desc';
 
                     $scope.events.update = function() {
 

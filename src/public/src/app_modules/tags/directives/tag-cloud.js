@@ -37,7 +37,7 @@
                     
                     $scope.events.filter = function(tag) {
                         
-                        let current_cookies = $cookies.get('tags[]');
+                        let current_cookies = $cookies.getObject('tags[]');
                                  
                         if( typeof(current_cookies) === 'undefined') {
                             // first one

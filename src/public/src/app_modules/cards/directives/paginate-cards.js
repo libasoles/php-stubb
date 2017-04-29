@@ -11,14 +11,15 @@
                 },
                 controller: ['$scope', '$rootScope', function ($scope, $rootScope) {
                   
+                    $scope.context = {};
                     $scope.events = {};
                   
                     /**
                      * Draw widget when data is available
                      */
                     $scope.$on('cards-loaded', function(evt, data) {
-                        $scope.pages = data; 
-                        $scope.display = data.data.length && (data.prev_page_url || data.next_page_url);
+                        $scope.context.pages = data; 
+                        $scope.context.display = data.data.length && (data.prev_page_url !== null || data.next_page_url !== null);
                     })
                   
                     /**

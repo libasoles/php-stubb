@@ -1,6 +1,6 @@
 (function(){
     
-    angular.module('app.stacks').directive('stackListPanel', ['config', '$cookies', function(config, $cookies){
+    angular.module('app.stacks').directive('stackListPanel', ['config', '$cookies', 'queryFactory', function(config, $cookies, queryFactory){
             
             return {
                 restrict: 'E',
@@ -8,19 +8,32 @@
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-list-panel.html',
                 replace: true,       
                 link: function(scope, element, attrs) {
-                    scope.img_folder = config.PROFILE_IMG_FOLDER;
+                    scope.context.img_folder = config.PROFILE_IMG_FOLDER;
                     
-                    scope.current_stack = angular.fromJson($cookies.get("stack"));                
+                    scope.context.current_stack = $cookies.getObject("stack"); 
+                      
+                    /**
+                     * Unselect stack
+                     */
+                    scope.$on('stack-unselected',function(stack) {
+
+                        scope.context.current_stack = null;                    
+                        element.find('.list-group-item').removeClass('selected');
+                        
+                         // query results
+                        queryFactory.all();
+                    });
                 },
-                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'ModalService', 
-                    function($scope, $rootScope, $log, $cookies, config, stacksFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'queryFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, $cookies, config, stacksFactory, queryFactory, ModalService) {
                      
+                        $scope.context = {};
                         $scope.events = {};
                      
                         /**
                          * Get stack list
                          */
-                        $scope.stacks = stacksFactory.query();
+                        $scope.context.stacks = stacksFactory.query();
 
                         /**
                          * Create new stack
@@ -79,9 +92,12 @@
                                 description: stack.description
                             });
                             
+                            // query results
+                            queryFactory.byStack({stack_id: stack.id});
+                            
                             // tell the world
                             $rootScope.$broadcast('stack-selected', stack);
-                        }
+                        }                      
                 }]
             };
     }]);
