@@ -59,12 +59,12 @@ Route::group([
         /**
          * Single card w/tags
          */
-        Route::get('cards/{id}/tags', "CardTagController@showTags");
+        Route::get('cards/{card_id}/tags', "CardTagController@showTags");
         
         /**
          * Single tag cards
          */
-        Route::get('tags/{id}/cards', 'CardTagController@showCards');
+        Route::get('tags/{tag_id}/cards', 'CardTagController@showCards');
         
         /**
          * Create tag and assign to card

@@ -41,10 +41,10 @@ class CardTagController extends ApiBaseController
     /**
      * Display the card with tags.
      *
-     * @param  int  $id
+     * @param  int  $card_id
      * @return Response
      */
-    public function showTags(int $id)
+    public function showTags(int $card_id)
     {        
         // TODO: check user auth
         
@@ -52,7 +52,7 @@ class CardTagController extends ApiBaseController
         
         try {
 
-            $data = Card::with('tags')->findOrFail($id);
+            $data = Card::with('tags')->findOrFail($card_id);
         } catch (ModelNotFoundException $e) {
             return response()->json([ 'message' => 'Not found'], 404);
         } catch (Exception $exc) {
@@ -66,18 +66,18 @@ class CardTagController extends ApiBaseController
     /**
      * Display the tag's cards.
      *
-     * @param  int $id Tag id
+     * @param  int $tag_id Tag id
      * @return Response
      */
-    public function showCards(int $id)
+    public function showCards(int $tag_id)
     {        
-        $this->authorize('ownership', Tag::findOrFail($id));
+        $this->authorize('ownership', Tag::findOrFail($tag_id));
         
         $data = [];
         
         try {
 
-            $data = Tag::with('cards')->findOrFail($id);
+            $data = Tag::with('cards')->findOrFail($tag_id);
     
         } catch (ModelNotFoundException $e) {
             return response()->json([ 'message' => 'Not found'], 404);
@@ -102,11 +102,14 @@ class CardTagController extends ApiBaseController
                 'name' => 'required|max:60'
             ]);
             
+            $tag_name = $request->input('name');
             $tag = Tag::firstOrCreate(
-                ['key' => str_slug($request->input('name'))],
-                ['name' => $request->input('name')]);
-                     
-            $card->tags()->attach($tag->id);
+                ['key' => str_slug($tag_name)],
+                ['name' => $tag_name]);
+                  
+            if(!$card->tags->contains($tag->id)) {
+                $card->tags()->attach($tag->id);
+            }
             
         } catch (Exception $exc) {
             $this->logException($exc);
