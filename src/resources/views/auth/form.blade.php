@@ -27,21 +27,21 @@
             
             <input id="name" type="text" class="form-control {{ $errors->has('name') ? 'error' : '' }}" name="name"  placeholder="name" value="{{ old('name') }}" required autofocus>
             @if ($errors->has('name'))
-                <span class="help-block">
+                <span class="help-block animated tada">
                     <strong>{{ $errors->first('name') }}</strong>
                 </span>
             @endif
 
             <input id="email" type="email" class="form-control {{ $errors->has('email') ? 'error' : '' }}" name="email" placeholder="email address" value="{{ old('email') }}" required autofocus>
             @if ($errors->has('email'))
-            <span class="help-block">
+            <span class="help-block animated tada">
                 <strong>{{ $errors->first('email') }}</strong>
             </span>
             @endif
             
             <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'error' : '' }}" name="password" placeholder="password" required>
             @if ($errors->has('password'))
-            <span class="help-block">
+            <span class="help-block animated tada">
                 <strong>{{ $errors->first('password') }}</strong>
             </span>
             @endif
@@ -57,14 +57,14 @@
 
             <input id="email" type="email" class="form-control {{ $errors->has('email') ? 'error' : '' }}" name="email" placeholder="email address" value="{{ old('email') }}" required autofocus>
             @if ($errors->has('email'))
-            <span class="help-block">
+            <span class="help-block animated tada">
                 <strong>{{ $errors->first('email') }}</strong>
             </span>
             @endif
 
             <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'error' : '' }}" name="password" placeholder="password" required>
             @if ($errors->has('password'))
-            <span class="help-block">
+            <span class="help-block animated tada">
                 <strong>{{ $errors->first('password') }}</strong>
             </span>
             @endif
