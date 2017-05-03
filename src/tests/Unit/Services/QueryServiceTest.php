@@ -26,8 +26,6 @@ class QueryServiceTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-        
-        unset($_COOKIE['stack_id']);
     }
     
     public function testQuery()
@@ -49,7 +47,7 @@ class QueryServiceTest extends TestCase
         
         $qs = new QueryService($request, $this->config);
         
-        $results = $qs->searchByStack();
+        $results = $qs->searchByStack(1);
         
         $this->assertNotEmpty($results->count(), 'Results must not be empty');
         
@@ -60,7 +58,7 @@ class QueryServiceTest extends TestCase
     {
         $qs = new QueryService($this->request, $this->config);
         
-        $results = $qs->searchByTags();
+        $results = $qs->searchByTags([1, 2]);
         
         $this->assertNotEmpty($results->count(), 'Results must not be empty');
         

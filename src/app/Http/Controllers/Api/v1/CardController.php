@@ -106,7 +106,7 @@ class CardController extends ApiBaseController
             // extract tags
             $tags = preg_match_all('/#(\w+)/', $request->input('content'), $matches);      
             array_walk($matches[1], function($tag) use ($card ){
-                $tag = Tag::firstOrCreate(['name'=>$tag]);
+                $tag = Tag::firstOrCreate(['key'=> str_slug($tag)], ['name'=>$tag]);
                 $tag->cards()->attach($card->id);
             });
             
