@@ -38,6 +38,13 @@ Route::group([
      */
     Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function($app) {
         
+        // No action
+        Route::get('/', [function() {
+            return [
+                'api_version' => 1
+            ];
+        }]);
+        
         Route::pattern('id', '[0-9]+');
         
         // Basic CRUD
@@ -86,18 +93,23 @@ Route::group([
          */
         Route::put('cards/{card_id}/stacks/{stack_id}', "CardStackController@update");
         Route::put('stacks/{stack_id}/cards/{card_id}', "CardStackController@update");
+        
+        /**
+         *  Catch unknown endpoints
+         */
+        Route::any('{any:.*}', function ($any = null) {
+            throw new Symfony\Component\HttpKernel\Exception\HttpException(400, "Endpoint not found: {$any}");
+        });    
     });
     
-    // prevent looping
-    Route::get(Config::get('app.api_version'). '/' . Config::get('app.api_version'), function () {
-        return redirect()->to('/api');
+    /**
+    * Fallback to current API version
+    */
+    Route::get('{any:.*}', function ($any = null) {
+        $current_api_version = config('app.current_api_version', 1);
+        return response('', 302)
+                ->header('Location', "/api/v{$current_api_version}/{$any}");
     });
-
-    // redirect to current api version
-    Route::get('{any?}', function ($any = null) {
-        $current_api_version = Config::get('app.api_version');
-        return redirect()->to("/api/{$current_api_version}/{$any}");
-    })->where('any', '.*');
 });
 
 

@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exc)
     {
-        if($request->expectsJson()) {
+        if($request->expectsJson() && !($e instanceof ValidationException)) {
             
             Log::error($exc->getFile() . ' line: ' . $exc->getLine() . ' ' . $exc->getMessage());
             
@@ -67,8 +67,13 @@ class Handler extends ExceptionHandler
                 case ($exc instanceof ModelNotFoundException):
                     return response()->json(['error' => 'Resource not found.'], 404);
                     break;
-                default:                    
-                    return response()->json(['error' => 'Internal error. Please check logs.'], 500);
+                case ($e instanceof HttpException):
+                    Log::error('HttpException in ' . $e->getFile() . ' line: ' . $e->getLine() . ' > ' . $e->getMessage());
+                    return response()->json(['error' => Response::$statusTexts[$e->getStatusCode()]], $e->getStatusCode());
+                    break;
+                default:      
+                    Log::error($e);
+                    return response()->json(['error' => 'Internal error. Please contact administrator.'], 500);
             }            
         }
         
