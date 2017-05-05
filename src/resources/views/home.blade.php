@@ -55,7 +55,8 @@
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
-                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>                                
+                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>   
+                                <form id="logout-form" action="{{ route('logout')}}" method="POST" style="display: none;">{{ csrf_field()}}</form>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
