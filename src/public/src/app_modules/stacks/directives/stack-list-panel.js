@@ -13,9 +13,9 @@
                     scope.context.current_stack = $cookies.getObject("stack"); 
                     
                     /**
-                    * On unselect stack
-                    */
-                   scope.$on('stack-unselected', function (stack) {
+                     * On unselect stack
+                     */
+                    scope.$on('stack-unselected', function () {
 
                         // remove from UI
                         element.find('.list-group-item').removeClass('selected');
@@ -30,6 +30,24 @@
                         queryFactory.all();
                     });
                     
+                    /**
+                     * On stack info edited
+                     */
+                    scope.$on('stack-updated', function(evt, original, stack) {
+                        
+                        // update cookie
+                        $cookies.putObject("stack", stack);  
+                          
+                        // update view  
+                        let item = scope.context.stacks.filter(function(e) {
+                            return e.id == stack.id;
+                        });
+                        
+                        let index = scope.context.stacks.indexOf(item[0]);
+                      
+                        // update item in list
+                        angular.extend(scope.context.stacks[index], stack);
+                    });
                 },
                 controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'queryFactory', 'ModalService', 
                     function($scope, $rootScope, $log, $cookies, config, stacksFactory, queryFactory, ModalService) {

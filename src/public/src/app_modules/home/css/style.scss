@@ -147,6 +147,7 @@
         
         button {          
             padding: 6px;
+            background: none !important;
         }
     }
     
@@ -381,7 +382,8 @@
 * Modals
 */
 #new-stack-modal textarea,
-#edit-card-modal textarea {
+#edit-card-modal textarea,
+.basic-edit-form textarea{
     margin: 0px;
     padding: 0px;
     border: none;
@@ -397,7 +399,8 @@
 }
 
 #new-stack-modal .modal-header input,
-#edit-card-modal .modal-header input {
+#edit-card-modal .modal-header input, 
+.basic-edit-form .modal-header input {
     width: 100%;
     border: 1px solid #ddd;
     border-radius: 3px;

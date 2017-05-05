@@ -1,6 +1,6 @@
 (function(){
     angular.module('app.stacks').factory('stacksFactory', ['$resource', 'config', function ($resource, config) {
-        return $resource(config.api + '/stacks/:id', { id: '@_id', stack_id: '@stack_id' }, {
+        return $resource(config.api + '/stacks/:id', { id: '@id', stack_id: '@stack_id' }, {
             update: {
               method: 'PUT' 
             },

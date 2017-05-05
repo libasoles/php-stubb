@@ -6,8 +6,8 @@
                 replace: true,
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-description.html',
                 scope: true,
-                controller: ['$scope', '$rootScope', '$cookies', '$element', 
-                    function ($scope, $rootScope, $cookies, $element) {
+                controller: ['$scope', '$rootScope', '$cookies', '$log', '$element', 'ModalService', 'stacksFactory',
+                    function ($scope, $rootScope, $cookies, $log, $element, ModalService, stacksFactory) {
                        
                        $scope.events = {};
                        
@@ -43,16 +43,52 @@
                            $rootScope.$broadcast('stack-unselected', stack);
                        }
                        
-                       $scope.$on('stack-unselected', function(stack) {
+                       $scope.$on('stack-unselected', function() {
                            $scope.context.stack = null;
                        });
                        
                        /**
-                        * 
+                        * Edit stack
                         */
-                       $scope.events.editStack = function() {
-                           
-                       }
+                        $scope.events.editStack = function (item) {
+                            
+                            ModalService.showModal({
+                                templateUrl: config.SRC_FOLDER + "stacks/templates/modals/edit-stack.html",
+                                controller: "EditStackController",
+                                inputs: {
+                                    data: {
+                                        stack: item
+                                    }
+                                }
+                            }).then(function (modal) {
+                                modal.element.modal();
+                                modal.close.then(function (result) {
+                                    if (result) {
+
+                                        // prepare data to be send to server 
+                                        let stack = {
+                                            id: item.id,
+                                            name: modal.scope.form.name,
+                                            description: modal.scope.form.content
+                                        }
+
+                                        // ajax call
+                                        stacksFactory.update(stack).$promise.then(function () {
+                                         
+                                            // emmit event
+                                            $rootScope.$broadcast('stack-updated', item, stack);
+                                        }, function (err) {
+                                            $log.error(err);
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        
+                        // update in view
+                        $scope.$on('stack-updated', function(evt, original, stack) {
+                           $scope.context.stack = stack;
+                        });
                 }]
             };
         }
