@@ -313,9 +313,29 @@
                 white-space: nowrap;
                 display: inline-block;
                 text-overflow: ellipsis;
+                vertical-align: middle;
                 
                 $transition: all .7s ease;
                 @include transition($transition);
+                
+                button {
+                    font-size: 14px;
+                    vertical-align: middle;
+                    padding: 0;
+                    top: 0;
+                    bottom: 0;          
+                    
+                }
+                button.ng-leave.ng-leave-active,
+                button.ng-enter  {
+                    @include scale(1);
+                    @include transition(0.25s);
+                }
+                button.ng-enter.ng-leave-enter,
+                button.ng-leave  {
+                    @include scale(.5);
+                    @include transition(.5s);
+                }
             }
             ul.participants {
                 li {

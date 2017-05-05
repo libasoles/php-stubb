@@ -5,7 +5,11 @@
     <div class="panel-body no-padding">
         <ul class="list-group">
             <li class="list-group-item " ng-if="context.stacks" ng-repeat="stack in context.stacks" ng-class="{selected: stack.id === context.current_stack.id}">
-                <a href="#" ng-click="events.filter($event, stack)" class="col-md-6 trigger" title="{{ stack.name }}">
+                <a href="#" ng-click="events.filter($event, stack)" class="col-md-6 trigger" title="{{ stack.name }}" ng-mouseenter="showCloseBtn = true" ng-mouseleave="showCloseBtn = false">
+                    <button class="btn glyphicon glyphicon-remove btn-icon" 
+                            ng-if="(stack.id === context.current_stack.id) && showCloseBtn"
+                            translate-attr="{ title: 'translations.home.buttons.unselect' }" 
+                            ng-click="events.unselectStackFilter($event, stack)"></button>
                     <span class="name">{{ stack.name }}</span>
                 </a>
                 <ul class="participants col-md-6 text-right">

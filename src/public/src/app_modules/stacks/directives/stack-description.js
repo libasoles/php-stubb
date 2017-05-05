@@ -6,8 +6,8 @@
                 replace: true,
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-description.html',
                 scope: true,
-                controller: ['$scope', '$rootScope', '$cookies', '$element', 'queryFactory', 
-                    function ($scope, $rootScope, $cookies, $element, queryFactory) {
+                controller: ['$scope', '$rootScope', '$cookies', '$element', 
+                    function ($scope, $rootScope, $cookies, $element) {
                        
                        $scope.events = {};
                        
@@ -37,13 +37,15 @@
                        }
                        
                        /**
-                        * 
+                        * Uncheck current stack filter
                         */
                        $scope.events.removeStackFilter = function(stack) {
-                           $scope.context.stack = null;
-                           $cookies.remove('stack');
                            $rootScope.$broadcast('stack-unselected', stack);
                        }
+                       
+                       $scope.$on('stack-unselected', function(stack) {
+                           $scope.context.stack = null;
+                       });
                        
                        /**
                         * 
