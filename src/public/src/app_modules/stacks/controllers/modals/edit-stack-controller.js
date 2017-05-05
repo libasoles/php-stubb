@@ -1,12 +1,24 @@
 (function() {
 
-    angular.module('app.stacks').controller('EditStackController', ['$scope', 'data', 'close', EditStackController]);
+    angular.module('app.stacks').controller('EditStackController', ['$scope', '$element', 'data', 'close', EditStackController]);
     
-    function EditStackController($scope, data, close) {
+    function EditStackController($scope, $element, data, close) {
       
         $scope.form = {};
         $scope.form.name = data.stack.name;
         $scope.form.content = data.stack.description;
+
+        /**
+         * Key event (Enter)
+         */
+        $element.find('input').bind("keydown keypress", function (event) {
+
+            if(event.which === 13) {
+                $element.modal('hide');
+                $scope.close(true);
+                return false;
+            }
+        });
 
         $scope.close = function (result) {
            
