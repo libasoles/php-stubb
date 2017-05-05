@@ -89,6 +89,44 @@
                         $scope.$on('stack-updated', function(evt, original, stack) {
                            $scope.context.stack = stack;
                         });
+                        
+                        /**
+                         * Delete Stack
+                         * 
+                         * @param Stack item
+                         * @returns void
+                         */
+                        $scope.events.deleteStack = function (item) {
+
+                            // Just provide a template url, a controller and call 'showModal'.
+                            ModalService.showModal({
+                                templateUrl: config.SRC_FOLDER + "common/templates/modals/confirm.html",
+                                controller: "YesNoController",
+                                inputs: {
+                                    data: {
+                                        'title': 'Delete stack?',
+                                        'content': "Your cards will not be erased, but remain orphans."
+                                    }
+                                }
+                            }).then(function (modal) {
+                                modal.element.modal();
+                                modal.close.then(function (result) {
+
+                                    if (result) {    
+                                        // ajax call
+                                        stacksFactory.delete({id: item.id}).$promise.then(function () {
+                                            
+                                            $scope.context.stack = null;
+                                            
+                                            // emmit event
+                                            $rootScope.$broadcast('stack-deleted', item);                                            
+                                        }, function (err) {
+                                            $log.error(err);
+                                        });
+                                    }
+                                });
+                            });
+                        };
                 }]
             };
         }

@@ -227,6 +227,11 @@
         border-color: #5bc0de;
         color: white;
         animation-delay: 0s;
+        
+        button {
+            margin: 0 auto;
+            text-align: center;
+        }
     }
     
     .stack-description.ng-enter.ng-enter-active,

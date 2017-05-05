@@ -38,7 +38,7 @@
                         // update cookie
                         $cookies.putObject("stack", stack);  
                           
-                        // update view  
+                        // find stack in list
                         let item = scope.context.stacks.filter(function(e) {
                             return e.id == stack.id;
                         });
@@ -48,6 +48,28 @@
                         // update item in list
                         angular.extend(scope.context.stacks[index], stack);
                     });
+                    
+                    /**
+                     * On stack deleted
+                     */                    
+                    scope.$on('stack-deleted', function(evt, stack) {
+                        
+                        // remove cookie
+                        $cookies.remove("stack");  
+                          
+                        // find stack in list
+                        let item = scope.context.stacks.filter(function(e) {
+                            return e.id == stack.id;
+                        });
+                        
+                        let index = scope.context.stacks.indexOf(item[0]);
+                     
+                        // remove item from list
+                        scope.context.stacks.splice(index, 1);     
+                        
+                        // query new results
+                        queryFactory.all();
+                    })
                 },
                 controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'queryFactory', 'ModalService', 
                     function($scope, $rootScope, $log, $cookies, config, stacksFactory, queryFactory, ModalService) {
@@ -86,7 +108,7 @@
                                             $rootScope.$broadcast('new-stack', stack);
                                             
                                             // add to stack
-                                            $scope.stacks.unshift(stack);
+                                            $scope.context.stacks.unshift(stack);
                                         }, function(err) {
                                             $log.error(err);
                                         });
@@ -135,7 +157,7 @@
                             $event.stopPropagation();
                             
                             $rootScope.$broadcast('stack-unselected', stack);
-                        }                        
+                        }        
                 }]
             };
     }]);
