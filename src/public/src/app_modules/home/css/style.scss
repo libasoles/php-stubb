@@ -228,6 +228,21 @@
         color: white;
         animation-delay: 0s;
         
+        
+        .panel-head {
+            padding: 6px 10px 6px 30px;
+            
+            button {
+                span {
+                    padding: 0px 10px !important;
+                }
+            }
+        }
+        
+        .panel-body {
+                padding: 0 17px;
+        }
+        
         button {
             margin: 0 auto;
             text-align: center;

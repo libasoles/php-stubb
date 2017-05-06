@@ -12,6 +12,15 @@
                        $scope.events = {};
                        
                        /**
+                        * Show more behavior
+                        */
+                       $scope.showMore = {
+                           expanded: true,
+                           expandable: true,
+                           hideArrow: true
+                       }
+                    
+                       /**
                         * Filter by stack
                         */
                        $scope.$on('stack-selected', function(evt, stack) {
