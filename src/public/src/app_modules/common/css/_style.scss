@@ -75,6 +75,11 @@ header
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+    
+    .nav > li > a, 
+    .nav > li > button {
+        background: none !important;
+    }
 }
 p {font-size: 16px;}
 

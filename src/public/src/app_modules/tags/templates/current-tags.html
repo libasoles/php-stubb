@@ -1,8 +1,10 @@
 <div ng-if="context.tag_filters.length" class='panel panel-default active-tags animated' ng-class="{fadeIn: context.tag_filters.length}">
     <div class='panel-body text-right'>
-        <li ng-repeat="tag in context.tag_filters" class="btn btn-xs btn-info cast-shadow animated flipInX">
-            <span>{{ tag.name}}</span>
-            <button class="btn btn-xs glyphicon glyphicon-remove btn-icon" ng-click="events.removeTagFilter($event, $index, tag)"></button>
-        </li>
+        <ul>
+            <li ng-repeat="tag in context.tag_filters" class="btn btn-xs btn-info cast-shadow animated flipInX">
+                <span>{{ tag.name}}</span>
+                <button class="btn btn-xs glyphicon glyphicon-remove btn-icon" ng-click="events.removeTagFilter($event, $index, tag)"></button>
+            </li>
+        </ul>
     </div>
 </div>
