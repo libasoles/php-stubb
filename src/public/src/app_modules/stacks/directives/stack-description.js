@@ -6,8 +6,8 @@
                 replace: true,
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-description.html',
                 scope: true,
-                controller: ['$scope', '$rootScope', '$cookies', '$log', '$element', 'ModalService', 'stacksFactory',
-                    function ($scope, $rootScope, $cookies, $log, $element, ModalService, stacksFactory) {
+                controller: ['$scope', '$rootScope', '$cookies', '$log', '$element', 'growl', 'ModalService', 'stacksFactory',
+                    function ($scope, $rootScope, $cookies, $log, $element, growl, ModalService, stacksFactory) {
                        
                        $scope.events = {};
                        
@@ -88,9 +88,13 @@
                                             $rootScope.$broadcast('stack-updated', item, stack);
                                         }, function (err) {
                                             $log.error(err);
+                                            growl.error("Ups, failed saving. Sorry.");
                                         });
                                     }
                                 });
+                            }, function(err) {
+                                $log.error(err);
+                                growl.error("Ups, failed opening form.");
                             });
                         }
                         
@@ -131,9 +135,13 @@
                                             $rootScope.$broadcast('stack-deleted', item);                                            
                                         }, function (err) {
                                             $log.error(err);
+                                            growl.error("Ups, failed deleting it.");
                                         });
                                     }
                                 });
+                            }, function(err) {
+                                $log.error(err);
+                                growl.error("Ups, failed opening dialog.");
                             });
                         };
                 }]

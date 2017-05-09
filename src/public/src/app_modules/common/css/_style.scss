@@ -305,6 +305,36 @@ span.highlight-text {
 }
 
 /**
+* Growl messages
+*/
+.growl-container {
+    position: fixed;
+    width: 250px;
+    bottom: 15px;
+    left: 60px;
+    
+    .growl-item {
+        
+        background: none;
+        border: none;
+        border-left-width: 3px;
+        border-left-style: solid;
+        border-left-color: red;
+        padding: 15px 15px;
+        margin-bottom: 15px;
+        border-radius: 2px;
+        
+        .alert-dismissable .close, .alert-dismissible .close {
+            top: -8px;
+        }
+        
+        .close {
+            color: #000;
+        }
+    }
+}
+
+/**
 * Button Icons
 */
 .btn-icon {      

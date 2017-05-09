@@ -9,8 +9,8 @@
                 scope: {
                     card: "=data"
                 },
-                controller: ['$scope', '$rootScope', '$log', 'config', 'cardsFactory', 'ModalService',
-                    function ($scope, $rootScope, $log, config, cardsFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', 'config', 'growl', 'cardsFactory', 'ModalService',
+                    function ($scope, $rootScope, $log, config, growl, cardsFactory, ModalService) {
 
                         $scope.events = {};
 
@@ -39,6 +39,7 @@
                                 $rootScope.$broadcast('pin-card', item);
                             }, function (err) {
                                 $log.error(err);
+                                growl.error("Ups, failed. Sorry.");
                             });
                         };
 
@@ -72,9 +73,13 @@
                                             $rootScope.$broadcast('delete-card', item);                                            
                                         }, function (err) {
                                             $log.error(err);
+                                            growl.error("Ups, failed deleting it.");
                                         });
                                     }
                                 });
+                            }, function(err) {
+                                $log.error(err);
+                                growl.error("Ups, failed opening dialog.");
                             });
                         };
 
@@ -113,9 +118,13 @@
                                             $rootScope.$broadcast('update-card', item, card);     
                                         }, function (err) {
                                             $log.error(err);
+                                            growl.error("Ups, failed saving changes.");
                                         });
                                     }
                                 });
+                            }, function(err) {
+                                $log.error(err);
+                                growl.error("Ups, failed opening form.");
                             });
                         };
 
@@ -138,6 +147,9 @@
                                 }
                             }).then(function (modal) {
                                 modal.element.modal();
+                            }, function(err) {
+                                $log.error(err);
+                                growl.error("Ups, failed opening view.");
                             });
                         };
                 }]

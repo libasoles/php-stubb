@@ -71,8 +71,8 @@
                         queryFactory.all();
                     })
                 },
-                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'queryFactory', 'ModalService', 
-                    function($scope, $rootScope, $log, $cookies, config, stacksFactory, queryFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'growl', 'stacksFactory', 'queryFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, $cookies, config, growl, stacksFactory, queryFactory, ModalService) {
                      
                         $scope.context = {};
                         $scope.events = {};
@@ -111,11 +111,13 @@
                                             $scope.context.stacks.unshift(stack);
                                         }, function(err) {
                                             $log.error(err);
+                                            growl.error("Ups, failed creating stack.");
                                         });
                                     }
                                 });
                             }, function(err) {
                                 $log.error(err);
+                                growl.error("Ups, failed opening form.");
                             });
                         }
                         
