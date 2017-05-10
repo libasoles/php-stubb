@@ -11,25 +11,72 @@
                     scope.context.img_folder = config.PROFILE_IMG_FOLDER;
                     
                     scope.context.current_stack = $cookies.getObject("stack"); 
-                      
+                    
                     /**
-                     * Unselect stack
+                     * On unselect stack
                      */
-                    scope.$on('stack-unselected',function(stack) {
+                    scope.$on('stack-unselected', function () {
 
-                        scope.context.current_stack = null;                    
+                        // remove from UI
                         element.find('.list-group-item').removeClass('selected');
-                        
-                         // query results
+
+                        // remove from cookie
+                        $cookies.remove('stack');
+
+                        // remove from scope
+                        scope.context.current_stack = null;
+
+                        // query new results
                         queryFactory.all();
                     });
+                    
+                    /**
+                     * On stack info edited
+                     */
+                    scope.$on('stack-updated', function(evt, original, stack) {
+                        
+                        // update cookie
+                        $cookies.putObject("stack", stack);  
+                          
+                        // find stack in list
+                        let item = scope.context.stacks.filter(function(e) {
+                            return e.id == stack.id;
+                        });
+                        
+                        let index = scope.context.stacks.indexOf(item[0]);
+                      
+                        // update item in list
+                        angular.extend(scope.context.stacks[index], stack);
+                    });
+                    
+                    /**
+                     * On stack deleted
+                     */                    
+                    scope.$on('stack-deleted', function(evt, stack) {
+                        
+                        // remove cookie
+                        $cookies.remove("stack");  
+                          
+                        // find stack in list
+                        let item = scope.context.stacks.filter(function(e) {
+                            return e.id == stack.id;
+                        });
+                        
+                        let index = scope.context.stacks.indexOf(item[0]);
+                     
+                        // remove item from list
+                        scope.context.stacks.splice(index, 1);     
+                        
+                        // query new results
+                        queryFactory.all();
+                    })
                 },
-                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'stacksFactory', 'queryFactory', 'ModalService', 
-                    function($scope, $rootScope, $log, $cookies, config, stacksFactory, queryFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'growl', 'stacksFactory', 'queryFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, $cookies, config, growl, stacksFactory, queryFactory, ModalService) {
                      
                         $scope.context = {};
                         $scope.events = {};
-                     
+               
                         /**
                          * Get stack list
                          */
@@ -61,14 +108,16 @@
                                             $rootScope.$broadcast('new-stack', stack);
                                             
                                             // add to stack
-                                            $scope.stacks.unshift(stack);
+                                            $scope.context.stacks.unshift(stack);
                                         }, function(err) {
                                             $log.error(err);
+                                            growl.error("Ups, failed creating stack.");
                                         });
                                     }
                                 });
                             }, function(err) {
                                 $log.error(err);
+                                growl.error("Ups, failed opening form.");
                             });
                         }
                         
@@ -92,12 +141,25 @@
                                 description: stack.description
                             });
                             
+                            $scope.context.current_stack = $cookies.getObject("stack"); 
+                            
                             // query results
                             queryFactory.byStack({stack_id: stack.id});
                             
                             // tell the world
                             $rootScope.$broadcast('stack-selected', stack);
-                        }                      
+                        }       
+                        
+                        /**
+                         * Unselect stack
+                         */
+                        $scope.events.unselectStackFilter = function ($event, stack) {
+
+                            $event.preventDefault();
+                            $event.stopPropagation();
+                            
+                            $rootScope.$broadcast('stack-unselected', stack);
+                        }        
                 }]
             };
     }]);

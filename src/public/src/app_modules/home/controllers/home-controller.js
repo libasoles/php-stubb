@@ -1,9 +1,9 @@
 (function () {
 
-    angular.module('app.home').controller('HomeController', ['$scope', HomeController]);
+    angular.module('app.home').controller('HomeController', ['$scope', 'growl', HomeController]);
 
-    function HomeController($scope) {
-          
+    function HomeController($scope, growl) {
+        
     }
 })();
 

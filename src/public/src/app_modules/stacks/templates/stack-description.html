@@ -1,9 +1,25 @@
-<div ng-if="context.stack.description" class='panel panel-default stack-description animated' ng-class="{flipInX: context.stack.description}">
-    <div class='panel-body row'>
-        <div class="col-md-11">{{ context.stack.description}}</div>
+<div ng-if="context.stack" class='panel panel-default stack-description animated' ng-class="{flipInX: context.stack}"
+     show-more
+     control="showMore"
+     show-more-height='50'>
+    
+    <div class='panel-head row'>
+        <div class="col-md-11">
+            <h4>{{ context.stack.name }}</h4>
+        </div>
+        
         <div class="col-md-1">
-            <button class="btn btn-lg glyphicon glyphicon-remove btn-icon" ng-click="events.removeStackFilter(context.stack)"></button>
-            <button class="btn btn-lg glyphicon glyphicon-edit btn-icon" ng-click="events.editStack(context.stack)"></button>
+                <button type="button" class="arrow pull-right btn-icon" ng-hide='showMore.expanded || !showMore.expandable' ng-click='showMore.toggle()'><span class="btn-lg glyphicon glyphicon-menu-down"></span></button>
+                <button type="button" class="arrow pull-right btn-icon" ng-show='showMore.expanded && showMore.expandable' ng-click='showMore.toggle()'><span class="btn-lg glyphicon glyphicon-menu-up"></span></button>
         </div>
     </div>
+    <div class='panel-body row'>
+        <div class="col-md-11">{{ context.stack.description }}</div>
+        <div class="col-md-1">
+            <button class="btn btn-lg glyphicon glyphicon-remove btn-icon" translate-attr="{ title: 'translations.home.content.stack-description.unselect' }" ng-click="events.removeStackFilter(context.stack)"></button>
+            <button class="btn btn-lg glyphicon glyphicon-edit btn-icon" translate-attr="{ title: 'translations.home.buttons.edit' }" ng-click="events.editStack(context.stack)"></button>
+            <button class="btn btn-lg glyphicon glyphicon-trash btn-icon" translate-attr="{ title: 'translations.home.buttons.delete' }" ng-click="events.deleteStack(context.stack)"></button>
+        </div>
+    </div>
+    <br/>
 </div>

@@ -1,8 +1,8 @@
 (function(){
     
-    angular.module('app.home').controller('ListController', ['$scope', '$log', '$cookies', '$element', 'queryFactory', 'HomeContextService', ListController]);
+    angular.module('app.home').controller('ListController', ['$scope', '$log', 'growl', 'queryFactory', 'HomeContextService', ListController]);
     
-    function ListController($scope, $log, $cookies, $element, queryFactory, HomeContextService){
+    function ListController($scope, $log, growl, queryFactory, HomeContextService){
         
         $scope.events = {};
         
@@ -22,6 +22,7 @@
                              
                 }, function(err) {
                     $log.error(err);
+                    growl.error("Ups, failed loading cards.");
                 });  
         };
         

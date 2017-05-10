@@ -6,7 +6,7 @@
             <new-card-form></new-card-form>
         </div>
 
-        <div id="cards-list" class="list" ng-controller="ListController">
+        <section id="cards-list" class="list" ng-controller="ListController">
             <div class="text-left">
                
                 <div class="row">
@@ -20,10 +20,10 @@
                 <stack-description></stack-description>
                 
                 <div ng-if="context.cards">
-                    <div ng-repeat="card in context.cards" 
+                    <article ng-repeat="card in context.cards" 
                         class="card {{ card.class }}" ng-class="{sticky: card.sticky}"> 
                         <div card data="card"></div>
-                    </div>
+                    </article>
                 </div>
 
                 <div ng-if="!context.cards.length" class='panel panel-default no-results animated' ng-class="{bounceInUp: !context.cards.length}">
@@ -33,9 +33,9 @@
             
             <paginate-cards></paginate-cards>
             
-        </div>
+        </section>
     </div>
 
-    <div ng-include src="'src/app_modules/home/templates/home-sidebar.html'"></div>
+    <aside ng-include src="'src/app_modules/home/templates/home-sidebar.html'"></aside>
     
 </div>

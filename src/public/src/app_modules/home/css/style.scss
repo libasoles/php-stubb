@@ -147,6 +147,7 @@
         
         button {          
             padding: 6px;
+            background: none !important;
         }
     }
     
@@ -226,6 +227,26 @@
         border-color: #5bc0de;
         color: white;
         animation-delay: 0s;
+        
+        
+        .panel-head {
+            padding: 6px 10px 6px 30px;
+            
+            button {
+                span {
+                    padding: 0px 10px !important;
+                }
+            }
+        }
+        
+        .panel-body {
+                padding: 0 17px;
+        }
+        
+        button {
+            margin: 0 auto;
+            text-align: center;
+        }
     }
     
     .stack-description.ng-enter.ng-enter-active,
@@ -313,9 +334,29 @@
                 white-space: nowrap;
                 display: inline-block;
                 text-overflow: ellipsis;
+                vertical-align: middle;
                 
                 $transition: all .7s ease;
                 @include transition($transition);
+                
+                button {
+                    font-size: 14px;
+                    vertical-align: middle;
+                    padding: 0;
+                    top: 0;
+                    bottom: 0;          
+                    
+                }
+                button.ng-leave.ng-leave-active,
+                button.ng-enter  {
+                    @include scale(1);
+                    @include transition(0.25s);
+                }
+                button.ng-enter.ng-leave-enter,
+                button.ng-leave  {
+                    @include scale(.5);
+                    @include transition(.5s);
+                }
             }
             ul.participants {
                 li {
@@ -361,7 +402,8 @@
 * Modals
 */
 #new-stack-modal textarea,
-#edit-card-modal textarea {
+#edit-card-modal textarea,
+.basic-edit-form textarea{
     margin: 0px;
     padding: 0px;
     border: none;
@@ -377,7 +419,8 @@
 }
 
 #new-stack-modal .modal-header input,
-#edit-card-modal .modal-header input {
+#edit-card-modal .modal-header input, 
+.basic-edit-form .modal-header input {
     width: 100%;
     border: 1px solid #ddd;
     border-radius: 3px;

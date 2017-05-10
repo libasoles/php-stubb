@@ -16,6 +16,9 @@
                     "date_created": "Date Created",
                     "name": "Name"
                 },
+                "stack-description": {
+                    "unselect": "Unselect current stack"
+                },
                 "no_results": "No results",
                 "cards": {
                     "tags": {
@@ -45,8 +48,10 @@
             "buttons": {
                 "save": "Save",
                 "cancel": "Cancel",
+                "close": "Close",
                 "submit": "Submit",
                 "delete": "Delete",
+                "unselect": "Unselect",
                 "pin": "Pin",
                 "edit": "Edit",
                 "as_html": "View as Rich Text",

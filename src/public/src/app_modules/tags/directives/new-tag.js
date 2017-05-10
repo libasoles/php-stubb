@@ -100,7 +100,8 @@
                             .then(function() {
                                 setTimeout(function() {
                                     $animate.removeClass(element, className);
-                                }, 500);
+                                    element.removeClass(className);
+                                }, 600);
                         });
                     }
                 },

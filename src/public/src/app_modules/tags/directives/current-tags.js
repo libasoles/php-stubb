@@ -11,22 +11,27 @@
                     $scope.events = {};
                         
                     /**
-                    * Current tags filters
-                    */
-                   $scope.events.printCurrentTags = function() {
-                       let current_cookies = $cookies.getObject('tags[]');
-                       if( typeof(current_cookies) !== 'undefined' ) {
-                           $scope.context.tag_filters = current_cookies;
-                       }
-                   }
+                     * Current tags filters
+                     */
+                    $scope.events.printCurrentTags = function () {
+                        let current_cookies = $cookies.getObject('tags[]');
+                        if (typeof (current_cookies) !== 'undefined') {
+                            $scope.context.tag_filters = current_cookies;
+                        }
+                    }
 
-                   // add one more
-                   $scope.$on('tag-filter-added', function(evt, tag) {
+                    // add one more
+                    $scope.$on('tag-filter-added', function (evt, tag) {
 
-                       queryFactory.byTags();
+                        queryFactory.byTags();
 
-                       $scope.context.tag_filters.unshift(tag);
-                   });
+                        if (typeof ($scope.context.tag_filters) !== 'undefined') {
+
+                            $scope.context.tag_filters.unshift(tag);
+                        } else {
+                            $scope.context.tag_filters = [tag];
+                        }
+                    });
 
                    // Draw tag filters on page load
                    $scope.events.printCurrentTags(); 

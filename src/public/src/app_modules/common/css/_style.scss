@@ -56,18 +56,30 @@ body {
     transition: $transition;
 }
 
-header h1 {
-    color: #719e40;
-    letter-spacing: -3px;
-    font-family: $font_2;
-    font-size: 100px;
-    font-weight: 200;
-    margin-bottom: 0;
+header 
+{
+    .text-left {
+        padding-left: 0;
+    }
+    h1 {
+        color: #719e40;
+        letter-spacing: -3px;
+        font-family: $font_2;
+        font-size: 100px;
+        font-weight: 200;
+        margin-bottom: 0;
+        padding-left: 0 !important;
+
+        @include green-gradient-3cols;
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
     
-    @include green-gradient-3cols;
-    
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    .nav > li > a, 
+    .nav > li > button {
+        background: none !important;
+    }
 }
 p {font-size: 16px;}
 
@@ -289,6 +301,36 @@ span.highlight-text {
         
         max-width: 1024px;
         margin: 0 auto;
+    }
+}
+
+/**
+* Growl messages
+*/
+.growl-container {
+    position: fixed;
+    width: 250px;
+    bottom: 15px;
+    left: 60px;
+    
+    .growl-item {
+        
+        background: none;
+        border: none;
+        border-left-width: 3px;
+        border-left-style: solid;
+        border-left-color: red;
+        padding: 15px 15px;
+        margin-bottom: 15px;
+        border-radius: 2px;
+        
+        .alert-dismissable .close, .alert-dismissible .close {
+            top: -8px;
+        }
+        
+        .close {
+            color: #000;
+        }
     }
 }
 

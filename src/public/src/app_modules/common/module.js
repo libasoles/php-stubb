@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('app', ['ng', 'ngRoute', 'ngCookies', 'app.config', 'app.home', 'angularModalService', 'pascalprecht.translate']);
+angular.module('app', ['ng', 'ngRoute', 'ngCookies', 'app.config', 'app.home', 'angularModalService', 'pascalprecht.translate', 'angular-growl']);
   
 /**
  * Rest of the global config can be found in app-config module
  */  
-angular.module('app').config(['$httpProvider', '$logProvider', '$translateProvider', 'config', 
-    function ($httpProvider, $logProvider, $translateProvider, config) {
+angular.module('app').config(['$httpProvider', '$logProvider', '$translateProvider', 'growlProvider', 'config', 
+    function ($httpProvider, $logProvider, $translateProvider, growlProvider, config) {
         
         /**
          * Ajax calls
@@ -18,6 +18,16 @@ angular.module('app').config(['$httpProvider', '$logProvider', '$translateProvid
             'X-Requested-With': "XMLHttpRequest",
             'X-CSRF-TOKEN': Laravel.csrfToken
           };
+          
+        /**
+         * Growl messages
+         */
+        growlProvider.onlyUniqueMessages(false);
+        growlProvider.globalReversedOrder(true);
+        growlProvider.globalTimeToLive({success: 1000, error: 112000, warning: 3000, info: 4000});
+        growlProvider.globalDisableCountDown(true);
+        growlProvider.globalDisableIcons(true);
+        growlProvider.globalPosition('bottom-left');
 
         /**
          * Debugging

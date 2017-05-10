@@ -32,6 +32,7 @@
         <script src="src/node_modules/angular-translate/dist/angular-translate.min.js"></script>
         <script src="src/node_modules/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
         <script src="src/node_modules/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+        <script src="src/node_modules/angular-growl-v2/build/angular-growl.js"></script>
         <script src="src/app.js"></script>
       
         <script>
@@ -41,6 +42,7 @@
     </script>
     </head>
     <body>
+        
         <div class="container" ng-controller="LayoutController">
 
             <header class="margin-bottom-lg clearfix" ng-controller="HeaderController"> 
@@ -55,7 +57,8 @@
                     <div class="navbar navbar-default pull-right" role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
-                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>                                
+                                <session-dropdown data='{{ Auth::user() }}'></session-dropdown>   
+                                <form id="logout-form" action="{{ route('logout')}}" method="POST" style="display: none;">{{ csrf_field()}}</form>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -70,7 +73,11 @@
             <div class="content row" ng-view></div>
 
             <footer></footer>
+        
         </div>
+        
+        <div growl></div>
+        
     </body>
 </html>
 
