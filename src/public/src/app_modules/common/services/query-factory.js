@@ -1,8 +1,8 @@
 (function () {
     
-     angular.module('app').factory('queryFactory', ['$log', '$cookies', '$rootScope', 'cardsFactory', 'stacksFactory', 'tagsFactory', queryFactory]);
+     angular.module('app').factory('queryFactory', ['$log', '$rootScope', 'cardsFactory', 'stacksFactory', 'tagsFactory', queryFactory]);
     
-    function queryFactory($log, $cookies, $rootScope, cardsFactory, stacksFactory, tagsFactory) {
+    function queryFactory($log, $rootScope, cardsFactory, stacksFactory, tagsFactory) {
         
         var factory = {};
         
@@ -71,14 +71,14 @@
                 params = {};
             }
             
-            if(filters.includes('tags') && typeof($cookies.get('tags[]')) !== 'undefined') {
-                params['tags[]'] = $cookies.getObject('tags[]').map(function(x){ return x.id; });
+            if(filters.includes('tags') && typeof(localStorage.getItem('tags[]')) !== 'undefined') {
+                params['tags[]'] = JSON.parse(localStorage.getItem('tags[]')).map(function(x){ return x.id; });
             }
-            if(filters.includes('stack') && typeof($cookies.get('stack')) !== 'undefined') {
-                params.stack = $cookies.getObject('stack').id;
+            if(filters.includes('stack') && typeof(localStorage.getItem('stack')) !== 'undefined') {
+                params.stack = JSON.parse(localStorage.getItem('stack')).id;
             }
-            if(filters.includes('order') && typeof($cookies.get('order')) !== 'undefined') {
-                params.order = $cookies.getObject('order');                
+            if(filters.includes('order') && typeof(localStorage.getItem('order')) !== 'undefined') {
+                params.order = JSON.parse(localStorage.getItem('order'));                
             }
           
             return params;

@@ -6,7 +6,7 @@
                 restrict: 'EA',
                 scope: true,
                 templateUrl: config.SRC_FOLDER + '/cards/templates/order-by.html',
-                controller: ['$scope', '$rootScope', '$cookies', function ($scope, $rootScope, $cookies) {
+                controller: ['$scope', '$rootScope', function ($scope, $rootScope) {
                        
                     $scope.events = {};
                        
@@ -24,7 +24,7 @@
                         }
                         
                         // persist
-                        $cookies.putObject('order', data);
+                        localStorage.setItem('order', JSON.stringify(data));
                         
                         $rootScope.$broadcast('order-changed', data); // emmit
                     }                        

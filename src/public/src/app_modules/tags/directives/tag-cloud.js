@@ -7,7 +7,7 @@
                 scope: true,
                 replace: true,     
                 templateUrl: config.SRC_FOLDER + '/tags/templates/tag-cloud.html',
-                controller: ['$scope', '$cookies', '$rootScope', 'reduceByFilter', function ($scope, $cookies, $rootScope, reduceByFilter) {
+                controller: ['$scope', '$rootScope', 'reduceByFilter', function ($scope, $rootScope, reduceByFilter) {
 
                     $scope.events = {};
                 
@@ -37,7 +37,7 @@
                     
                     $scope.events.filter = function(tag) {
                         
-                        let current_cookies = $cookies.getObject('tags[]');
+                        let current_cookies = JSON.parse(localStorage.getItem('tags[]'));
                                  
                         if( typeof(current_cookies) === 'undefined') {
                             // first one
@@ -51,7 +51,7 @@
                         }
                         
                         // add tag to current tags list
-                        $cookies.putObject('tags[]', current_cookies);
+                        localStorage.setItem('tags[]', JSON.stringify(current_cookies));
                         
                         // someone else will make the query
                         $rootScope.$broadcast('tag-filter-added', tag);

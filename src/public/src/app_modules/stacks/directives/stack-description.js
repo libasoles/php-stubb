@@ -6,8 +6,8 @@
                 replace: true,
                 templateUrl: config.SRC_FOLDER + 'stacks/templates/stack-description.html',
                 scope: true,
-                controller: ['$scope', '$rootScope', '$cookies', '$log', '$element', 'growl', 'ModalService', 'stacksFactory',
-                    function ($scope, $rootScope, $cookies, $log, $element, growl, ModalService, stacksFactory) {
+                controller: ['$scope', '$rootScope', '$log', '$element', 'growl', 'ModalService', 'stacksFactory',
+                    function ($scope, $rootScope, $log, $element, growl, ModalService, stacksFactory) {
                        
                        $scope.events = {};
                        
@@ -39,10 +39,10 @@
                            $(this).removeClass("flipInX");
                        });
 
-                       if($cookies.get("stack")) {
+                       if(localStorage.getItem("stack")) {
 
                            // provide info to view
-                           $scope.context.stack = $cookies.getObject("stack");                           
+                           $scope.context.stack = JSON.parse(localStorage.getItem("stack"));                           
                        }
                        
                        /**

@@ -6,7 +6,7 @@
                 replace: true,
                 templateUrl: config.SRC_FOLDER + 'tags/templates/current-tags.html',
                 scope: true,
-                controller: ['$scope', '$cookies', 'queryFactory', function ($scope, $cookies, queryFactory) {
+                controller: ['$scope', 'queryFactory', function ($scope, queryFactory) {
                         
                     $scope.events = {};
                         
@@ -14,7 +14,7 @@
                      * Current tags filters
                      */
                     $scope.events.printCurrentTags = function () {
-                        let current_cookies = $cookies.getObject('tags[]');
+                        let current_cookies = JSON.parse(localStorage.getItem('tags[]'));
                         if (typeof (current_cookies) !== 'undefined') {
                             $scope.context.tag_filters = current_cookies;
                         }
@@ -43,10 +43,10 @@
                        $scope.context.tag_filters.splice(index, 1);
 
                        // remove tag from cookies
-                       let current_cookies = $cookies.getObject('tags[]');
+                       let current_cookies = JSON.parse(localStorage.getItem('tags[]'));
                        let cookie_index = $.inArray( tag, current_cookies );
                        current_cookies.splice(cookie_index, 1);
-                       $cookies.putObject('tags[]', current_cookies);
+                       localStorage.setItem('tags[]', JSON.stringify(current_cookies));
 
                        // query
                        queryFactory.byTags();

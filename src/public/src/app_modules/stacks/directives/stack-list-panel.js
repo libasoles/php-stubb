@@ -1,6 +1,6 @@
 (function(){
     
-    angular.module('app.stacks').directive('stackListPanel', ['config', '$cookies', 'queryFactory', function(config, $cookies, queryFactory){
+    angular.module('app.stacks').directive('stackListPanel', ['config', 'queryFactory', function(config, queryFactory){
             
             return {
                 restrict: 'E',
@@ -10,7 +10,7 @@
                 link: function(scope, element, attrs) {
                     scope.context.img_folder = config.PROFILE_IMG_FOLDER;
                     
-                    scope.context.current_stack = $cookies.getObject("stack"); 
+                    scope.context.current_stack = JSON.parse(localStorage.getItem("stack")); 
                     
                     /**
                      * On unselect stack
@@ -36,7 +36,7 @@
                     scope.$on('stack-updated', function(evt, original, stack) {
                         
                         // update cookie
-                        $cookies.putObject("stack", stack);  
+                        localStorage.setItem("stack", JSON.stringify(stack));  
                           
                         // find stack in list
                         let item = scope.context.stacks.filter(function(e) {
@@ -71,8 +71,8 @@
                         queryFactory.all();
                     })
                 },
-                controller: ['$scope', '$rootScope', '$log', '$cookies', 'config', 'growl', 'stacksFactory', 'queryFactory', 'ModalService', 
-                    function($scope, $rootScope, $log, $cookies, config, growl, stacksFactory, queryFactory, ModalService) {
+                controller: ['$scope', '$rootScope', '$log', 'config', 'growl', 'stacksFactory', 'queryFactory', 'ModalService', 
+                    function($scope, $rootScope, $log, config, growl, stacksFactory, queryFactory, ModalService) {
                      
                         $scope.context = {};
                         $scope.events = {};
@@ -135,11 +135,11 @@
                             link.parent().addClass('selected');
                                                         
                             // persist filter
-                            $cookies.putObject('stack', {
+                            localStorage.setItem('stack', JSON.stringify({
                                 id: stack.id,
                                 name: stack.name,
                                 description: stack.description
-                            });
+                            }));
                             
                             $scope.context.current_stack = $cookies.getObject("stack"); 
                             
