@@ -21,7 +21,7 @@
                         element.find('.list-group-item').removeClass('selected');
 
                         // remove from cookie
-                        $cookies.remove('stack');
+                        window.localStorage.removeItem('stack');
 
                         // remove from scope
                         scope.context.current_stack = null;
@@ -55,7 +55,7 @@
                     scope.$on('stack-deleted', function(evt, stack) {
                         
                         // remove cookie
-                        $cookies.remove("stack");  
+                        window.localStorage.removeItem("stack");  
                           
                         // find stack in list
                         let item = scope.context.stacks.filter(function(e) {
@@ -141,7 +141,7 @@
                                 description: stack.description
                             }));
                             
-                            $scope.context.current_stack = $cookies.getObject("stack"); 
+                            $scope.context.current_stack = JSON.parse(localStorage.getItem("stack")); 
                             
                             // query results
                             queryFactory.byStack({stack_id: stack.id});

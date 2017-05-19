@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app', ['ng', 'ngRoute', 'ngCookies', 'app.config', 'app.home', 'angularModalService', 'pascalprecht.translate', 'angular-growl']);
+angular.module('app', ['ng', 'ngCookies', 'ngRoute', 'app.config', 'app.home', 'angularModalService', 'pascalprecht.translate', 'angular-growl']);
   
 /**
  * Rest of the global config can be found in app-config module
@@ -42,7 +42,7 @@ angular.module('app').config(['$httpProvider', '$logProvider', '$translateProvid
             suffix: '.json'
         });
 
-        $translateProvider.useCookieStorage();
+        $translateProvider.useLocalStorage();
         $translateProvider.preferredLanguage('en_US');
         $translateProvider.fallbackLanguage('en_US');
         $translateProvider.useSanitizeValueStrategy('escape');

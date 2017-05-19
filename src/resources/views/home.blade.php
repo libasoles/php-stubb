@@ -32,6 +32,7 @@
         <script src="src/node_modules/angular-translate/dist/angular-translate.min.js"></script>
         <script src="src/node_modules/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
         <script src="src/node_modules/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+        <script src="src/node_modules/angular-translate/dist/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
         <script src="src/node_modules/angular-growl-v2/build/angular-growl.js"></script>
         <script src="src/app.js"></script>
       

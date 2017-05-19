@@ -70,14 +70,14 @@
             if(typeof(params) === 'undefined') {
                 params = {};
             }
-            
-            if(filters.includes('tags') && typeof(localStorage.getItem('tags[]')) !== 'undefined') {
+       
+            if(filters.includes('tags') && localStorage.getItem('tags[]') !== null) {
                 params['tags[]'] = JSON.parse(localStorage.getItem('tags[]')).map(function(x){ return x.id; });
             }
-            if(filters.includes('stack') && typeof(localStorage.getItem('stack')) !== 'undefined') {
+            if(filters.includes('stack') && localStorage.getItem('stack') !== null) {
                 params.stack = JSON.parse(localStorage.getItem('stack')).id;
             }
-            if(filters.includes('order') && typeof(localStorage.getItem('order')) !== 'undefined') {
+            if(filters.includes('order') && localStorage.getItem('order') !== null) {
                 params.order = JSON.parse(localStorage.getItem('order'));                
             }
           
