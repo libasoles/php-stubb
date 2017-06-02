@@ -37,7 +37,7 @@ services:
         command: postgres -c config_file=/etc/postgresql.conf
         restart: always
     pgadmin: 
-        image: fenglc/pgadmin4
+        image: fenglc/pgadmin4:1.4
         container_name: pgadmin-stubb
         links:
             - "postgresql:postgres"
