@@ -37,21 +37,22 @@
                     
                     $scope.events.filter = function(tag) {
                         
-                        let current_cookies = JSON.parse(localStorage.getItem('tags[]'));
+                        let current_tags = JSON.parse(localStorage.getItem('tags[]'));
                                  
-                        if( typeof(current_cookies) === 'undefined') {
+                        if( typeof(current_tags) === 'undefined' || current_tags === null) {
                             // first one
-                            current_cookies = [tag];
+                            current_tags = [tag];
                         } else {
                             // avoid duplicates
-                            current_cookies = angular.fromJson(current_cookies);
-                            if( current_cookies.map(function(e) { return e.id; }).indexOf(tag.id) === -1 ) {
-                                current_cookies.push(tag);
+                            current_tags = angular.fromJson(current_tags);
+                            console.log(current_tags);
+                            if( current_tags && current_tags.map(function(e) { return e.id; }).indexOf(tag.id) === -1 ) {
+                                current_tags.push(tag);
                             }
                         }
                         
                         // add tag to current tags list
-                        localStorage.setItem('tags[]', JSON.stringify(current_cookies));
+                        localStorage.setItem('tags[]', JSON.stringify(current_tags));
                         
                         // someone else will make the query
                         $rootScope.$broadcast('tag-filter-added', tag);

@@ -70,7 +70,7 @@
             if(typeof(params) === 'undefined') {
                 params = {};
             }
-       
+     
             if(filters.includes('tags') && localStorage.getItem('tags[]') !== null) {
                 params['tags[]'] = JSON.parse(localStorage.getItem('tags[]')).map(function(x){ return x.id; });
             }

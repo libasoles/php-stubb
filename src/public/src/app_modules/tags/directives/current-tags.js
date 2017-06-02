@@ -25,7 +25,7 @@
 
                         queryFactory.byTags();
 
-                        if (typeof ($scope.context.tag_filters) !== 'undefined') {
+                        if ($scope.context.tag_filters && $scope.context.tag_filters.length !== 0) {
 
                             $scope.context.tag_filters.unshift(tag);
                         } else {
