@@ -103,7 +103,10 @@ class CardController extends ApiBaseController
 
             $card->save();
 
-            // extract tags
+            // assign to current user
+            $card->users()->attach( $this->authenticatedUser()->id );
+            
+            // extract tags and store them
             $tags = preg_match_all('/#(\w+)/', $request->input('content'), $matches);      
             array_walk($matches[1], function($tag) use ($card ){
                 $tag = Tag::firstOrCreate(['key'=> str_slug($tag)], ['name'=>$tag]);
