@@ -25,6 +25,16 @@
                                 name: $scope.name,
                                 content: $scope.content
                             };
+                            
+                            // assign card to current tags
+                            if( localStorage.getItem('tags[]') && localStorage.getItem('tags[]') !== 'null' ) {
+                                data.tags = JSON.parse(localStorage.getItem('tags[]')).map(function(x){ return x.id; });
+                            }
+                            
+                            // assign card to current stack
+                            if( localStorage.getItem('stack') && localStorage.getItem('stack') !== 'null' ) {
+                                data.stack = JSON.parse(localStorage.getItem('stack')).id;
+                            }
 
                             cardsFactory.save(data).$promise.then(function (response) {
                                 data.class = 'highlighted';
