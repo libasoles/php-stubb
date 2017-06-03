@@ -94,7 +94,7 @@ class CardController extends ApiBaseController
                 'name' => 'max:255',
                 'content' => 'required'
             ]);
-
+            
             // create record                
             $card = new Card;
             $card->name = $request->input('name');
@@ -103,12 +103,27 @@ class CardController extends ApiBaseController
 
             $card->save();
 
-            // extract tags
-            $tags = preg_match_all('/#(\w+)/', $request->input('content'), $matches);      
-            array_walk($matches[1], function($tag) use ($card ){
+            // assign to current user
+            $card->users()->attach( $this->authenticatedUser()->id );
+            
+            // extract tags and store them
+            $tags = preg_match_all('/#(\w+)/', $request->input('content'), $matches);   
+            array_walk($matches[1], function($tag) use ($card) {
                 $tag = Tag::firstOrCreate(['key'=> str_slug($tag)], ['name'=>$tag]);
                 $tag->cards()->attach($card->id);
             });
+            
+            // attach additional tags
+            if($request->input('tags')) {
+                
+                $additional_tags = array_map('intval', $request->input('tags'));              
+                $card->tags()->attach( array_unique($additional_tags) );
+            }
+            
+            // attach new card to current stack
+            if($request->input('stack')) {
+                $card->stacks()->attach( intval($request->input('stack')) );
+            }            
             
         } catch (ValidationException $exc) {
             Log::error('Invalid data: ' . json_decode($request->getContent(), true));

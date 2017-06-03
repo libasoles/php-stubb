@@ -7,7 +7,7 @@
                 scope: true,
                 replace: true,     
                 templateUrl: config.SRC_FOLDER + '/tags/templates/tag-cloud.html',
-                controller: ['$scope', '$cookies', '$rootScope', 'reduceByFilter', function ($scope, $cookies, $rootScope, reduceByFilter) {
+                controller: ['$scope', '$rootScope', 'reduceByFilter', function ($scope, $rootScope, reduceByFilter) {
 
                     $scope.events = {};
                 
@@ -31,29 +31,14 @@
                      
                         // merge tags in flatten array
                         let merged = [].concat.apply([], tags);
+                        
                         // eliminate duplicates and serve array to view
                         $scope.tags = reduceByFilter(merged, 'id');
                     });
                     
                     $scope.events.filter = function(tag) {
                         
-                        let current_cookies = $cookies.getObject('tags[]');
-                                 
-                        if( typeof(current_cookies) === 'undefined') {
-                            // first one
-                            current_cookies = [tag];
-                        } else {
-                            // avoid duplicates
-                            current_cookies = angular.fromJson(current_cookies);
-                            if( current_cookies.map(function(e) { return e.id; }).indexOf(tag.id) === -1 ) {
-                                current_cookies.push(tag);
-                            }
-                        }
-                        
-                        // add tag to current tags list
-                        $cookies.putObject('tags[]', current_cookies);
-                        
-                        // someone else will make the query
+                        // that's it. Someone else will take action
                         $rootScope.$broadcast('tag-filter-added', tag);
                     }
                 }]

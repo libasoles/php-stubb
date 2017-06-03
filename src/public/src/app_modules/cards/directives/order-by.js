@@ -6,11 +6,11 @@
                 restrict: 'EA',
                 scope: true,
                 templateUrl: config.SRC_FOLDER + '/cards/templates/order-by.html',
-                controller: ['$scope', '$rootScope', '$cookies', function ($scope, $rootScope, $cookies) {
+                controller: ['$scope', '$rootScope', function ($scope, $rootScope) {
                        
                     $scope.events = {};
                        
-                    let order = $cookies.getObject('order');
+                    let order = JSON.parse(localStorage.getItem('order'));
                        
                     // initial position
                     $scope.order = order && !angular.isUndefined(order.order) ? order.order : 'updated_at';
@@ -24,7 +24,7 @@
                         }
                         
                         // persist
-                        $cookies.putObject('order', data);
+                        localStorage.setItem('order', JSON.stringify(data));
                         
                         $rootScope.$broadcast('order-changed', data); // emmit
                     }                        

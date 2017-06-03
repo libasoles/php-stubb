@@ -152,6 +152,29 @@
                                 growl.error("Ups, failed opening view.");
                             });
                         };
+                        
+                        /**
+                         * Hashtag clicked
+                         */
+                        $scope.events.tagClicked = function(evt, card) {
+
+                            let tag_id = null;
+                            for(var tag of card.tags) {
+                                if ( tag.name === evt.target.innerText.substring(1) ) {
+                                    
+                                    // we've got it. Delegate action
+                                    $scope.events.cardTagClicked(tag);
+                                    break;
+                                } 
+                            };                           
+                        };
+                        
+                        /**
+                         * Card tag clicked
+                         */
+                        $scope.events.cardTagClicked = function(tag) {
+                            $rootScope.$broadcast('tag-filter-added', tag);
+                        }
                 }]
         };
     }]);

@@ -258,6 +258,8 @@ span.highlight-text {
 }
 
 .modal {    
+    padding-right: 0 !important;
+    
     .modal-dialog {
         width: 800px;
     }
@@ -269,6 +271,8 @@ span.highlight-text {
     
     .modal-dialog {
         width: 100%;
+        margin: 0;
+        
         .modal-content {
             background: url("/img/bg.jpg") repeat repeat;
         }
