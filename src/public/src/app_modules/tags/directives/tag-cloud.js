@@ -31,30 +31,14 @@
                      
                         // merge tags in flatten array
                         let merged = [].concat.apply([], tags);
+                        
                         // eliminate duplicates and serve array to view
                         $scope.tags = reduceByFilter(merged, 'id');
                     });
                     
                     $scope.events.filter = function(tag) {
                         
-                        let current_tags = JSON.parse(localStorage.getItem('tags[]'));
-                                 
-                        if( typeof(current_tags) === 'undefined' || current_tags === null) {
-                            // first one
-                            current_tags = [tag];
-                        } else {
-                            // avoid duplicates
-                            current_tags = angular.fromJson(current_tags);
-                            console.log(current_tags);
-                            if( current_tags && current_tags.map(function(e) { return e.id; }).indexOf(tag.id) === -1 ) {
-                                current_tags.push(tag);
-                            }
-                        }
-                        
-                        // add tag to current tags list
-                        localStorage.setItem('tags[]', JSON.stringify(current_tags));
-                        
-                        // someone else will make the query
+                        // that's it. Someone else will take action
                         $rootScope.$broadcast('tag-filter-added', tag);
                     }
                 }]
